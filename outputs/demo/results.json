@@ -1,0 +1,957 @@
+{
+  "aggregate": {
+    "mycelial_v0": {
+      "censored_runs": 1,
+      "cpst_usd": {
+        "ci95_high": 0.0034941923633850097,
+        "ci95_low": 0.0034941923633850097,
+        "mean": 0.0034941923633850097,
+        "n": 1
+      },
+      "mean_decision_ms": {
+        "ci95_high": 0.040240000000000005,
+        "ci95_low": 0.040240000000000005,
+        "mean": 0.040240000000000005,
+        "n": 1
+      },
+      "mean_primitive_operations": {
+        "ci95_high": 12.0,
+        "ci95_low": 12.0,
+        "mean": 12.0,
+        "n": 1
+      },
+      "mean_utility": {
+        "ci95_high": 0.40795539115832774,
+        "ci95_low": 0.40795539115832774,
+        "mean": 0.40795539115832774,
+        "n": 1
+      },
+      "p95_decision_ms": {
+        "ci95_high": 0.0705,
+        "ci95_low": 0.0705,
+        "mean": 0.0705,
+        "n": 1
+      },
+      "postshock_mean_utility": {
+        "ci95_high": 0.3956957243929672,
+        "ci95_low": 0.3956957243929672,
+        "mean": 0.3956957243929672,
+        "n": 1
+      },
+      "postshock_success_rate": {
+        "ci95_high": 0.7714285714285715,
+        "ci95_low": 0.7714285714285715,
+        "mean": 0.7714285714285715,
+        "n": 1
+      },
+      "recovered_runs": 0,
+      "recovery_probability": 0.0,
+      "runs": 1,
+      "sample_recovery_cost_recovered_only": {
+        "ci95_high": null,
+        "ci95_low": null,
+        "mean": null,
+        "n": 0
+      },
+      "structural_reexploration_rate": {
+        "ci95_high": 0.7842857142857143,
+        "ci95_low": 0.7842857142857143,
+        "mean": 0.7842857142857143,
+        "n": 1
+      },
+      "success_rate": {
+        "ci95_high": 0.8541666666666666,
+        "ci95_low": 0.8541666666666666,
+        "mean": 0.8541666666666666,
+        "n": 1
+      }
+    },
+    "reactive_shortest_path": {
+      "censored_runs": 0,
+      "cpst_usd": {
+        "ci95_high": 0.0027935483008495656,
+        "ci95_low": 0.0027935483008495656,
+        "mean": 0.0027935483008495656,
+        "n": 1
+      },
+      "mean_decision_ms": {
+        "ci95_high": 0.21908333333333332,
+        "ci95_low": 0.21908333333333332,
+        "mean": 0.21908333333333332,
+        "n": 1
+      },
+      "mean_primitive_operations": {
+        "ci95_high": 288.0,
+        "ci95_low": 288.0,
+        "mean": 288.0,
+        "n": 1
+      },
+      "mean_utility": {
+        "ci95_high": 0.4587508607736634,
+        "ci95_low": 0.4587508607736634,
+        "mean": 0.4587508607736634,
+        "n": 1
+      },
+      "p95_decision_ms": {
+        "ci95_high": 0.3495,
+        "ci95_low": 0.3495,
+        "mean": 0.3495,
+        "n": 1
+      },
+      "postshock_mean_utility": {
+        "ci95_high": 0.4522655601085376,
+        "ci95_low": 0.4522655601085376,
+        "mean": 0.4522655601085376,
+        "n": 1
+      },
+      "postshock_success_rate": {
+        "ci95_high": 0.9428571428571428,
+        "ci95_low": 0.9428571428571428,
+        "mean": 0.9428571428571428,
+        "n": 1
+      },
+      "recovered_runs": 1,
+      "recovery_probability": 1.0,
+      "runs": 1,
+      "sample_recovery_cost_recovered_only": {
+        "ci95_high": 50.0,
+        "ci95_low": 50.0,
+        "mean": 50.0,
+        "n": 1
+      },
+      "structural_reexploration_rate": {
+        "ci95_high": 0.0014285714285714286,
+        "ci95_low": 0.0014285714285714286,
+        "mean": 0.0014285714285714286,
+        "n": 1
+      },
+      "success_rate": {
+        "ci95_high": 0.95,
+        "ci95_low": 0.95,
+        "mean": 0.95,
+        "n": 1
+      }
+    },
+    "structured_semi_bandit": {
+      "censored_runs": 0,
+      "cpst_usd": {
+        "ci95_high": 0.005196460468374031,
+        "ci95_low": 0.005196460468374031,
+        "mean": 0.005196460468374031,
+        "n": 1
+      },
+      "mean_decision_ms": {
+        "ci95_high": 0.035477916666666665,
+        "ci95_low": 0.035477916666666665,
+        "mean": 0.035477916666666665,
+        "n": 1
+      },
+      "mean_primitive_operations": {
+        "ci95_high": 12.0,
+        "ci95_low": 12.0,
+        "mean": 12.0,
+        "n": 1
+      },
+      "mean_utility": {
+        "ci95_high": 0.43126018940108435,
+        "ci95_low": 0.43126018940108435,
+        "mean": 0.43126018940108435,
+        "n": 1
+      },
+      "p95_decision_ms": {
+        "ci95_high": 0.0589,
+        "ci95_low": 0.0589,
+        "mean": 0.0589,
+        "n": 1
+      },
+      "postshock_mean_utility": {
+        "ci95_high": 0.42561684246576503,
+        "ci95_low": 0.42561684246576503,
+        "mean": 0.42561684246576503,
+        "n": 1
+      },
+      "postshock_success_rate": {
+        "ci95_high": 0.8928571428571429,
+        "ci95_low": 0.8928571428571429,
+        "mean": 0.8928571428571429,
+        "n": 1
+      },
+      "recovered_runs": 1,
+      "recovery_probability": 1.0,
+      "runs": 1,
+      "sample_recovery_cost_recovered_only": {
+        "ci95_high": 270.0,
+        "ci95_low": 270.0,
+        "mean": 270.0,
+        "n": 1
+      },
+      "structural_reexploration_rate": {
+        "ci95_high": 0.4042857142857143,
+        "ci95_low": 0.4042857142857143,
+        "mean": 0.4042857142857143,
+        "n": 1
+      },
+      "success_rate": {
+        "ci95_high": 0.9291666666666667,
+        "ci95_low": 0.9291666666666667,
+        "mean": 0.9291666666666667,
+        "n": 1
+      }
+    }
+  },
+  "generated_at_utc": "2026-08-24T14:38:47.463130+00:00",
+  "project": {
+    "affiliation": "Independent Researcher",
+    "author": "Crizan Bel\u00e9m Ribeiro",
+    "name": "Mycelial Graph",
+    "status": "V0 demonstrator",
+    "version": "0.0.0"
+  },
+  "runs": [
+    {
+      "cpst_usd": 0.0034941923633850097,
+      "mean_decision_ms": 0.040240000000000005,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.40795539115832774,
+      "method": "mycelial_v0",
+      "p95_decision_ms": 0.0705,
+      "postshock_mean_utility": 0.3956957243929672,
+      "postshock_success_rate": 0.7714285714285715,
+      "recovered": false,
+      "recovery_task": null,
+      "sample_recovery_cost": null,
+      "seed": 101,
+      "structural_reexploration_rate": 0.7842857142857143,
+      "success_rate": 0.8541666666666666,
+      "trial_digest": "75f74745cedfe68980d0811ab25212b69a2ab01a2e209ab724acdd9965a6cb9b"
+    },
+    {
+      "cpst_usd": 0.005196460468374031,
+      "mean_decision_ms": 0.035477916666666665,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.43126018940108435,
+      "method": "structured_semi_bandit",
+      "p95_decision_ms": 0.0589,
+      "postshock_mean_utility": 0.42561684246576503,
+      "postshock_success_rate": 0.8928571428571429,
+      "recovered": true,
+      "recovery_task": 153,
+      "sample_recovery_cost": 270,
+      "seed": 101,
+      "structural_reexploration_rate": 0.4042857142857143,
+      "success_rate": 0.9291666666666667,
+      "trial_digest": "75f74745cedfe68980d0811ab25212b69a2ab01a2e209ab724acdd9965a6cb9b"
+    },
+    {
+      "cpst_usd": 0.0027935483008495656,
+      "mean_decision_ms": 0.21908333333333332,
+      "mean_primitive_operations": 288.0,
+      "mean_utility": 0.4587508607736634,
+      "method": "reactive_shortest_path",
+      "p95_decision_ms": 0.3495,
+      "postshock_mean_utility": 0.4522655601085376,
+      "postshock_success_rate": 0.9428571428571428,
+      "recovered": true,
+      "recovery_task": 109,
+      "sample_recovery_cost": 50,
+      "seed": 101,
+      "structural_reexploration_rate": 0.0014285714285714286,
+      "success_rate": 0.95,
+      "trial_digest": "75f74745cedfe68980d0811ab25212b69a2ab01a2e209ab724acdd9965a6cb9b"
+    }
+  ],
+  "schema": "mycelial-graph-results-v0",
+  "scope": {
+    "claim": "software demonstrator; no empirical superiority claim",
+    "development_seeds": [
+      17,
+      29,
+      43,
+      59,
+      71
+    ],
+    "edges": 24,
+    "graph_paths": 48,
+    "hypotheses_validated": [],
+    "nodes": 13,
+    "seeds": [
+      101
+    ],
+    "shock_step": 100,
+    "steps_per_run": 240,
+    "trial_certification": {
+      "post_oracle_edges": [
+        "source__prompt_structured",
+        "prompt_structured__retriever_hybrid",
+        "retriever_hybrid__model_economy",
+        "model_economy__guardrail_strict",
+        "guardrail_strict__output_detailed",
+        "output_detailed__sink"
+      ],
+      "post_oracle_margin": 0.010313333333333397,
+      "post_oracle_nodes": [
+        "source",
+        "prompt_structured",
+        "retriever_hybrid",
+        "model_economy",
+        "guardrail_strict",
+        "output_detailed",
+        "sink"
+      ],
+      "post_oracle_utility": 0.45319666666666675,
+      "pre_oracle_edges": [
+        "source__prompt_structured",
+        "prompt_structured__retriever_hybrid",
+        "retriever_hybrid__model_balanced",
+        "model_balanced__guardrail_strict",
+        "guardrail_strict__output_detailed",
+        "output_detailed__sink"
+      ],
+      "pre_oracle_margin": 0.010313333333333397,
+      "pre_oracle_nodes": [
+        "source",
+        "prompt_structured",
+        "retriever_hybrid",
+        "model_balanced",
+        "guardrail_strict",
+        "output_detailed",
+        "sink"
+      ],
+      "pre_oracle_utility": 0.46761333333333344,
+      "shared_edge_fraction": 0.6666666666666666,
+      "shock_component_moves_out_of_optimum": true
+    }
+  },
+  "trace_samples": [
+    {
+      "method": "mycelial_v0",
+      "records": [
+        {
+          "choice_modes": [
+            "conductance-softmax",
+            "conductance-softmax",
+            "conductance-softmax",
+            "conductance-softmax",
+            "conductance-softmax",
+            "single-edge-fallback"
+          ],
+          "cost_usd": 0.0016177340350290567,
+          "decision_ms": 0.0767,
+          "edge_ids": [
+            "source__prompt_compact",
+            "prompt_compact__retriever_hybrid",
+            "retriever_hybrid__model_economy",
+            "model_economy__guardrail_standard",
+            "guardrail_standard__output_concise",
+            "output_concise__sink"
+          ],
+          "expected_utility": 0.4160333333333333,
+          "feedback_samples": 5,
+          "latency_ms": 336.03721240822404,
+          "node_ids": [
+            "source",
+            "prompt_compact",
+            "retriever_hybrid",
+            "model_economy",
+            "guardrail_standard",
+            "output_concise",
+            "sink"
+          ],
+          "oracle_edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_balanced",
+            "model_balanced__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "oracle_expected_utility": 0.46761333333333344,
+          "primitive_operations": 12,
+          "quality": 0.8023622564986803,
+          "realized_utility": 0.41826883052378827,
+          "step": 0,
+          "structural_reexploration_samples": 0,
+          "success": true
+        },
+        {
+          "choice_modes": [
+            "conductance-softmax",
+            "conductance-softmax",
+            "explicit-exploration",
+            "conductance-softmax",
+            "conductance-softmax",
+            "single-edge-fallback"
+          ],
+          "cost_usd": 0.0016385186264747673,
+          "decision_ms": 0.0253,
+          "edge_ids": [
+            "source__prompt_compact",
+            "prompt_compact__retriever_hybrid",
+            "retriever_hybrid__model_economy",
+            "model_economy__guardrail_standard",
+            "guardrail_standard__output_concise",
+            "output_concise__sink"
+          ],
+          "expected_utility": 0.4160333333333333,
+          "feedback_samples": 5,
+          "latency_ms": 343.94619698616935,
+          "node_ids": [
+            "source",
+            "prompt_compact",
+            "retriever_hybrid",
+            "model_economy",
+            "guardrail_standard",
+            "output_concise",
+            "sink"
+          ],
+          "oracle_edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_balanced",
+            "model_balanced__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "oracle_expected_utility": 0.46761333333333344,
+          "primitive_operations": 12,
+          "quality": 0.7861425035942659,
+          "realized_utility": 0.40889914286887985,
+          "step": 99,
+          "structural_reexploration_samples": 0,
+          "success": true
+        },
+        {
+          "choice_modes": [
+            "explicit-exploration",
+            "conductance-softmax",
+            "conductance-softmax",
+            "conductance-softmax",
+            "conductance-softmax",
+            "single-edge-fallback"
+          ],
+          "cost_usd": 0.003961075273910654,
+          "decision_ms": 0.0622,
+          "edge_ids": [
+            "source__prompt_compact",
+            "prompt_compact__retriever_hybrid",
+            "retriever_hybrid__model_balanced",
+            "model_balanced__guardrail_standard",
+            "guardrail_standard__output_concise",
+            "output_concise__sink"
+          ],
+          "expected_utility": 0.324145,
+          "feedback_samples": 5,
+          "latency_ms": 885.2785314907696,
+          "node_ids": [
+            "source",
+            "prompt_compact",
+            "retriever_hybrid",
+            "model_balanced",
+            "guardrail_standard",
+            "output_concise",
+            "sink"
+          ],
+          "oracle_edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_economy",
+            "model_economy__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "oracle_expected_utility": 0.45319666666666675,
+          "primitive_operations": 12,
+          "quality": 0.7083252558890973,
+          "realized_utility": 0.34042131438099565,
+          "step": 100,
+          "structural_reexploration_samples": 4,
+          "success": false
+        },
+        {
+          "choice_modes": [
+            "conductance-softmax",
+            "conductance-softmax",
+            "explicit-exploration",
+            "conductance-softmax",
+            "conductance-softmax",
+            "single-edge-fallback"
+          ],
+          "cost_usd": 0.012677740360202788,
+          "decision_ms": 0.0441,
+          "edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_keyword",
+            "retriever_keyword__model_premium",
+            "model_premium__guardrail_strict",
+            "guardrail_strict__output_concise",
+            "output_concise__sink"
+          ],
+          "expected_utility": 0.4099500000000001,
+          "feedback_samples": 5,
+          "latency_ms": 639.7823183297736,
+          "node_ids": [
+            "source",
+            "prompt_structured",
+            "retriever_keyword",
+            "model_premium",
+            "guardrail_strict",
+            "output_concise",
+            "sink"
+          ],
+          "oracle_edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_economy",
+            "model_economy__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "oracle_expected_utility": 0.45319666666666675,
+          "primitive_operations": 12,
+          "quality": 0.8772549134212827,
+          "realized_utility": 0.420677733629988,
+          "step": 239,
+          "structural_reexploration_samples": 4,
+          "success": true
+        }
+      ],
+      "seed": 101
+    },
+    {
+      "method": "structured_semi_bandit",
+      "records": [
+        {
+          "choice_modes": [
+            "edge-ucb",
+            "edge-ucb",
+            "edge-ucb",
+            "edge-ucb",
+            "edge-ucb",
+            "single-edge-fallback"
+          ],
+          "cost_usd": 0.012629571063075266,
+          "decision_ms": 0.0811,
+          "edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_keyword",
+            "retriever_keyword__model_premium",
+            "model_premium__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "expected_utility": 0.4202933333333334,
+          "feedback_samples": 5,
+          "latency_ms": 645.0811848034361,
+          "node_ids": [
+            "source",
+            "prompt_structured",
+            "retriever_keyword",
+            "model_premium",
+            "guardrail_strict",
+            "output_detailed",
+            "sink"
+          ],
+          "oracle_edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_balanced",
+            "model_balanced__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "oracle_expected_utility": 0.46761333333333344,
+          "primitive_operations": 12,
+          "quality": 0.8780776622151478,
+          "realized_utility": 0.420072807706488,
+          "step": 0,
+          "structural_reexploration_samples": 0,
+          "success": true
+        },
+        {
+          "choice_modes": [
+            "edge-ucb",
+            "edge-ucb",
+            "edge-ucb",
+            "edge-ucb",
+            "edge-ucb",
+            "single-edge-fallback"
+          ],
+          "cost_usd": 0.0018218858121865742,
+          "decision_ms": 0.0366,
+          "edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_economy",
+            "model_economy__guardrail_strict",
+            "guardrail_strict__output_concise",
+            "output_concise__sink"
+          ],
+          "expected_utility": 0.44285333333333343,
+          "feedback_samples": 5,
+          "latency_ms": 398.8941391498218,
+          "node_ids": [
+            "source",
+            "prompt_structured",
+            "retriever_hybrid",
+            "model_economy",
+            "guardrail_strict",
+            "output_concise",
+            "sink"
+          ],
+          "oracle_edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_balanced",
+            "model_balanced__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "oracle_expected_utility": 0.46761333333333344,
+          "primitive_operations": 12,
+          "quality": 0.8542585532445892,
+          "realized_utility": 0.44246154830031414,
+          "step": 99,
+          "structural_reexploration_samples": 0,
+          "success": true
+        },
+        {
+          "choice_modes": [
+            "edge-ucb",
+            "edge-ucb",
+            "edge-ucb",
+            "edge-ucb",
+            "edge-ucb",
+            "single-edge-fallback"
+          ],
+          "cost_usd": 0.012277541535477464,
+          "decision_ms": 0.0589,
+          "edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_keyword",
+            "retriever_keyword__model_premium",
+            "model_premium__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "expected_utility": 0.4202933333333334,
+          "feedback_samples": 5,
+          "latency_ms": 716.7297315009664,
+          "node_ids": [
+            "source",
+            "prompt_structured",
+            "retriever_keyword",
+            "model_premium",
+            "guardrail_strict",
+            "output_detailed",
+            "sink"
+          ],
+          "oracle_edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_economy",
+            "model_economy__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "oracle_expected_utility": 0.45319666666666675,
+          "primitive_operations": 12,
+          "quality": 0.8650494308943644,
+          "realized_utility": 0.4129407261402612,
+          "step": 100,
+          "structural_reexploration_samples": 3,
+          "success": true
+        },
+        {
+          "choice_modes": [
+            "edge-ucb",
+            "edge-ucb",
+            "edge-ucb",
+            "edge-ucb",
+            "edge-ucb",
+            "single-edge-fallback"
+          ],
+          "cost_usd": 0.001817151349819358,
+          "decision_ms": 0.0241,
+          "edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_economy",
+            "model_economy__guardrail_strict",
+            "guardrail_strict__output_concise",
+            "output_concise__sink"
+          ],
+          "expected_utility": 0.44285333333333343,
+          "feedback_samples": 5,
+          "latency_ms": 358.6019796016472,
+          "node_ids": [
+            "source",
+            "prompt_structured",
+            "retriever_hybrid",
+            "model_economy",
+            "guardrail_strict",
+            "output_concise",
+            "sink"
+          ],
+          "oracle_edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_economy",
+            "model_economy__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "oracle_expected_utility": 0.45319666666666675,
+          "primitive_operations": 12,
+          "quality": 0.8776157907694321,
+          "realized_utility": 0.45499561574387987,
+          "step": 239,
+          "structural_reexploration_samples": 1,
+          "success": true
+        }
+      ],
+      "seed": 101
+    },
+    {
+      "method": "reactive_shortest_path",
+      "records": [
+        {
+          "choice_modes": [
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path"
+          ],
+          "cost_usd": 0.003748991962417341,
+          "decision_ms": 0.1679,
+          "edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_balanced",
+            "model_balanced__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "expected_utility": 0.46761333333333344,
+          "feedback_samples": 5,
+          "latency_ms": 462.20894802501425,
+          "node_ids": [
+            "source",
+            "prompt_structured",
+            "retriever_hybrid",
+            "model_balanced",
+            "guardrail_strict",
+            "output_detailed",
+            "sink"
+          ],
+          "oracle_edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_balanced",
+            "model_balanced__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "oracle_expected_utility": 0.46761333333333344,
+          "primitive_operations": 288,
+          "quality": 0.9125216469618994,
+          "realized_utility": 0.4675406795934044,
+          "step": 0,
+          "structural_reexploration_samples": 0,
+          "success": true
+        },
+        {
+          "choice_modes": [
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path"
+          ],
+          "cost_usd": 0.003798210147335718,
+          "decision_ms": 0.3355,
+          "edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_balanced",
+            "model_balanced__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "expected_utility": 0.46761333333333344,
+          "feedback_samples": 5,
+          "latency_ms": 461.47514025670864,
+          "node_ids": [
+            "source",
+            "prompt_structured",
+            "retriever_hybrid",
+            "model_balanced",
+            "guardrail_strict",
+            "output_detailed",
+            "sink"
+          ],
+          "oracle_edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_balanced",
+            "model_balanced__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "oracle_expected_utility": 0.46761333333333344,
+          "primitive_operations": 288,
+          "quality": 0.9184413559212079,
+          "realized_utility": 0.4696133393632375,
+          "step": 99,
+          "structural_reexploration_samples": 0,
+          "success": true
+        },
+        {
+          "choice_modes": [
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path"
+          ],
+          "cost_usd": 0.004149852710087931,
+          "decision_ms": 0.2662,
+          "edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_balanced",
+            "model_balanced__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "expected_utility": 0.3613083333333334,
+          "feedback_samples": 5,
+          "latency_ms": 964.8932351036797,
+          "node_ids": [
+            "source",
+            "prompt_structured",
+            "retriever_hybrid",
+            "model_balanced",
+            "guardrail_strict",
+            "output_detailed",
+            "sink"
+          ],
+          "oracle_edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_economy",
+            "model_economy__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "oracle_expected_utility": 0.45319666666666675,
+          "primitive_operations": 288,
+          "quality": 0.7506648208365285,
+          "realized_utility": 0.35833368875509886,
+          "step": 100,
+          "structural_reexploration_samples": 1,
+          "success": false
+        },
+        {
+          "choice_modes": [
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path"
+          ],
+          "cost_usd": 0.001838376628316511,
+          "decision_ms": 0.2404,
+          "edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_economy",
+            "model_economy__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "expected_utility": 0.45319666666666675,
+          "feedback_samples": 5,
+          "latency_ms": 375.24882030156516,
+          "node_ids": [
+            "source",
+            "prompt_structured",
+            "retriever_hybrid",
+            "model_economy",
+            "guardrail_strict",
+            "output_detailed",
+            "sink"
+          ],
+          "oracle_edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_economy",
+            "model_economy__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "oracle_expected_utility": 0.45319666666666675,
+          "primitive_operations": 288,
+          "quality": 0.885610471920162,
+          "realized_utility": 0.459479739022748,
+          "step": 239,
+          "structural_reexploration_samples": 0,
+          "success": true
+        }
+      ],
+      "seed": 101
+    }
+  ],
+  "trial_manifest": [
+    {
+      "certification": {
+        "post_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_economy",
+          "model_economy__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "post_oracle_margin": 0.010313333333333397,
+        "post_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_economy",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "post_oracle_utility": 0.45319666666666675,
+        "pre_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_balanced",
+          "model_balanced__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "pre_oracle_margin": 0.010313333333333397,
+        "pre_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_balanced",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "pre_oracle_utility": 0.46761333333333344,
+        "shared_edge_fraction": 0.6666666666666666,
+        "shock_component_moves_out_of_optimum": true
+      },
+      "digest": "75f74745cedfe68980d0811ab25212b69a2ab01a2e209ab724acdd9965a6cb9b",
+      "seed": 101
+    }
+  ]
+}

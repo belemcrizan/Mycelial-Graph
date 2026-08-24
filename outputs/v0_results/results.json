@@ -1,0 +1,2035 @@
+{
+  "aggregate": {
+    "mycelial_v0": {
+      "censored_runs": 4,
+      "cpst_usd": {
+        "ci95_high": 0.004825314615094017,
+        "ci95_low": 0.0026662464782581602,
+        "mean": 0.0037457805466760887,
+        "n": 12
+      },
+      "mean_decision_ms": {
+        "ci95_high": 0.020807585854427886,
+        "ci95_low": 0.01619297317334989,
+        "mean": 0.018500279513888888,
+        "n": 12
+      },
+      "mean_primitive_operations": {
+        "ci95_high": 12.0,
+        "ci95_low": 12.0,
+        "mean": 12.0,
+        "n": 12
+      },
+      "mean_utility": {
+        "ci95_high": 0.42369804284811013,
+        "ci95_low": 0.4106769752254122,
+        "mean": 0.41718750903676116,
+        "n": 12
+      },
+      "p95_decision_ms": {
+        "ci95_high": 0.038371120643324215,
+        "ci95_low": 0.014043879356675781,
+        "mean": 0.026207499999999998,
+        "n": 12
+      },
+      "postshock_mean_utility": {
+        "ci95_high": 0.4152757406309429,
+        "ci95_low": 0.40048847531515325,
+        "mean": 0.4078821079730481,
+        "n": 12
+      },
+      "postshock_success_rate": {
+        "ci95_high": 0.8905646371411007,
+        "ci95_low": 0.777292505716042,
+        "mean": 0.8339285714285714,
+        "n": 12
+      },
+      "recovered_runs": 8,
+      "recovery_probability": 0.6666666666666666,
+      "runs": 12,
+      "sample_recovery_cost_recovered_only": {
+        "ci95_high": 561.3187046418982,
+        "ci95_low": 312.4312953581018,
+        "mean": 436.875,
+        "n": 8
+      },
+      "structural_reexploration_rate": {
+        "ci95_high": 0.686380070492156,
+        "ci95_low": 0.5238580247459393,
+        "mean": 0.6051190476190477,
+        "n": 12
+      },
+      "success_rate": {
+        "ci95_high": 0.9267475352359813,
+        "ci95_low": 0.8607524647640186,
+        "mean": 0.8937499999999999,
+        "n": 12
+      }
+    },
+    "reactive_shortest_path": {
+      "censored_runs": 0,
+      "cpst_usd": {
+        "ci95_high": 0.002750493944404705,
+        "ci95_low": 0.0027110313025420626,
+        "mean": 0.002730762623473384,
+        "n": 12
+      },
+      "mean_decision_ms": {
+        "ci95_high": 0.09698060041374018,
+        "ci95_low": 0.08756610444737095,
+        "mean": 0.09227335243055557,
+        "n": 12
+      },
+      "mean_primitive_operations": {
+        "ci95_high": 288.0,
+        "ci95_low": 288.0,
+        "mean": 288.0,
+        "n": 12
+      },
+      "mean_utility": {
+        "ci95_high": 0.45889652514002105,
+        "ci95_low": 0.45825201781497343,
+        "mean": 0.45857427147749724,
+        "n": 12
+      },
+      "p95_decision_ms": {
+        "ci95_high": 0.15579461655974128,
+        "ci95_low": 0.12273205010692537,
+        "mean": 0.13926333333333332,
+        "n": 12
+      },
+      "postshock_mean_utility": {
+        "ci95_high": 0.4526306539498758,
+        "ci95_low": 0.4516222325032959,
+        "mean": 0.45212644322658585,
+        "n": 12
+      },
+      "postshock_success_rate": {
+        "ci95_high": 0.9842902674427179,
+        "ci95_low": 0.9669002087477583,
+        "mean": 0.9755952380952381,
+        "n": 12
+      },
+      "recovered_runs": 12,
+      "recovery_probability": 1.0,
+      "runs": 12,
+      "sample_recovery_cost_recovered_only": {
+        "ci95_high": 51.233333333333334,
+        "ci95_low": 49.599999999999994,
+        "mean": 50.416666666666664,
+        "n": 12
+      },
+      "structural_reexploration_rate": {
+        "ci95_high": 0.003176901722013327,
+        "ci95_low": 0.0015850030398914354,
+        "mean": 0.002380952380952381,
+        "n": 12
+      },
+      "success_rate": {
+        "ci95_high": 0.9788839918866251,
+        "ci95_low": 0.9662548970022636,
+        "mean": 0.9725694444444444,
+        "n": 12
+      }
+    },
+    "structured_semi_bandit": {
+      "censored_runs": 0,
+      "cpst_usd": {
+        "ci95_high": 0.0052695310556177205,
+        "ci95_low": 0.005213232322984983,
+        "mean": 0.005241381689301352,
+        "n": 12
+      },
+      "mean_decision_ms": {
+        "ci95_high": 0.022058910207216537,
+        "ci95_low": 0.012898143265005685,
+        "mean": 0.01747852673611111,
+        "n": 12
+      },
+      "mean_primitive_operations": {
+        "ci95_high": 12.0,
+        "ci95_low": 12.0,
+        "mean": 12.0,
+        "n": 12
+      },
+      "mean_utility": {
+        "ci95_high": 0.43057698304086106,
+        "ci95_low": 0.430088759829017,
+        "mean": 0.43033287143493903,
+        "n": 12
+      },
+      "p95_decision_ms": {
+        "ci95_high": 0.018186679667964657,
+        "ci95_low": 0.016475653665368673,
+        "mean": 0.017331166666666665,
+        "n": 12
+      },
+      "postshock_mean_utility": {
+        "ci95_high": 0.42522041456381726,
+        "ci95_low": 0.4246977978360072,
+        "mean": 0.42495910619991223,
+        "n": 12
+      },
+      "postshock_success_rate": {
+        "ci95_high": 0.8997093470917457,
+        "ci95_low": 0.8824335100511116,
+        "mean": 0.8910714285714286,
+        "n": 12
+      },
+      "recovered_runs": 12,
+      "recovery_probability": 1.0,
+      "runs": 12,
+      "sample_recovery_cost_recovered_only": {
+        "ci95_high": 325.84429654826243,
+        "ci95_low": 268.3223701184042,
+        "mean": 297.0833333333333,
+        "n": 12
+      },
+      "structural_reexploration_rate": {
+        "ci95_high": 0.4113740004584322,
+        "ci95_low": 0.40529266620823456,
+        "mean": 0.4083333333333334,
+        "n": 12
+      },
+      "success_rate": {
+        "ci95_high": 0.9303187090337025,
+        "ci95_low": 0.9203757354107419,
+        "mean": 0.9253472222222222,
+        "n": 12
+      }
+    }
+  },
+  "generated_at_utc": "2026-08-24T14:17:40.381954+00:00",
+  "project": {
+    "affiliation": "Independent Researcher",
+    "author": "Crizan Bel\u00e9m Ribeiro",
+    "name": "Mycelial Graph",
+    "status": "V0 demonstrator",
+    "version": "0.0.0"
+  },
+  "runs": [
+    {
+      "cpst_usd": 0.0034941923633850097,
+      "mean_decision_ms": 0.015726920833333335,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.40795539115832774,
+      "method": "mycelial_v0",
+      "p95_decision_ms": 0.018758,
+      "postshock_mean_utility": 0.3956957243929672,
+      "postshock_success_rate": 0.7714285714285715,
+      "recovered": false,
+      "recovery_task": null,
+      "sample_recovery_cost": null,
+      "seed": 101,
+      "structural_reexploration_rate": 0.7842857142857143,
+      "success_rate": 0.8541666666666666,
+      "trial_digest": "00da42489ed704c4b15354d2dcb720331dd80dfa7615729197f842d443ce9932"
+    },
+    {
+      "cpst_usd": 0.005196460468374031,
+      "mean_decision_ms": 0.015718091666666666,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.43126018940108435,
+      "method": "structured_semi_bandit",
+      "p95_decision_ms": 0.018566,
+      "postshock_mean_utility": 0.42561684246576503,
+      "postshock_success_rate": 0.8928571428571429,
+      "recovered": true,
+      "recovery_task": 153,
+      "sample_recovery_cost": 270,
+      "seed": 101,
+      "structural_reexploration_rate": 0.4042857142857143,
+      "success_rate": 0.9291666666666667,
+      "trial_digest": "00da42489ed704c4b15354d2dcb720331dd80dfa7615729197f842d443ce9932"
+    },
+    {
+      "cpst_usd": 0.0027935483008495656,
+      "mean_decision_ms": 0.08979607083333334,
+      "mean_primitive_operations": 288.0,
+      "mean_utility": 0.4587508607736634,
+      "method": "reactive_shortest_path",
+      "p95_decision_ms": 0.170095,
+      "postshock_mean_utility": 0.4522655601085376,
+      "postshock_success_rate": 0.9428571428571428,
+      "recovered": true,
+      "recovery_task": 109,
+      "sample_recovery_cost": 50,
+      "seed": 101,
+      "structural_reexploration_rate": 0.0014285714285714286,
+      "success_rate": 0.95,
+      "trial_digest": "00da42489ed704c4b15354d2dcb720331dd80dfa7615729197f842d443ce9932"
+    },
+    {
+      "cpst_usd": 0.0036473372686287447,
+      "mean_decision_ms": 0.018538741666666667,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.4345755908845367,
+      "method": "mycelial_v0",
+      "p95_decision_ms": 0.021888,
+      "postshock_mean_utility": 0.4140249191466062,
+      "postshock_success_rate": 0.8357142857142857,
+      "recovered": true,
+      "recovery_task": 159,
+      "sample_recovery_cost": 300,
+      "seed": 211,
+      "structural_reexploration_rate": 0.3357142857142857,
+      "success_rate": 0.8958333333333334,
+      "trial_digest": "83a1a18f6d892cd8e5337c44a801e0fe7462206c85a9498c03c8bd76c03276c2"
+    },
+    {
+      "cpst_usd": 0.005220696821852082,
+      "mean_decision_ms": 0.013955891666666666,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.42964171237197996,
+      "method": "structured_semi_bandit",
+      "p95_decision_ms": 0.015367,
+      "postshock_mean_utility": 0.42453330443489107,
+      "postshock_success_rate": 0.9,
+      "recovered": true,
+      "recovery_task": 164,
+      "sample_recovery_cost": 325,
+      "seed": 211,
+      "structural_reexploration_rate": 0.4114285714285714,
+      "success_rate": 0.9333333333333333,
+      "trial_digest": "83a1a18f6d892cd8e5337c44a801e0fe7462206c85a9498c03c8bd76c03276c2"
+    },
+    {
+      "cpst_usd": 0.0027315800007148053,
+      "mean_decision_ms": 0.08110126250000001,
+      "mean_primitive_operations": 288.0,
+      "mean_utility": 0.459004256536614,
+      "method": "reactive_shortest_path",
+      "p95_decision_ms": 0.110628,
+      "postshock_mean_utility": 0.4525073421916041,
+      "postshock_success_rate": 0.9785714285714285,
+      "recovered": true,
+      "recovery_task": 109,
+      "sample_recovery_cost": 50,
+      "seed": 211,
+      "structural_reexploration_rate": 0.0014285714285714286,
+      "success_rate": 0.9708333333333333,
+      "trial_digest": "83a1a18f6d892cd8e5337c44a801e0fe7462206c85a9498c03c8bd76c03276c2"
+    },
+    {
+      "cpst_usd": 0.002683382331480222,
+      "mean_decision_ms": 0.01671865,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.4199117096005617,
+      "method": "mycelial_v0",
+      "p95_decision_ms": 0.020218,
+      "postshock_mean_utility": 0.41333266470059454,
+      "postshock_success_rate": 0.8428571428571429,
+      "recovered": true,
+      "recovery_task": 198,
+      "sample_recovery_cost": 495,
+      "seed": 307,
+      "structural_reexploration_rate": 0.5514285714285714,
+      "success_rate": 0.9,
+      "trial_digest": "c3f5104ed47850627a3b27c7e6f83b86a0871783da3e8db38a835edd929c8a6e"
+    },
+    {
+      "cpst_usd": 0.00521028654163851,
+      "mean_decision_ms": 0.014471824999999999,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.43037629405721056,
+      "method": "structured_semi_bandit",
+      "p95_decision_ms": 0.016588,
+      "postshock_mean_utility": 0.4248767149567077,
+      "postshock_success_rate": 0.8785714285714286,
+      "recovered": true,
+      "recovery_task": 152,
+      "sample_recovery_cost": 265,
+      "seed": 307,
+      "structural_reexploration_rate": 0.4014285714285714,
+      "success_rate": 0.9166666666666666,
+      "trial_digest": "c3f5104ed47850627a3b27c7e6f83b86a0871783da3e8db38a835edd929c8a6e"
+    },
+    {
+      "cpst_usd": 0.002736028699724776,
+      "mean_decision_ms": 0.11009652500000001,
+      "mean_primitive_operations": 288.0,
+      "mean_utility": 0.45899333488540023,
+      "method": "reactive_shortest_path",
+      "p95_decision_ms": 0.132998,
+      "postshock_mean_utility": 0.45279024082291547,
+      "postshock_success_rate": 0.9857142857142858,
+      "recovered": true,
+      "recovery_task": 109,
+      "sample_recovery_cost": 50,
+      "seed": 307,
+      "structural_reexploration_rate": 0.0014285714285714286,
+      "success_rate": 0.9708333333333333,
+      "trial_digest": "c3f5104ed47850627a3b27c7e6f83b86a0871783da3e8db38a835edd929c8a6e"
+    },
+    {
+      "cpst_usd": 0.0026178083331381955,
+      "mean_decision_ms": 0.017810270833333332,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.43456493226855797,
+      "method": "mycelial_v0",
+      "p95_decision_ms": 0.02137,
+      "postshock_mean_utility": 0.4300608643729183,
+      "postshock_success_rate": 0.8785714285714286,
+      "recovered": true,
+      "recovery_task": 119,
+      "sample_recovery_cost": 100,
+      "seed": 401,
+      "structural_reexploration_rate": 0.38285714285714284,
+      "success_rate": 0.9208333333333333,
+      "trial_digest": "b563da7ad6179d2858915dc836eb45562e5b809fda9bd9c84958ea6a50ea674d"
+    },
+    {
+      "cpst_usd": 0.005305581891814618,
+      "mean_decision_ms": 0.014724070833333333,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.43047406322629506,
+      "method": "structured_semi_bandit",
+      "p95_decision_ms": 0.016937,
+      "postshock_mean_utility": 0.4252095829127747,
+      "postshock_success_rate": 0.8928571428571429,
+      "recovered": true,
+      "recovery_task": 171,
+      "sample_recovery_cost": 360,
+      "seed": 401,
+      "structural_reexploration_rate": 0.4114285714285714,
+      "success_rate": 0.925,
+      "trial_digest": "b563da7ad6179d2858915dc836eb45562e5b809fda9bd9c84958ea6a50ea674d"
+    },
+    {
+      "cpst_usd": 0.0027331253578828756,
+      "mean_decision_ms": 0.10060222916666667,
+      "mean_primitive_operations": 288.0,
+      "mean_utility": 0.45852010771036134,
+      "method": "reactive_shortest_path",
+      "p95_decision_ms": 0.170049,
+      "postshock_mean_utility": 0.45258032254993524,
+      "postshock_success_rate": 0.9714285714285714,
+      "recovered": true,
+      "recovery_task": 109,
+      "sample_recovery_cost": 50,
+      "seed": 401,
+      "structural_reexploration_rate": 0.0014285714285714286,
+      "success_rate": 0.9708333333333333,
+      "trial_digest": "b563da7ad6179d2858915dc836eb45562e5b809fda9bd9c84958ea6a50ea674d"
+    },
+    {
+      "cpst_usd": 0.0019628447428445164,
+      "mean_decision_ms": 0.01650807916666667,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.40292427092597355,
+      "method": "mycelial_v0",
+      "p95_decision_ms": 0.018327,
+      "postshock_mean_utility": 0.4020639626413781,
+      "postshock_success_rate": 0.9214285714285714,
+      "recovered": false,
+      "recovery_task": null,
+      "sample_recovery_cost": null,
+      "seed": 503,
+      "structural_reexploration_rate": 0.8342857142857143,
+      "success_rate": 0.9541666666666667,
+      "trial_digest": "b89fb823d640b4db74c06cc07bcd37a208a7b8bdc23b5373659872a2182a6931"
+    },
+    {
+      "cpst_usd": 0.00518615276769951,
+      "mean_decision_ms": 0.014837679166666668,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.4300302494523466,
+      "method": "structured_semi_bandit",
+      "p95_decision_ms": 0.016474,
+      "postshock_mean_utility": 0.4249801864152269,
+      "postshock_success_rate": 0.8857142857142857,
+      "recovered": true,
+      "recovery_task": 168,
+      "sample_recovery_cost": 345,
+      "seed": 503,
+      "structural_reexploration_rate": 0.41,
+      "success_rate": 0.9208333333333333,
+      "trial_digest": "b89fb823d640b4db74c06cc07bcd37a208a7b8bdc23b5373659872a2182a6931"
+    },
+    {
+      "cpst_usd": 0.0026927085988461713,
+      "mean_decision_ms": 0.08347412916666667,
+      "mean_primitive_operations": 288.0,
+      "mean_utility": 0.458419050397057,
+      "method": "reactive_shortest_path",
+      "p95_decision_ms": 0.107447,
+      "postshock_mean_utility": 0.45221352712441615,
+      "postshock_success_rate": 0.9928571428571429,
+      "recovered": true,
+      "recovery_task": 109,
+      "sample_recovery_cost": 50,
+      "seed": 503,
+      "structural_reexploration_rate": 0.0014285714285714286,
+      "success_rate": 0.9833333333333333,
+      "trial_digest": "b89fb823d640b4db74c06cc07bcd37a208a7b8bdc23b5373659872a2182a6931"
+    },
+    {
+      "cpst_usd": 0.005398673884904409,
+      "mean_decision_ms": 0.018372762499999997,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.42452161090170665,
+      "method": "mycelial_v0",
+      "p95_decision_ms": 0.021858,
+      "postshock_mean_utility": 0.41439081982818127,
+      "postshock_success_rate": 0.9357142857142857,
+      "recovered": false,
+      "recovery_task": null,
+      "sample_recovery_cost": null,
+      "seed": 601,
+      "structural_reexploration_rate": 0.6714285714285714,
+      "success_rate": 0.9416666666666667,
+      "trial_digest": "7e5fac3a050ece0d02f37f4a0187ba326d6b156114e59ae839aaf4610d728138"
+    },
+    {
+      "cpst_usd": 0.005240668292520239,
+      "mean_decision_ms": 0.015483825,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.4306999541742552,
+      "method": "structured_semi_bandit",
+      "p95_decision_ms": 0.018754,
+      "postshock_mean_utility": 0.4252722194843233,
+      "postshock_success_rate": 0.8928571428571429,
+      "recovered": true,
+      "recovery_task": 155,
+      "sample_recovery_cost": 280,
+      "seed": 601,
+      "structural_reexploration_rate": 0.4085714285714286,
+      "success_rate": 0.9208333333333333,
+      "trial_digest": "7e5fac3a050ece0d02f37f4a0187ba326d6b156114e59ae839aaf4610d728138"
+    },
+    {
+      "cpst_usd": 0.00274411384409416,
+      "mean_decision_ms": 0.0902498375,
+      "mean_primitive_operations": 288.0,
+      "mean_utility": 0.45865396028166494,
+      "method": "reactive_shortest_path",
+      "p95_decision_ms": 0.11521,
+      "postshock_mean_utility": 0.4522234350044423,
+      "postshock_success_rate": 0.9785714285714285,
+      "recovered": true,
+      "recovery_task": 109,
+      "sample_recovery_cost": 50,
+      "seed": 601,
+      "structural_reexploration_rate": 0.004285714285714286,
+      "success_rate": 0.9708333333333333,
+      "trial_digest": "7e5fac3a050ece0d02f37f4a0187ba326d6b156114e59ae839aaf4610d728138"
+    },
+    {
+      "cpst_usd": 0.0044328162293108455,
+      "mean_decision_ms": 0.016954366666666665,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.40645458904382353,
+      "method": "mycelial_v0",
+      "p95_decision_ms": 0.019408,
+      "postshock_mean_utility": 0.38461613641278897,
+      "postshock_success_rate": 0.5928571428571429,
+      "recovered": true,
+      "recovery_task": 228,
+      "sample_recovery_cost": 645,
+      "seed": 701,
+      "structural_reexploration_rate": 0.6271428571428571,
+      "success_rate": 0.7541666666666667,
+      "trial_digest": "ab5c4196094e25c531f95b736a44374ad889c3191593e573880acaa191859982"
+    },
+    {
+      "cpst_usd": 0.0052595322089695395,
+      "mean_decision_ms": 0.04303095,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.4307000671591822,
+      "method": "structured_semi_bandit",
+      "p95_decision_ms": 0.016708,
+      "postshock_mean_utility": 0.42565121754264806,
+      "postshock_success_rate": 0.9,
+      "recovered": true,
+      "recovery_task": 149,
+      "sample_recovery_cost": 250,
+      "seed": 701,
+      "structural_reexploration_rate": 0.4057142857142857,
+      "success_rate": 0.9291666666666667,
+      "trial_digest": "ab5c4196094e25c531f95b736a44374ad889c3191593e573880acaa191859982"
+    },
+    {
+      "cpst_usd": 0.0026801772592563756,
+      "mean_decision_ms": 0.08880412916666666,
+      "mean_primitive_operations": 288.0,
+      "mean_utility": 0.45966133534739245,
+      "method": "reactive_shortest_path",
+      "p95_decision_ms": 0.127119,
+      "postshock_mean_utility": 0.4534049824593662,
+      "postshock_success_rate": 0.9928571428571429,
+      "recovered": true,
+      "recovery_task": 109,
+      "sample_recovery_cost": 50,
+      "seed": 701,
+      "structural_reexploration_rate": 0.0014285714285714286,
+      "success_rate": 0.9875,
+      "trial_digest": "ab5c4196094e25c531f95b736a44374ad889c3191593e573880acaa191859982"
+    },
+    {
+      "cpst_usd": 0.0030116604509097104,
+      "mean_decision_ms": 0.017321745833333336,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.4214491882231878,
+      "method": "mycelial_v0",
+      "p95_decision_ms": 0.017796,
+      "postshock_mean_utility": 0.4197036849383329,
+      "postshock_success_rate": 0.9357142857142857,
+      "recovered": true,
+      "recovery_task": 190,
+      "sample_recovery_cost": 455,
+      "seed": 809,
+      "structural_reexploration_rate": 0.5485714285714286,
+      "success_rate": 0.9458333333333333,
+      "trial_digest": "b3d7f9a976e8648049988e4aaed37e3108f3c82e75c9ddfae6a03f375cd7a377"
+    },
+    {
+      "cpst_usd": 0.005212760313265577,
+      "mean_decision_ms": 0.015846491666666667,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.4298828462576228,
+      "method": "structured_semi_bandit",
+      "p95_decision_ms": 0.017806,
+      "postshock_mean_utility": 0.42512549292683577,
+      "postshock_success_rate": 0.8785714285714286,
+      "recovered": true,
+      "recovery_task": 176,
+      "sample_recovery_cost": 385,
+      "seed": 809,
+      "structural_reexploration_rate": 0.4,
+      "success_rate": 0.925,
+      "trial_digest": "b3d7f9a976e8648049988e4aaed37e3108f3c82e75c9ddfae6a03f375cd7a377"
+    },
+    {
+      "cpst_usd": 0.0026724720185626527,
+      "mean_decision_ms": 0.09091769583333333,
+      "mean_primitive_operations": 288.0,
+      "mean_utility": 0.4588485473076948,
+      "method": "reactive_shortest_path",
+      "p95_decision_ms": 0.142436,
+      "postshock_mean_utility": 0.4531325719454224,
+      "postshock_success_rate": 0.9928571428571429,
+      "recovered": true,
+      "recovery_task": 109,
+      "sample_recovery_cost": 50,
+      "seed": 809,
+      "structural_reexploration_rate": 0.0014285714285714286,
+      "success_rate": 0.9916666666666667,
+      "trial_digest": "b3d7f9a976e8648049988e4aaed37e3108f3c82e75c9ddfae6a03f375cd7a377"
+    },
+    {
+      "cpst_usd": 0.008993398455000233,
+      "mean_decision_ms": 0.03086105416666667,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.40060514234366135,
+      "method": "mycelial_v0",
+      "p95_decision_ms": 0.094186,
+      "postshock_mean_utility": 0.3919458430575471,
+      "postshock_success_rate": 0.7642857142857142,
+      "recovered": false,
+      "recovery_task": null,
+      "sample_recovery_cost": null,
+      "seed": 907,
+      "structural_reexploration_rate": 0.6785714285714286,
+      "success_rate": 0.8541666666666666,
+      "trial_digest": "fa3994f548f49696a76ed5ddfe9eb985bbedd1fccde280803c755754c0588f53"
+    },
+    {
+      "cpst_usd": 0.005296437071450893,
+      "mean_decision_ms": 0.016993554166666664,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.43014728344710323,
+      "method": "structured_semi_bandit",
+      "p95_decision_ms": 0.020351,
+      "postshock_mean_utility": 0.42441892060651953,
+      "postshock_success_rate": 0.8642857142857143,
+      "recovered": true,
+      "recovery_task": 153,
+      "sample_recovery_cost": 270,
+      "seed": 907,
+      "structural_reexploration_rate": 0.4057142857142857,
+      "success_rate": 0.9083333333333333,
+      "trial_digest": "fa3994f548f49696a76ed5ddfe9eb985bbedd1fccde280803c755754c0588f53"
+    },
+    {
+      "cpst_usd": 0.0027300891299303727,
+      "mean_decision_ms": 0.09242489166666666,
+      "mean_primitive_operations": 288.0,
+      "mean_utility": 0.45801900428109193,
+      "method": "reactive_shortest_path",
+      "p95_decision_ms": 0.1624,
+      "postshock_mean_utility": 0.45118901979644355,
+      "postshock_success_rate": 0.9714285714285714,
+      "recovered": true,
+      "recovery_task": 109,
+      "sample_recovery_cost": 50,
+      "seed": 907,
+      "structural_reexploration_rate": 0.004285714285714286,
+      "success_rate": 0.975,
+      "trial_digest": "fa3994f548f49696a76ed5ddfe9eb985bbedd1fccde280803c755754c0588f53"
+    },
+    {
+      "cpst_usd": 0.0024126844398794194,
+      "mean_decision_ms": 0.015784883333333333,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.41925960747268787,
+      "method": "mycelial_v0",
+      "p95_decision_ms": 0.017142,
+      "postshock_mean_utility": 0.41959858264078154,
+      "postshock_success_rate": 0.9142857142857143,
+      "recovered": true,
+      "recovery_task": 169,
+      "sample_recovery_cost": 350,
+      "seed": 1009,
+      "structural_reexploration_rate": 0.6342857142857142,
+      "success_rate": 0.9458333333333333,
+      "trial_digest": "ff68543cbbfdb381b7410b94b9e73d6bae2a3ced3373554ea9e154f4e4d2b32f"
+    },
+    {
+      "cpst_usd": 0.005251563197855519,
+      "mean_decision_ms": 0.013765133333333334,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.43010217625577574,
+      "method": "structured_semi_bandit",
+      "p95_decision_ms": 0.014851,
+      "postshock_mean_utility": 0.42409514769348716,
+      "postshock_success_rate": 0.9071428571428571,
+      "recovered": true,
+      "recovery_task": 141,
+      "sample_recovery_cost": 210,
+      "seed": 1009,
+      "structural_reexploration_rate": 0.4114285714285714,
+      "success_rate": 0.9333333333333333,
+      "trial_digest": "ff68543cbbfdb381b7410b94b9e73d6bae2a3ced3373554ea9e154f4e4d2b32f"
+    },
+    {
+      "cpst_usd": 0.002735950913670651,
+      "mean_decision_ms": 0.0838887625,
+      "mean_primitive_operations": 288.0,
+      "mean_utility": 0.45790519145877284,
+      "method": "reactive_shortest_path",
+      "p95_decision_ms": 0.091545,
+      "postshock_mean_utility": 0.4509827937558675,
+      "postshock_success_rate": 0.9785714285714285,
+      "recovered": true,
+      "recovery_task": 109,
+      "sample_recovery_cost": 50,
+      "seed": 1009,
+      "structural_reexploration_rate": 0.0014285714285714286,
+      "success_rate": 0.9708333333333333,
+      "trial_digest": "ff68543cbbfdb381b7410b94b9e73d6bae2a3ced3373554ea9e154f4e4d2b32f"
+    },
+    {
+      "cpst_usd": 0.003702633589987792,
+      "mean_decision_ms": 0.020039574999999997,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.423705799755882,
+      "method": "mycelial_v0",
+      "p95_decision_ms": 0.023972,
+      "postshock_mean_utility": 0.40483760330043567,
+      "postshock_success_rate": 0.7571428571428571,
+      "recovered": true,
+      "recovery_task": 218,
+      "sample_recovery_cost": 595,
+      "seed": 1103,
+      "structural_reexploration_rate": 0.5671428571428572,
+      "success_rate": 0.8458333333333333,
+      "trial_digest": "0fb3275a7b63ac8f73202572a7ec6117a78e61ec1c35302a74a1dd4adba4f308"
+    },
+    {
+      "cpst_usd": 0.005335003784269712,
+      "mean_decision_ms": 0.015381200000000001,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.43047524467908155,
+      "method": "structured_semi_bandit",
+      "p95_decision_ms": 0.017765,
+      "postshock_mean_utility": 0.4248367454026297,
+      "postshock_success_rate": 0.8785714285714286,
+      "recovered": true,
+      "recovery_task": 155,
+      "sample_recovery_cost": 280,
+      "seed": 1103,
+      "structural_reexploration_rate": 0.41,
+      "success_rate": 0.9208333333333333,
+      "trial_digest": "0fb3275a7b63ac8f73202572a7ec6117a78e61ec1c35302a74a1dd4adba4f308"
+    },
+    {
+      "cpst_usd": 0.0027519726982549453,
+      "mean_decision_ms": 0.09541929583333333,
+      "mean_primitive_operations": 288.0,
+      "mean_utility": 0.45860406638152634,
+      "method": "reactive_shortest_path",
+      "p95_decision_ms": 0.177891,
+      "postshock_mean_utility": 0.4518288482149438,
+      "postshock_success_rate": 0.9571428571428572,
+      "recovered": true,
+      "recovery_task": 110,
+      "sample_recovery_cost": 55,
+      "seed": 1103,
+      "structural_reexploration_rate": 0.004285714285714286,
+      "success_rate": 0.9666666666666667,
+      "trial_digest": "0fb3275a7b63ac8f73202572a7ec6117a78e61ec1c35302a74a1dd4adba4f308"
+    },
+    {
+      "cpst_usd": 0.0025919344706439645,
+      "mean_decision_ms": 0.01736630416666667,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.410322275862227,
+      "method": "mycelial_v0",
+      "p95_decision_ms": 0.019567,
+      "postshock_mean_utility": 0.40431449024404476,
+      "postshock_success_rate": 0.8571428571428571,
+      "recovered": true,
+      "recovery_task": 210,
+      "sample_recovery_cost": 555,
+      "seed": 1201,
+      "structural_reexploration_rate": 0.6457142857142857,
+      "success_rate": 0.9125,
+      "trial_digest": "830ee0c2e8536a34467a2e78b1b4894547f8d5e3e123ef0a4ddb5cdbe5f0fce6"
+    },
+    {
+      "cpst_usd": 0.005181436911905991,
+      "mean_decision_ms": 0.015533608333333334,
+      "mean_primitive_operations": 12.0,
+      "mean_utility": 0.43020437673733086,
+      "method": "structured_semi_bandit",
+      "p95_decision_ms": 0.017807,
+      "postshock_mean_utility": 0.42489289955713766,
+      "postshock_success_rate": 0.9214285714285714,
+      "recovered": true,
+      "recovery_task": 164,
+      "sample_recovery_cost": 325,
+      "seed": 1201,
+      "structural_reexploration_rate": 0.42,
+      "success_rate": 0.9416666666666667,
+      "trial_digest": "830ee0c2e8536a34467a2e78b1b4894547f8d5e3e123ef0a4ddb5cdbe5f0fce6"
+    },
+    {
+      "cpst_usd": 0.0027673846598932597,
+      "mean_decision_ms": 0.10050540000000001,
+      "mean_primitive_operations": 288.0,
+      "mean_utility": 0.4575115423687281,
+      "method": "reactive_shortest_path",
+      "p95_decision_ms": 0.163342,
+      "postshock_mean_utility": 0.4503986747451354,
+      "postshock_success_rate": 0.9642857142857143,
+      "recovered": true,
+      "recovery_task": 109,
+      "sample_recovery_cost": 50,
+      "seed": 1201,
+      "structural_reexploration_rate": 0.004285714285714286,
+      "success_rate": 0.9625,
+      "trial_digest": "830ee0c2e8536a34467a2e78b1b4894547f8d5e3e123ef0a4ddb5cdbe5f0fce6"
+    }
+  ],
+  "schema": "mycelial-graph-results-v0",
+  "scope": {
+    "claim": "software demonstrator; no empirical superiority claim",
+    "development_seeds": [
+      17,
+      29,
+      43,
+      59,
+      71
+    ],
+    "edges": 24,
+    "graph_paths": 48,
+    "hypotheses_validated": [],
+    "nodes": 13,
+    "seeds": [
+      101,
+      211,
+      307,
+      401,
+      503,
+      601,
+      701,
+      809,
+      907,
+      1009,
+      1103,
+      1201
+    ],
+    "shock_step": 100,
+    "steps_per_run": 240,
+    "trial_certification": {
+      "post_oracle_edges": [
+        "source__prompt_structured",
+        "prompt_structured__retriever_hybrid",
+        "retriever_hybrid__model_economy",
+        "model_economy__guardrail_strict",
+        "guardrail_strict__output_detailed",
+        "output_detailed__sink"
+      ],
+      "post_oracle_margin": 0.010313333333333397,
+      "post_oracle_nodes": [
+        "source",
+        "prompt_structured",
+        "retriever_hybrid",
+        "model_economy",
+        "guardrail_strict",
+        "output_detailed",
+        "sink"
+      ],
+      "post_oracle_utility": 0.45319666666666675,
+      "pre_oracle_edges": [
+        "source__prompt_structured",
+        "prompt_structured__retriever_hybrid",
+        "retriever_hybrid__model_balanced",
+        "model_balanced__guardrail_strict",
+        "guardrail_strict__output_detailed",
+        "output_detailed__sink"
+      ],
+      "pre_oracle_margin": 0.010313333333333397,
+      "pre_oracle_nodes": [
+        "source",
+        "prompt_structured",
+        "retriever_hybrid",
+        "model_balanced",
+        "guardrail_strict",
+        "output_detailed",
+        "sink"
+      ],
+      "pre_oracle_utility": 0.46761333333333344,
+      "shared_edge_fraction": 0.6666666666666666,
+      "shock_component_moves_out_of_optimum": true
+    }
+  },
+  "trace_samples": [
+    {
+      "method": "mycelial_v0",
+      "records": [
+        {
+          "choice_modes": [
+            "conductance-softmax",
+            "conductance-softmax",
+            "conductance-softmax",
+            "conductance-softmax",
+            "conductance-softmax",
+            "single-edge-fallback"
+          ],
+          "cost_usd": 0.0016177340350290567,
+          "decision_ms": 0.039013,
+          "edge_ids": [
+            "source__prompt_compact",
+            "prompt_compact__retriever_hybrid",
+            "retriever_hybrid__model_economy",
+            "model_economy__guardrail_standard",
+            "guardrail_standard__output_concise",
+            "output_concise__sink"
+          ],
+          "expected_utility": 0.4160333333333333,
+          "feedback_samples": 5,
+          "latency_ms": 336.03721240822404,
+          "node_ids": [
+            "source",
+            "prompt_compact",
+            "retriever_hybrid",
+            "model_economy",
+            "guardrail_standard",
+            "output_concise",
+            "sink"
+          ],
+          "oracle_edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_balanced",
+            "model_balanced__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "oracle_expected_utility": 0.46761333333333344,
+          "primitive_operations": 12,
+          "quality": 0.8023622564986803,
+          "realized_utility": 0.41826883052378827,
+          "step": 0,
+          "structural_reexploration_samples": 0,
+          "success": true
+        },
+        {
+          "choice_modes": [
+            "conductance-softmax",
+            "conductance-softmax",
+            "explicit-exploration",
+            "conductance-softmax",
+            "conductance-softmax",
+            "single-edge-fallback"
+          ],
+          "cost_usd": 0.0016385186264747673,
+          "decision_ms": 0.014644,
+          "edge_ids": [
+            "source__prompt_compact",
+            "prompt_compact__retriever_hybrid",
+            "retriever_hybrid__model_economy",
+            "model_economy__guardrail_standard",
+            "guardrail_standard__output_concise",
+            "output_concise__sink"
+          ],
+          "expected_utility": 0.4160333333333333,
+          "feedback_samples": 5,
+          "latency_ms": 343.94619698616935,
+          "node_ids": [
+            "source",
+            "prompt_compact",
+            "retriever_hybrid",
+            "model_economy",
+            "guardrail_standard",
+            "output_concise",
+            "sink"
+          ],
+          "oracle_edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_balanced",
+            "model_balanced__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "oracle_expected_utility": 0.46761333333333344,
+          "primitive_operations": 12,
+          "quality": 0.7861425035942659,
+          "realized_utility": 0.40889914286887985,
+          "step": 99,
+          "structural_reexploration_samples": 0,
+          "success": true
+        },
+        {
+          "choice_modes": [
+            "explicit-exploration",
+            "conductance-softmax",
+            "conductance-softmax",
+            "conductance-softmax",
+            "conductance-softmax",
+            "single-edge-fallback"
+          ],
+          "cost_usd": 0.003961075273910654,
+          "decision_ms": 0.018758,
+          "edge_ids": [
+            "source__prompt_compact",
+            "prompt_compact__retriever_hybrid",
+            "retriever_hybrid__model_balanced",
+            "model_balanced__guardrail_standard",
+            "guardrail_standard__output_concise",
+            "output_concise__sink"
+          ],
+          "expected_utility": 0.324145,
+          "feedback_samples": 5,
+          "latency_ms": 885.2785314907696,
+          "node_ids": [
+            "source",
+            "prompt_compact",
+            "retriever_hybrid",
+            "model_balanced",
+            "guardrail_standard",
+            "output_concise",
+            "sink"
+          ],
+          "oracle_edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_economy",
+            "model_economy__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "oracle_expected_utility": 0.45319666666666675,
+          "primitive_operations": 12,
+          "quality": 0.7083252558890973,
+          "realized_utility": 0.34042131438099565,
+          "step": 100,
+          "structural_reexploration_samples": 4,
+          "success": false
+        },
+        {
+          "choice_modes": [
+            "conductance-softmax",
+            "conductance-softmax",
+            "explicit-exploration",
+            "conductance-softmax",
+            "conductance-softmax",
+            "single-edge-fallback"
+          ],
+          "cost_usd": 0.012677740360202788,
+          "decision_ms": 0.014153,
+          "edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_keyword",
+            "retriever_keyword__model_premium",
+            "model_premium__guardrail_strict",
+            "guardrail_strict__output_concise",
+            "output_concise__sink"
+          ],
+          "expected_utility": 0.4099500000000001,
+          "feedback_samples": 5,
+          "latency_ms": 639.7823183297736,
+          "node_ids": [
+            "source",
+            "prompt_structured",
+            "retriever_keyword",
+            "model_premium",
+            "guardrail_strict",
+            "output_concise",
+            "sink"
+          ],
+          "oracle_edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_economy",
+            "model_economy__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "oracle_expected_utility": 0.45319666666666675,
+          "primitive_operations": 12,
+          "quality": 0.8772549134212827,
+          "realized_utility": 0.420677733629988,
+          "step": 239,
+          "structural_reexploration_samples": 4,
+          "success": true
+        }
+      ],
+      "seed": 101
+    },
+    {
+      "method": "structured_semi_bandit",
+      "records": [
+        {
+          "choice_modes": [
+            "edge-ucb",
+            "edge-ucb",
+            "edge-ucb",
+            "edge-ucb",
+            "edge-ucb",
+            "single-edge-fallback"
+          ],
+          "cost_usd": 0.012629571063075266,
+          "decision_ms": 0.025963,
+          "edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_keyword",
+            "retriever_keyword__model_premium",
+            "model_premium__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "expected_utility": 0.4202933333333334,
+          "feedback_samples": 5,
+          "latency_ms": 645.0811848034361,
+          "node_ids": [
+            "source",
+            "prompt_structured",
+            "retriever_keyword",
+            "model_premium",
+            "guardrail_strict",
+            "output_detailed",
+            "sink"
+          ],
+          "oracle_edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_balanced",
+            "model_balanced__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "oracle_expected_utility": 0.46761333333333344,
+          "primitive_operations": 12,
+          "quality": 0.8780776622151478,
+          "realized_utility": 0.420072807706488,
+          "step": 0,
+          "structural_reexploration_samples": 0,
+          "success": true
+        },
+        {
+          "choice_modes": [
+            "edge-ucb",
+            "edge-ucb",
+            "edge-ucb",
+            "edge-ucb",
+            "edge-ucb",
+            "single-edge-fallback"
+          ],
+          "cost_usd": 0.0018218858121865742,
+          "decision_ms": 0.01252,
+          "edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_economy",
+            "model_economy__guardrail_strict",
+            "guardrail_strict__output_concise",
+            "output_concise__sink"
+          ],
+          "expected_utility": 0.44285333333333343,
+          "feedback_samples": 5,
+          "latency_ms": 398.8941391498218,
+          "node_ids": [
+            "source",
+            "prompt_structured",
+            "retriever_hybrid",
+            "model_economy",
+            "guardrail_strict",
+            "output_concise",
+            "sink"
+          ],
+          "oracle_edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_balanced",
+            "model_balanced__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "oracle_expected_utility": 0.46761333333333344,
+          "primitive_operations": 12,
+          "quality": 0.8542585532445892,
+          "realized_utility": 0.44246154830031414,
+          "step": 99,
+          "structural_reexploration_samples": 0,
+          "success": true
+        },
+        {
+          "choice_modes": [
+            "edge-ucb",
+            "edge-ucb",
+            "edge-ucb",
+            "edge-ucb",
+            "edge-ucb",
+            "single-edge-fallback"
+          ],
+          "cost_usd": 0.012277541535477464,
+          "decision_ms": 0.015942,
+          "edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_keyword",
+            "retriever_keyword__model_premium",
+            "model_premium__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "expected_utility": 0.4202933333333334,
+          "feedback_samples": 5,
+          "latency_ms": 716.7297315009664,
+          "node_ids": [
+            "source",
+            "prompt_structured",
+            "retriever_keyword",
+            "model_premium",
+            "guardrail_strict",
+            "output_detailed",
+            "sink"
+          ],
+          "oracle_edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_economy",
+            "model_economy__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "oracle_expected_utility": 0.45319666666666675,
+          "primitive_operations": 12,
+          "quality": 0.8650494308943644,
+          "realized_utility": 0.4129407261402612,
+          "step": 100,
+          "structural_reexploration_samples": 3,
+          "success": true
+        },
+        {
+          "choice_modes": [
+            "edge-ucb",
+            "edge-ucb",
+            "edge-ucb",
+            "edge-ucb",
+            "edge-ucb",
+            "single-edge-fallback"
+          ],
+          "cost_usd": 0.001817151349819358,
+          "decision_ms": 0.013893,
+          "edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_economy",
+            "model_economy__guardrail_strict",
+            "guardrail_strict__output_concise",
+            "output_concise__sink"
+          ],
+          "expected_utility": 0.44285333333333343,
+          "feedback_samples": 5,
+          "latency_ms": 358.6019796016472,
+          "node_ids": [
+            "source",
+            "prompt_structured",
+            "retriever_hybrid",
+            "model_economy",
+            "guardrail_strict",
+            "output_concise",
+            "sink"
+          ],
+          "oracle_edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_economy",
+            "model_economy__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "oracle_expected_utility": 0.45319666666666675,
+          "primitive_operations": 12,
+          "quality": 0.8776157907694321,
+          "realized_utility": 0.45499561574387987,
+          "step": 239,
+          "structural_reexploration_samples": 1,
+          "success": true
+        }
+      ],
+      "seed": 101
+    },
+    {
+      "method": "reactive_shortest_path",
+      "records": [
+        {
+          "choice_modes": [
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path"
+          ],
+          "cost_usd": 0.003748991962417341,
+          "decision_ms": 0.08598,
+          "edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_balanced",
+            "model_balanced__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "expected_utility": 0.46761333333333344,
+          "feedback_samples": 5,
+          "latency_ms": 462.20894802501425,
+          "node_ids": [
+            "source",
+            "prompt_structured",
+            "retriever_hybrid",
+            "model_balanced",
+            "guardrail_strict",
+            "output_detailed",
+            "sink"
+          ],
+          "oracle_edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_balanced",
+            "model_balanced__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "oracle_expected_utility": 0.46761333333333344,
+          "primitive_operations": 288,
+          "quality": 0.9125216469618994,
+          "realized_utility": 0.4675406795934044,
+          "step": 0,
+          "structural_reexploration_samples": 0,
+          "success": true
+        },
+        {
+          "choice_modes": [
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path"
+          ],
+          "cost_usd": 0.003798210147335718,
+          "decision_ms": 0.073246,
+          "edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_balanced",
+            "model_balanced__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "expected_utility": 0.46761333333333344,
+          "feedback_samples": 5,
+          "latency_ms": 461.47514025670864,
+          "node_ids": [
+            "source",
+            "prompt_structured",
+            "retriever_hybrid",
+            "model_balanced",
+            "guardrail_strict",
+            "output_detailed",
+            "sink"
+          ],
+          "oracle_edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_balanced",
+            "model_balanced__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "oracle_expected_utility": 0.46761333333333344,
+          "primitive_operations": 288,
+          "quality": 0.9184413559212079,
+          "realized_utility": 0.4696133393632375,
+          "step": 99,
+          "structural_reexploration_samples": 0,
+          "success": true
+        },
+        {
+          "choice_modes": [
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path"
+          ],
+          "cost_usd": 0.004149852710087931,
+          "decision_ms": 0.075492,
+          "edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_balanced",
+            "model_balanced__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "expected_utility": 0.3613083333333334,
+          "feedback_samples": 5,
+          "latency_ms": 964.8932351036797,
+          "node_ids": [
+            "source",
+            "prompt_structured",
+            "retriever_hybrid",
+            "model_balanced",
+            "guardrail_strict",
+            "output_detailed",
+            "sink"
+          ],
+          "oracle_edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_economy",
+            "model_economy__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "oracle_expected_utility": 0.45319666666666675,
+          "primitive_operations": 288,
+          "quality": 0.7506648208365285,
+          "realized_utility": 0.35833368875509886,
+          "step": 100,
+          "structural_reexploration_samples": 1,
+          "success": false
+        },
+        {
+          "choice_modes": [
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path",
+            "reactive-best-path"
+          ],
+          "cost_usd": 0.001838376628316511,
+          "decision_ms": 0.329458,
+          "edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_economy",
+            "model_economy__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "expected_utility": 0.45319666666666675,
+          "feedback_samples": 5,
+          "latency_ms": 375.24882030156516,
+          "node_ids": [
+            "source",
+            "prompt_structured",
+            "retriever_hybrid",
+            "model_economy",
+            "guardrail_strict",
+            "output_detailed",
+            "sink"
+          ],
+          "oracle_edge_ids": [
+            "source__prompt_structured",
+            "prompt_structured__retriever_hybrid",
+            "retriever_hybrid__model_economy",
+            "model_economy__guardrail_strict",
+            "guardrail_strict__output_detailed",
+            "output_detailed__sink"
+          ],
+          "oracle_expected_utility": 0.45319666666666675,
+          "primitive_operations": 288,
+          "quality": 0.885610471920162,
+          "realized_utility": 0.459479739022748,
+          "step": 239,
+          "structural_reexploration_samples": 0,
+          "success": true
+        }
+      ],
+      "seed": 101
+    }
+  ],
+  "trial_manifest": [
+    {
+      "certification": {
+        "post_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_economy",
+          "model_economy__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "post_oracle_margin": 0.010313333333333397,
+        "post_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_economy",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "post_oracle_utility": 0.45319666666666675,
+        "pre_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_balanced",
+          "model_balanced__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "pre_oracle_margin": 0.010313333333333397,
+        "pre_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_balanced",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "pre_oracle_utility": 0.46761333333333344,
+        "shared_edge_fraction": 0.6666666666666666,
+        "shock_component_moves_out_of_optimum": true
+      },
+      "digest": "00da42489ed704c4b15354d2dcb720331dd80dfa7615729197f842d443ce9932",
+      "seed": 101
+    },
+    {
+      "certification": {
+        "post_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_economy",
+          "model_economy__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "post_oracle_margin": 0.010313333333333397,
+        "post_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_economy",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "post_oracle_utility": 0.45319666666666675,
+        "pre_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_balanced",
+          "model_balanced__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "pre_oracle_margin": 0.010313333333333397,
+        "pre_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_balanced",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "pre_oracle_utility": 0.46761333333333344,
+        "shared_edge_fraction": 0.6666666666666666,
+        "shock_component_moves_out_of_optimum": true
+      },
+      "digest": "83a1a18f6d892cd8e5337c44a801e0fe7462206c85a9498c03c8bd76c03276c2",
+      "seed": 211
+    },
+    {
+      "certification": {
+        "post_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_economy",
+          "model_economy__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "post_oracle_margin": 0.010313333333333397,
+        "post_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_economy",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "post_oracle_utility": 0.45319666666666675,
+        "pre_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_balanced",
+          "model_balanced__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "pre_oracle_margin": 0.010313333333333397,
+        "pre_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_balanced",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "pre_oracle_utility": 0.46761333333333344,
+        "shared_edge_fraction": 0.6666666666666666,
+        "shock_component_moves_out_of_optimum": true
+      },
+      "digest": "c3f5104ed47850627a3b27c7e6f83b86a0871783da3e8db38a835edd929c8a6e",
+      "seed": 307
+    },
+    {
+      "certification": {
+        "post_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_economy",
+          "model_economy__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "post_oracle_margin": 0.010313333333333397,
+        "post_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_economy",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "post_oracle_utility": 0.45319666666666675,
+        "pre_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_balanced",
+          "model_balanced__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "pre_oracle_margin": 0.010313333333333397,
+        "pre_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_balanced",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "pre_oracle_utility": 0.46761333333333344,
+        "shared_edge_fraction": 0.6666666666666666,
+        "shock_component_moves_out_of_optimum": true
+      },
+      "digest": "b563da7ad6179d2858915dc836eb45562e5b809fda9bd9c84958ea6a50ea674d",
+      "seed": 401
+    },
+    {
+      "certification": {
+        "post_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_economy",
+          "model_economy__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "post_oracle_margin": 0.010313333333333397,
+        "post_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_economy",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "post_oracle_utility": 0.45319666666666675,
+        "pre_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_balanced",
+          "model_balanced__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "pre_oracle_margin": 0.010313333333333397,
+        "pre_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_balanced",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "pre_oracle_utility": 0.46761333333333344,
+        "shared_edge_fraction": 0.6666666666666666,
+        "shock_component_moves_out_of_optimum": true
+      },
+      "digest": "b89fb823d640b4db74c06cc07bcd37a208a7b8bdc23b5373659872a2182a6931",
+      "seed": 503
+    },
+    {
+      "certification": {
+        "post_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_economy",
+          "model_economy__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "post_oracle_margin": 0.010313333333333397,
+        "post_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_economy",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "post_oracle_utility": 0.45319666666666675,
+        "pre_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_balanced",
+          "model_balanced__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "pre_oracle_margin": 0.010313333333333397,
+        "pre_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_balanced",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "pre_oracle_utility": 0.46761333333333344,
+        "shared_edge_fraction": 0.6666666666666666,
+        "shock_component_moves_out_of_optimum": true
+      },
+      "digest": "7e5fac3a050ece0d02f37f4a0187ba326d6b156114e59ae839aaf4610d728138",
+      "seed": 601
+    },
+    {
+      "certification": {
+        "post_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_economy",
+          "model_economy__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "post_oracle_margin": 0.010313333333333397,
+        "post_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_economy",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "post_oracle_utility": 0.45319666666666675,
+        "pre_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_balanced",
+          "model_balanced__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "pre_oracle_margin": 0.010313333333333397,
+        "pre_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_balanced",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "pre_oracle_utility": 0.46761333333333344,
+        "shared_edge_fraction": 0.6666666666666666,
+        "shock_component_moves_out_of_optimum": true
+      },
+      "digest": "ab5c4196094e25c531f95b736a44374ad889c3191593e573880acaa191859982",
+      "seed": 701
+    },
+    {
+      "certification": {
+        "post_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_economy",
+          "model_economy__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "post_oracle_margin": 0.010313333333333397,
+        "post_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_economy",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "post_oracle_utility": 0.45319666666666675,
+        "pre_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_balanced",
+          "model_balanced__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "pre_oracle_margin": 0.010313333333333397,
+        "pre_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_balanced",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "pre_oracle_utility": 0.46761333333333344,
+        "shared_edge_fraction": 0.6666666666666666,
+        "shock_component_moves_out_of_optimum": true
+      },
+      "digest": "b3d7f9a976e8648049988e4aaed37e3108f3c82e75c9ddfae6a03f375cd7a377",
+      "seed": 809
+    },
+    {
+      "certification": {
+        "post_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_economy",
+          "model_economy__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "post_oracle_margin": 0.010313333333333397,
+        "post_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_economy",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "post_oracle_utility": 0.45319666666666675,
+        "pre_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_balanced",
+          "model_balanced__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "pre_oracle_margin": 0.010313333333333397,
+        "pre_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_balanced",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "pre_oracle_utility": 0.46761333333333344,
+        "shared_edge_fraction": 0.6666666666666666,
+        "shock_component_moves_out_of_optimum": true
+      },
+      "digest": "fa3994f548f49696a76ed5ddfe9eb985bbedd1fccde280803c755754c0588f53",
+      "seed": 907
+    },
+    {
+      "certification": {
+        "post_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_economy",
+          "model_economy__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "post_oracle_margin": 0.010313333333333397,
+        "post_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_economy",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "post_oracle_utility": 0.45319666666666675,
+        "pre_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_balanced",
+          "model_balanced__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "pre_oracle_margin": 0.010313333333333397,
+        "pre_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_balanced",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "pre_oracle_utility": 0.46761333333333344,
+        "shared_edge_fraction": 0.6666666666666666,
+        "shock_component_moves_out_of_optimum": true
+      },
+      "digest": "ff68543cbbfdb381b7410b94b9e73d6bae2a3ced3373554ea9e154f4e4d2b32f",
+      "seed": 1009
+    },
+    {
+      "certification": {
+        "post_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_economy",
+          "model_economy__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "post_oracle_margin": 0.010313333333333397,
+        "post_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_economy",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "post_oracle_utility": 0.45319666666666675,
+        "pre_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_balanced",
+          "model_balanced__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "pre_oracle_margin": 0.010313333333333397,
+        "pre_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_balanced",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "pre_oracle_utility": 0.46761333333333344,
+        "shared_edge_fraction": 0.6666666666666666,
+        "shock_component_moves_out_of_optimum": true
+      },
+      "digest": "0fb3275a7b63ac8f73202572a7ec6117a78e61ec1c35302a74a1dd4adba4f308",
+      "seed": 1103
+    },
+    {
+      "certification": {
+        "post_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_economy",
+          "model_economy__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "post_oracle_margin": 0.010313333333333397,
+        "post_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_economy",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "post_oracle_utility": 0.45319666666666675,
+        "pre_oracle_edges": [
+          "source__prompt_structured",
+          "prompt_structured__retriever_hybrid",
+          "retriever_hybrid__model_balanced",
+          "model_balanced__guardrail_strict",
+          "guardrail_strict__output_detailed",
+          "output_detailed__sink"
+        ],
+        "pre_oracle_margin": 0.010313333333333397,
+        "pre_oracle_nodes": [
+          "source",
+          "prompt_structured",
+          "retriever_hybrid",
+          "model_balanced",
+          "guardrail_strict",
+          "output_detailed",
+          "sink"
+        ],
+        "pre_oracle_utility": 0.46761333333333344,
+        "shared_edge_fraction": 0.6666666666666666,
+        "shock_component_moves_out_of_optimum": true
+      },
+      "digest": "830ee0c2e8536a34467a2e78b1b4894547f8d5e3e123ef0a4ddb5cdbe5f0fce6",
+      "seed": 1201
+    }
+  ]
+}

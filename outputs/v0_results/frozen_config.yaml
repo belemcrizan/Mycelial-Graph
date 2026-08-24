@@ -1,0 +1,141 @@
+project:
+  name: Mycelial Graph
+  version: 0.0.0
+  status: V0 demonstrator
+  author: "Crizan Bel\xE9m Ribeiro"
+  affiliation: Independent Researcher
+experiment:
+  steps: 240
+  shock_step: 100
+  development_seeds:
+  - 17
+  - 29
+  - 43
+  - 59
+  - 71
+  seeds:
+  - 101
+  - 211
+  - 307
+  - 401
+  - 503
+  - 601
+  - 701
+  - 809
+  - 907
+  - 1009
+  - 1103
+  - 1201
+  recovery_window: 10
+  recovery_tolerance: 0.02
+  minimum_oracle_margin: 0.005
+  quality_threshold: 0.72
+  latency_sla_ms: 1500.0
+  cost_normalizer_usd: 0.02
+  latency_normalizer_ms: 1500.0
+mycelial:
+  temporal_decay: 0.002
+  plasticity: 0.8
+  exploration_reinforcement: 0.02
+  temperature: 0.35
+  initial_conductance: 0.5
+  min_conductance: 0.01
+  max_conductance: 5.0
+  explicit_exploration: 0.15
+baselines:
+  semi_bandit_exploration: 0.5
+  shortest_path_ewma: 0.25
+reward:
+  quality: 0.55
+  latency: 0.05
+  cost: 0.3
+  failure: 0.05
+  load: 0.05
+policy:
+  blocked_components: []
+  max_component_cost_usd: 0.02
+shock:
+  component: model_balanced
+  quality_multiplier: 0.1
+  latency_multiplier: 2.8
+  cost_multiplier: 1.1
+  reliability_multiplier: 0.5
+  minimum_load: 0.95
+graph:
+  layers:
+  - name: prompt
+    components:
+    - id: prompt_compact
+      quality: 0.72
+      latency_ms: 18.0
+      cost_usd: 2.0e-05
+      reliability: 0.998
+      load: 0.3
+    - id: prompt_structured
+      quality: 0.88
+      latency_ms: 35.0
+      cost_usd: 8.0e-05
+      reliability: 0.998
+      load: 0.38
+  - name: retriever
+    components:
+    - id: retriever_keyword
+      quality: 0.7
+      latency_ms: 35.0
+      cost_usd: 0.0001
+      reliability: 0.997
+      load: 0.34
+    - id: retriever_hybrid
+      quality: 0.9
+      latency_ms: 85.0
+      cost_usd: 0.0005
+      reliability: 0.994
+      load: 0.47
+  - name: model
+    components:
+    - id: model_economy
+      quality: 0.74
+      latency_ms: 180.0
+      cost_usd: 0.001
+      reliability: 0.99
+      load: 0.42
+    - id: model_balanced
+      quality: 0.94
+      latency_ms: 260.0
+      cost_usd: 0.003
+      reliability: 0.985
+      load: 0.52
+    - id: model_premium
+      quality: 0.96
+      latency_ms: 520.0
+      cost_usd: 0.012
+      reliability: 0.98
+      load: 0.68
+  - name: guardrail
+    components:
+    - id: guardrail_standard
+      quality: 0.82
+      latency_ms: 30.0
+      cost_usd: 0.0001
+      reliability: 0.998
+      load: 0.28
+    - id: guardrail_strict
+      quality: 0.93
+      latency_ms: 70.0
+      cost_usd: 0.0002
+      reliability: 0.996
+      load: 0.4
+  - name: output
+    components:
+    - id: output_concise
+      quality: 0.82
+      latency_ms: 12.0
+      cost_usd: 1.0e-05
+      reliability: 0.999
+      load: 0.2
+    - id: output_detailed
+      quality: 0.92
+      latency_ms: 25.0
+      cost_usd: 3.0e-05
+      reliability: 0.998
+      load: 0.25
