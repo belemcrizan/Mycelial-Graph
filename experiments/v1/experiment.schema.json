@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/mycelial-graph/mg-exp-v1-result.schema.json",
+  "title": "Mycelial Graph V1 paired scenario result",
+  "type": "object",
+  "required": ["scientific_payload", "provenance"],
+  "additionalProperties": false,
+  "properties": {
+    "scientific_payload": {
+      "type": "object",
+      "required": [
+        "scenario_hash",
+        "scenario_id",
+        "rho",
+        "seed",
+        "shock_l2_norm",
+        "optimal_pre_path",
+        "optimal_post_path",
+        "results"
+      ],
+      "properties": {
+        "scenario_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "scenario_id": {"type": "string", "minLength": 1},
+        "rho": {"type": "number", "minimum": 0, "maximum": 1},
+        "seed": {"type": "integer", "minimum": 0},
+        "shock_l2_norm": {"type": "number", "exclusiveMinimum": 0},
+        "shock_node": {"type": "integer", "minimum": 0},
+        "interaction_edge": {"type": "integer", "minimum": 0},
+        "optimal_pre_path": {"type": "array", "items": {"type": "integer"}},
+        "optimal_post_path": {"type": "array", "items": {"type": "integer"}},
+        "results": {
+          "type": "array",
+          "minItems": 2,
+          "items": {"$ref": "#/$defs/trialResult"}
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["completed_at_utc", "python", "platform"],
+      "properties": {
+        "completed_at_utc": {"type": "string"},
+        "python": {"type": "string"},
+        "platform": {"type": "string"}
+      }
+    }
+  },
+  "$defs": {
+    "trialResult": {
+      "type": "object",
+      "required": [
+        "trial_id",
+        "scenario_id",
+        "protocol_version",
+        "config_hash",
+        "code_commit",
+        "rho",
+        "seed",
+        "method",
+        "method_status",
+        "recovery_time",
+        "restricted_recovery_time",
+        "recovered",
+        "censored",
+        "dynamic_regret",
+        "final_expected_utility",
+        "pre_shock_steps",
+        "post_shock_steps",
+        "decision_cpu_seconds",
+        "trace_ref"
+      ],
+      "properties": {
+        "trial_id": {"type": "string"},
+        "scenario_id": {"type": "string"},
+        "protocol_version": {"const": "MG-EXP-V1"},
+        "config_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "code_commit": {"type": "string"},
+        "rho": {"type": "number", "minimum": 0, "maximum": 1},
+        "seed": {"type": "integer", "minimum": 0},
+        "method": {
+          "enum": ["edge_only", "node_only", "hierarchical", "structured_sw_ucb"]
+        },
+        "method_status": {"enum": ["completed", "method_failure", "timeout"]},
+        "recovery_time": {
+          "anyOf": [
+            {"type": "integer", "minimum": 1},
+            {"type": "null"}
+          ]
+        },
+        "restricted_recovery_time": {"type": "integer", "minimum": 1},
+        "recovered": {"type": "boolean"},
+        "censored": {"type": "boolean"},
+        "dynamic_regret": {"type": "number", "minimum": 0},
+        "final_expected_utility": {"type": "number", "minimum": 0, "maximum": 1},
+        "pre_shock_steps": {"type": "integer", "minimum": 1},
+        "post_shock_steps": {"type": "integer", "minimum": 1},
+        "decision_cpu_seconds": {"type": "number", "minimum": 0},
+        "trace_ref": {"type": "string"}
+      }
+    }
+  }
+}
+

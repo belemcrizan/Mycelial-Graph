@@ -1,131 +1,99 @@
-# Mycelial Graph V0
+# Mycelial Graph V1 Research Edition
 
-Local adaptation and structural reuse in dynamic AI execution graphs.
+Mycelial Graph studies a practical question: **can an AI execution system recover from a local disruption without relearning everything?**
 
-**Author:** Crizan Belém Ribeiro  
-**Affiliation:** Independent Researcher, São Paulo, Brazil  
-**Status:** V0 executable demonstrator - not a scientific result
+Modern AI work rarely uses one model in isolation. A task may cross a prompt strategy, retriever, model, tool, guardrail, parser, cloud region, and fallback. Mycelial Graph represents these choices as a directed graph. Like an adaptive transport network, frequently useful connections become easier to select, degraded connections weaken, and unaffected structure can retain what it already learned.
 
-## The idea in one minute
+This repository is a reproducible research implementation by **Crizan Belem Ribeiro, Independent Researcher**. It is not a production router and it does not claim that the hierarchical method is superior. Its purpose is to test that claim fairly.
 
-An AI request rarely uses only one model. It may cross a prompt strategy, retriever, model, guardrail, and output formatter. Each stage can have alternatives, so the number of complete routes grows quickly. Prices, latency, quality, load, and availability can also change while the system is running.
+## What changed from V0
 
-Mycelial Graph asks a narrow, falsifiable question: **when a change damages only one part of this graph, can local edge adaptation preserve useful knowledge about the parts that still work?**
+V0 demonstrated local edge conductance. V1 preserves that mechanism and adds the scientific controls needed to determine *why* a method wins:
 
-V0 turns that question into runnable software. Every directed edge stores a conductance. A traversed edge is reinforced or attenuated from local observations; inactive state decays; routing uses a temperature-controlled softmax; and a small, separately logged exploration probability keeps alternatives reachable. Hard security and policy constraints are applied before any soft score.
+- immutable scenarios with identical potential outcomes for every method;
+- isolated random-number streams for environment and agents;
+- edge-only, node-only, hierarchical node-edge, and structured SW-UCB conditions;
+- controlled shared-shock fraction `rho` with constant total shock magnitude;
+- pre/post optimum certification;
+- censoring-aware restricted recovery time;
+- paired bootstrap analysis and explicit decision gates;
+- atomic checkpoints, manifests, trace hashes, and automatic reports;
+- a locked confirmatory configuration that cannot run before sample size is recorded.
 
-## What you can demonstrate today
+## The idea in one picture
 
-The included simulation builds this graph:
+```text
+Task -> Prompt -> Retriever -> Model -> Guardrail -> Output
+          \          \          \
+           alternative nodes and edges at each stage
 
-```mermaid
-flowchart TD
-    T["Task"] --> P["Prompt: 2 alternatives"]
-    P --> R["Retriever: 2 alternatives"]
-    R --> M["Model: 3 alternatives"]
-    M --> G["Guardrail: 2 alternatives"]
-    G --> O["Output: 2 alternatives"]
+Local observations -> adaptive state -> next route
+                              |
+                 edge-only / node-only / hierarchical
 ```
 
-That creates 48 complete execution paths. The runner pre-generates all outcomes, executes a localized shock against `model_balanced`, gives each method feedback only for its traversed edges, and produces:
+The critical comparison is not “adaptive versus nothing.” It asks whether sharing state through nodes accelerates recovery when a disruption is genuinely shared, without causing unacceptable negative transfer when it is edge-specific.
 
-- a human-readable Markdown report;
-- machine-readable JSON results;
-- compressed immutable trials with SHA-256 hashes;
-- trace samples before and after the shock;
-- recovery, censoring, CPST, SER, success, utility, time, and operation metrics.
+## Quick start - Windows PowerShell
 
-## Five-minute run
-
-Requirements: Python 3.11 or newer.
-
-```bash
+```powershell
 python -m venv .venv
-source .venv/bin/activate          # Windows PowerShell: .venv\Scripts\Activate.ps1
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
+& .\.venv\Scripts\Activate.ps1
 python -m pip install -e .
+mycelial-graph validate --config experiments/v1/config.development.yaml
 mycelial-graph demo
 ```
 
-Open:
+If you prefer not to activate the environment:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -e .
+.\.venv\Scripts\mycelial-graph.exe demo
+```
+
+The demo writes raw paired trials, processed statistics, figures, a manifest, and `REPORT.md` under `outputs/demo/`. It is explicitly development-only evidence.
+
+## Scientific workflow
 
 ```text
-outputs/demo/REPORT.md
-outputs/demo/results.json
+development seeds -> implementation checks
+pilot seeds       -> variance and sample-size calculation
+addendum          -> fixes N and selects first N seeds mechanically
+confirmatory run  -> frozen execution with no tuning
+report            -> pass, conditional result, inconclusive, or refuted
 ```
 
-Run the configured 12-seed comparison:
-
-```bash
-mycelial-graph experiment --output outputs/v0_results
-```
-
-Run the invariant and integration tests:
-
-```bash
-python -m unittest discover -s tests -v
-```
-
-Run without installation:
-
-```bash
-PYTHONPATH=src python -m mycelial_graph demo
-```
+The confirmatory configuration deliberately points to a missing `seeds.confirmatory.txt`. This is an execution lock, not a packaging error. Follow [`experiments/v1/SAMPLE_SIZE_ADDENDUM.md`](experiments/v1/SAMPLE_SIZE_ADDENDUM.md) after the pilot.
 
 ## Commands
 
-| Command | Purpose |
-| --- | --- |
-| `mycelial-graph demo` | One-seed walkthrough with report generation |
-| `mycelial-graph experiment` | Configured multi-seed V0 comparison |
-| `mycelial-graph freeze --seed 101` | Pre-generate and hash one immutable trial |
-
-Use `--config`, `--output`, or `--seeds 101,211` to override paths or the seed set. The generated output always includes the exact frozen configuration used.
-
-## Scope freeze
-
-V0 contains only:
-
-1. per-edge conductance;
-2. lazy temporal decay;
-3. strictly local feedback;
-4. probabilistic local routing;
-5. explicit basal exploration;
-6. a hard constraint boundary outside soft rewards.
-
-V0 intentionally excludes reinforcement learning, graph neural networks, predictive failure models, federated learning, production-provider integrations, and architecture recommendations. Those additions are deferred until the frozen hypotheses justify more complexity.
-
-## Scientific honesty
-
-This repository proves that the experimental loop is implementable and auditable. It does **not** prove that Mycelial Graph is better than structured bandits or dynamic shortest-path methods. H1, H2, and H3 require a larger frozen benchmark, disjoint tuning and evaluation seeds, strong verified baselines, causal shared-structure manipulation, ablations, and censoring-aware statistics.
-
-The checked-in report in `outputs/v0_results/REPORT.md` contains observations from the V0 run. It must not be presented as a paper result.
-
-## Documentation map
-
-| Reader | Start here |
-| --- | --- |
-| Non-technical stakeholder | [Plain-language overview](docs/OVERVIEW.md) |
-| Engineer applying the POC | [Quickstart and operations](docs/QUICKSTART.md) |
-| Architect or researcher | [Architecture](docs/ARCHITECTURE.md) |
-| Specification reviewer | [Specification alignment](docs/SPECIFICATION_ALIGNMENT.md) |
-| Reviewer or experiment owner | [Experimental protocol](docs/EXPERIMENT_PROTOCOL.md) |
-| Hyperparameter reviewer | [Development tuning note](docs/DEVELOPMENT_TUNING.md) |
-| Results reader | [Results guide](docs/RESULTS_GUIDE.md) |
-| Cloud validation team | [Single-cloud validation plan](docs/CLOUD_VALIDATION.md) |
-| Security or governance reviewer | [Security boundary](docs/SECURITY.md) |
-| Roadmap owner | [Evidence-gated roadmap](docs/ROADMAP.md) |
-| Any reader | [Glossary](docs/GLOSSARY.md) |
-
-## Repository layout
-
-```text
-configs/                  Frozen V0 YAML
-docs/                     Audience-layered documentation
-src/mycelial_graph/       Executable package
-tests/                    Unit and integration tests
-outputs/v0_results/       Reproducible V0 report and trial artifacts
+```powershell
+mycelial-graph validate --config experiments/v1/config.pilot.yaml
+mycelial-graph experiment --config experiments/v1/config.pilot.yaml --output outputs/pilot --workers 4
+mycelial-graph analyze --config experiments/v1/config.pilot.yaml --output outputs/pilot
+mycelial-graph report --config experiments/v1/config.pilot.yaml --output outputs/pilot
+mycelial-graph sample-size --config experiments/v1/config.pilot.yaml --output outputs/pilot
 ```
+
+## Read next
+
+- [Getting Started](docs/GETTING_STARTED.md) - step-by-step instructions for non-specialists.
+- [Architecture](docs/ARCHITECTURE.md) - system boundaries and data flow.
+- [Frozen Experiment Protocol](experiments/v1/EXPERIMENT_PROTOCOL_V1.md) - hypotheses and immutable rules.
+- [Analysis Plan](experiments/v1/ANALYSIS_PLAN.md) - estimands, bootstrap, gates, and interpretation.
+- [Roadmap](docs/ROADMAP.md) - evidence-gated growth toward real providers and cloud tests.
+- [Sustainability](docs/SUSTAINABILITY.md) - technical, financial, scientific, and environmental sustainability.
+- [Migration from V0](docs/MIGRATION_FROM_V0.md) - how to integrate the three prototypes without a blind code merge.
+
+## Honest status
+
+- The development demonstrator is executable.
+- The pilot and confirmatory machinery are present.
+- No confirmatory run is included.
+- No cloud-provider superiority, convergence theorem, or production-readiness claim is made.
+- A positive development result is not evidence for publication.
 
 ## License
 
-MIT License. Research claims and authorship are not transferred by the software license.
+Apache-2.0. See [LICENSE](LICENSE).
