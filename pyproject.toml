@@ -1,21 +1,25 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=70", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "mycelial-graph"
-version = "0.0.0"
-description = "V0 demonstrator for local adaptation in dynamic AI execution graphs"
+version = "0.1.0"
+description = "A reproducible research framework for local adaptation and structural reuse in dynamic AI execution graphs."
 readme = "README.md"
 requires-python = ">=3.11"
-license = {text = "MIT"}
-authors = [
-  {name = "Crizan Belém Ribeiro"}
+license = {text = "Apache-2.0"}
+authors = [{name = "Crizan Belem Ribeiro"}]
+dependencies = [
+  "PyYAML>=6.0",
+  "numpy>=1.26",
+  "scipy>=1.11",
+  "matplotlib>=3.8",
 ]
-dependencies = ["PyYAML>=6.0"]
 
 [project.scripts]
 mycelial-graph = "mycelial_graph.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+

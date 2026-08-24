@@ -1,20 +1,28 @@
 # Glossary
 
-| Term | Plain meaning | Technical meaning |
-| --- | --- | --- |
-| AI execution graph | The available ways an AI task can be completed | Typed directed acyclic graph of execution components |
-| Edge | A connection between two choices | Directed transition `(u, v)` with local state |
-| Conductance | How attractive a connection currently is | Bounded scalar `g_e` used in local softmax routing |
-| Temporal decay | Old confidence gradually fades | Lazy multiplication by `(1 - lambda)^delta` |
-| Local feedback | A connection learns only from what happened there | Edge observation with quality, latency, cost, failure, and load |
-| Basal exploration | Occasional deliberate testing of alternatives | Separately logged uniform choice with probability `p_expl` |
-| Hard policy | A rule optimization cannot override | Pre-routing feasibility filter |
-| Sparse shock | A sudden problem in a small part of the system | Localized change affecting one or few graph components |
-| Structural reuse | Keeping useful knowledge about unaffected routes | Reduced post-shock relearning associated with shared unaffected edges |
-| SRC | Feedback needed for stable recovery | Sample Recovery Cost under a sustained criterion |
-| CPST | Cost of useful work | Cost per Successful Task |
-| SER | Unnecessary rechecking of healthy structure | Structural Re-exploration Rate |
-| Right-censored | Recovery was not observed in time | Event time exceeds the observation horizon and is not replaced by the bound |
-| Frozen trial | The same world used for fair comparison | Pre-generated potential outcomes, schedule, seed, and digest |
-| Oracle | Perfect descriptive reference | Best path under known current expected utility; not deployable |
+**Agent** - A routing method evaluated in the benchmark; not necessarily an LLM agent.
+
+**Conductance** - Adaptive numeric state associated with a connection. Higher conductance increases selection probability in the Mycelial policy.
+
+**Dynamic regret** - Cumulative difference between the expected utility of the time-specific oracle and the selected paths.
+
+**Edge interaction** - Behavior specific to one directed source-target connection.
+
+**Immutable scenario** - A frozen graph, shock, optimum, and table of potential outcomes shared by every method.
+
+**Negative transfer** - Damage caused by sharing information across components when the underlying effect is actually specific.
+
+**Oracle** - An unattainable reference that knows expected utilities. It validates the simulator and defines regret; it is not a competing deployable method.
+
+**Partial pooling** - Sharing some learned state through nodes while retaining edge-specific residual state.
+
+**Restricted recovery time (RRT)** - `min(recovery_time, post_shock_horizon)` for an individual trial.
+
+**Restricted mean survival time (RMST)** - Group-level mean time without the recovery event, restricted to a fixed horizon. With only administrative censoring at that horizon, mean RRT is its direct estimate.
+
+**rho** - Controlled fraction of squared shock magnitude assigned to the shared node component.
+
+**Semi-bandit feedback** - A composite path is selected, and local outcomes are observed for traversed components.
+
+**Structural reuse** - Retaining useful learned state on unaffected or shared parts of the graph after a local change.
 

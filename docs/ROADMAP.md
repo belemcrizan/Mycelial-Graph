@@ -1,34 +1,66 @@
-# Evidence-gated roadmap
+# Evidence-Gated Roadmap
 
-## Gate 0 - V0 executable demonstrator
+The roadmap separates scientific evidence from product capability. Features advance only when a measured bottleneck or validated hypothesis justifies them.
 
-**Included:** local simulation, frozen YAML, immutable trials, Mycelial dynamics, reference comparators, hard-policy boundary, tests, metrics, report generation.
+## Current: V1 research edition
 
-**Exit condition:** all invariant and integration tests pass; the multi-seed run is reproducible; limitations are explicit.
+Goal: determine whether hierarchical node-edge state has a measurable recovery advantage under controlled shared shocks.
 
-## Gate 1 - Scientific V1
+Exit evidence:
 
-**Add:** verified unique optima, causal shared-fraction generator, disjoint development/evaluation seeds, strong reviewed baselines, H1-H3 matrix, ablations, confidence intervals, effect sizes, and survival analysis when required.
+- independent pilot completed;
+- sample size frozen;
+- confirmatory data collected without tuning;
+- primary and non-inferiority gates evaluated;
+- limitations and negative results reported.
 
-**Exit condition:** results survive baseline review and the hypotheses are supported, qualified, or falsified without changing the frozen protocol after inspection.
+## Next: single-cloud POC
 
-## Gate 2 - Single-cloud POCs
+Choose one cloud only after V1. The first cloud POC should use two or three interchangeable model endpoints behind a narrow task contract.
 
-Run AWS, Azure, and GCP separately. Each cloud receives the same adapter interface, workload, hard policy, task success definition, and observation schema. Do not route between clouds yet.
+Recommended sequence:
 
-**Exit condition:** metrics reconcile with provider telemetry and billing; failure injection, fallback, kill switch, privacy controls, and reruns are auditable in each environment.
+1. capture immutable price, latency, availability, and quality traces;
+2. replay those traces locally using the V1 runner;
+3. execute a bounded live canary with spending and safety limits;
+4. compare fixed routing, structured SW-UCB, and the evidence-supported MG variant;
+5. publish cost per successful task, quality, p95 latency, failure rate, and recovery behavior.
 
-## Gate 3 - Narrow multi-provider gateway
+Cloud choice criteria:
 
-Route one well-defined task type among a small allowlist of models. Optimize CPST subject to quality, latency, reliability, policy, residency, and budget constraints.
+- credits or low experimental cost;
+- reproducible model/version pinning;
+- telemetry export;
+- straightforward budget limits;
+- availability of at least two meaningful routing alternatives;
+- minimal operational work for one researcher.
 
-**Exit condition:** shadow-mode evidence and staged canary tests show material value without policy violations or unacceptable tail risk.
+## Later: composite pipelines
 
-## Gate 4 - Composite AI pipelines
+If the single-cloud POC validates operational value, extend the graph to retrievers, tools, caches, guardrails, and local/cloud compute. Add hard policy constraints outside the soft utility function.
 
-Extend the graph to prompt strategies, retrieval, caches, tools, guardrails, parsers, and local/cloud compute. Add capacity constraints and production observability.
+## Later: multicloud execution fabric
 
-## Gate 5 - Enterprise execution fabric
+Multicloud is not the next step. It becomes justified only after the project demonstrates provider-specific value and identifies a real availability, sovereignty, or cost risk that one cloud cannot address.
 
-Only after earlier evidence may the project consider hierarchical multi-cloud graphs, forecasting, architecture-level recommendations, or additional learning mechanisms. These are roadmap possibilities, not current claims.
+Possible later capabilities:
+
+- provider adapters and frozen trace ingestion;
+- fallback and rollback boundaries;
+- capacity and quota constraints;
+- auditable policy enforcement;
+- graph discovery;
+- distributed state and consensus;
+- interactive operations dashboard.
+
+## Orchestration gate
+
+Do not add an external orchestrator until at least one condition is observed:
+
+- local execution cannot meet the planned experiment duration;
+- partial infrastructure failure loses meaningful work despite atomic checkpoints;
+- more than one compute node is required;
+- dependency-aware pipelines become more complex than independent trial maps.
+
+Until then, `ProcessPoolExecutor` is sufficient.
 

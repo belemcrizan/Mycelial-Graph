@@ -1,98 +1,108 @@
-"""Command-line entry point for Mycelial Graph V0."""
-
 from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
-from typing import Iterable
 
-import yaml
-
-from .config import load_config
-from .experiment import run_experiment
-from .graph import HardPolicy, LayeredGraph
-from .report import write_report
-from .trial import FrozenTrial
+from .types import load_config
+from .validation import require_valid_config, validate_config
 
 
-def _seeds(value: str | None) -> Iterable[int] | None:
-    if value is None:
-        return None
-    parsed = tuple(int(item.strip()) for item in value.split(",") if item.strip())
-    if not parsed:
-        raise argparse.ArgumentTypeError("--seeds needs at least one integer")
-    return parsed
-
-
-def _snapshot_config(config: dict, output: Path) -> None:
-    with (output / "frozen_config.yaml").open("w", encoding="utf-8") as stream:
-        yaml.safe_dump(config, stream, sort_keys=False)
-
-
-def _run(args: argparse.Namespace, *, demo: bool) -> int:
-    frozen = load_config(args.config)
-    config = frozen.copy()
-    output = Path(args.output).resolve()
-    selected = _seeds(args.seeds)
-    if demo and selected is None:
-        selected = (int(config["experiment"]["seeds"][0]),)
-    results = run_experiment(
-        config,
-        output,
-        seeds=selected,
-        save_trials=not args.no_save_trials,
-    )
-    _snapshot_config(config, output)
-    report = write_report(results, output / "REPORT.md")
-    print(f"Mycelial Graph {config['project']['version']} completed.")
-    print(f"Results: {output / 'results.json'}")
-    print(f"Report:  {report}")
-    print("Scientific status: demonstrator only; H1/H2/H3 remain untested.")
-    return 0
-
-
-def _freeze(args: argparse.Namespace) -> int:
-    frozen = load_config(args.config)
-    config = frozen.copy()
-    graph = LayeredGraph.from_config(config["graph"])
-    HardPolicy.from_config(config["policy"])
-    trial = FrozenTrial.generate(graph, config, int(args.seed))
-    target = trial.save(Path(args.output).resolve())
-    print(json.dumps({"path": str(target), "seed": trial.seed, "sha256": trial.digest}, indent=2))
-    return 0
-
-
-def build_parser() -> argparse.ArgumentParser:
+def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="mycelial-graph",
-        description="Run the Mycelial Graph V0 synthetic demonstrator.",
+        description="Reproducible experiments for adaptive AI execution graphs.",
     )
-    subparsers = parser.add_subparsers(dest="command", required=True)
-    for name, help_text in (
-        ("demo", "run one seed and generate a compact report"),
-        ("experiment", "run the configured multi-seed V0 comparison"),
-    ):
-        command = subparsers.add_parser(name, help=help_text)
-        command.add_argument("--config", default="configs/v0_demo.yaml")
-        command.add_argument(
-            "--output",
-            default="outputs/demo" if name == "demo" else "outputs/v0_results",
-        )
-        command.add_argument("--seeds", help="comma-separated override, for example 101,211")
-        command.add_argument("--no-save-trials", action="store_true")
-        command.set_defaults(handler=lambda args, demo=(name == "demo"): _run(args, demo=demo))
+    sub = parser.add_subparsers(dest="command", required=True)
 
-    freeze = subparsers.add_parser("freeze", help="pre-generate one immutable trial")
-    freeze.add_argument("--config", default="configs/v0_demo.yaml")
-    freeze.add_argument("--seed", type=int, default=101)
-    freeze.add_argument("--output", default="outputs/trial_seed_101.json.gz")
-    freeze.set_defaults(handler=_freeze)
+    validate = sub.add_parser("validate", help="Validate a frozen YAML configuration.")
+    validate.add_argument("--config", required=True)
+
+    experiment = sub.add_parser("experiment", help="Run paired immutable scenarios.")
+    experiment.add_argument("--config", required=True)
+    experiment.add_argument("--output", required=True)
+    experiment.add_argument("--workers", type=int, default=1)
+
+    analyze = sub.add_parser("analyze", help="Run the frozen paired analysis.")
+    analyze.add_argument("--config", required=True)
+    analyze.add_argument("--output", required=True)
+
+    report = sub.add_parser("report", help="Generate Markdown and static figures.")
+    report.add_argument("--config", required=True)
+    report.add_argument("--output", required=True)
+
+    power = sub.add_parser("sample-size", help="Estimate confirmatory N from pilot pairs.")
+    power.add_argument("--config", required=True)
+    power.add_argument("--output", required=True)
+    power.add_argument("--power", type=float, default=0.80)
+
+    demo = sub.add_parser("demo", help="Run the non-confirmatory demonstrator end to end.")
+    demo.add_argument("--output", default="outputs/demo")
+    demo.add_argument("--workers", type=int, default=1)
     return parser
 
 
-def main(argv: list[str] | None = None) -> None:
-    parser = build_parser()
-    args = parser.parse_args(argv)
-    raise SystemExit(args.handler(args))
+def _default_demo_config() -> Path:
+    return Path(__file__).resolve().parents[2] / "experiments" / "v1" / "config.development.yaml"
 
+
+def main(argv: list[str] | None = None) -> int:
+    args = _parser().parse_args(argv)
+    try:
+        if args.command == "validate":
+            config = load_config(args.config)
+            errors = validate_config(config)
+            if errors:
+                print(json.dumps({"valid": False, "errors": errors}, indent=2))
+                return 2
+            print(json.dumps({"valid": True, "config": str(config.source_path)}, indent=2))
+            return 0
+
+        if args.command == "demo":
+            from .analysis import analyze_results
+            from .reporting import generate_report
+            from .runner import run_experiment
+
+            config_path = _default_demo_config()
+            config = load_config(config_path)
+            require_valid_config(config)
+            manifest = run_experiment(config, args.output, args.workers)
+            analysis = analyze_results(config, args.output)
+            report = generate_report(config, args.output)
+            print("Mycelial Graph V1 development demonstrator completed.")
+            print(f"Manifest: {manifest}")
+            print(f"Analysis: {analysis}")
+            print(f"Report:   {report}")
+            print("Scientific status: development-only; no confirmatory claim.")
+            return 0
+
+        config = load_config(args.config)
+        require_valid_config(config)
+        if args.command == "experiment":
+            from .runner import run_experiment
+
+            path = run_experiment(config, args.output, args.workers)
+        elif args.command == "analyze":
+            from .analysis import analyze_results
+
+            path = analyze_results(config, args.output)
+        elif args.command == "report":
+            from .reporting import generate_report
+
+            path = generate_report(config, args.output)
+        elif args.command == "sample-size":
+            from .analysis.power import estimate_confirmatory_sample_size
+
+            path = estimate_confirmatory_sample_size(config, args.output, args.power)
+        else:
+            raise RuntimeError(f"Unhandled command: {args.command}")
+        print(path)
+        return 0
+    except Exception as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

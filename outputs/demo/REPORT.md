@@ -1,91 +1,65 @@
-# Mycelial Graph V0 - Demonstration Report
+# Mycelial Graph V1 - Experiment Report
 
-**Author:** Crizan Belém Ribeiro, Independent Researcher  
-**Generated:** 2026-08-24T14:38:47.463130+00:00  
-**Scientific status:** descriptive V0 engineering run; no H1, H2, or H3 validation claim
+**Protocol:** `MG-EXP-V1`  
+**Experiment:** `MG-EXP-V1-DEVELOPMENT`  
+**Run kind:** `development`
 
-## Executive summary
+> This is a development/pilot execution. It must not be presented as confirmatory evidence.
 
-This run shows that the proposed architecture can be executed end to end. A synthetic AI pipeline was routed repeatedly, one model component was degraded at step 100, each policy adapted only from the feedback made available to it, and the runner produced auditable metrics and frozen-trial hashes.
+## Executive result
 
-In plain language, the system behaves like a network of routes between service choices. Mycelial V0 gives every connection a local "conductance." Helpful observations strengthen a traversed connection, unhelpful observations weaken it, unused state decays, and a small explicit exploration rate keeps alternatives discoverable. Hard policy constraints are checked before any soft score.
+At rho=0.50, the estimated relative difference in mean restricted recovery time for hierarchical versus edge-only was **98.7%** (bootstrap 1.653% to 250.000%; one-sided upper bound 225.096%).
+Negative values mean faster hierarchical recovery; positive values mean slower hierarchical recovery.
 
-Across this bounded demonstration, the lowest descriptive Cost per Successful Task (CPST) was produced by **Reactive shortest path (reference)**. The highest recovery probability was shared by **Reactive shortest path (reference), Structured semi-bandit (reference)**. These are observations from a synthetic V0, not evidence that one method is generally superior.
+The promotion gate is **NOT PASSED**. This decision is meaningful only for a confirmatory run.
 
-## What was executed
+## Decision gate
 
-- 1 immutable seeds, with 240 tasks per policy and seed.
-- A 48-path DAG with 13 nodes and 24 directed edges.
-- One localized, abrupt degradation at task 100.
-- Mycelial V0 plus two transparent reference baselines.
-- Pre-generated potential outcomes shared across methods within every seed.
-- Local feedback only: a router observes only the edges it traversed.
-- The pre-shock optimum includes `model_balanced`; the post-shock optimum replaces it with `model_economy`.
-- The certified optima share 66.7% of their directed edges, with pre/post utility margins of 0.0103 and 0.0103.
+| Requirement | Result |
+|---|---:|
+| Statistical superiority | False |
+| Estimated engineering gain | False |
+| Non-inferiority at rho=0 | False |
+| Promote hierarchical state | False |
 
-## Representative trace - seed 101
+## Group metrics
 
-This trace makes the POC visible at four checkpoints. It is a debugging view, not an aggregate result.
+| rho | Method | Trials | Mean RRT | Recovery | Dynamic regret | Final expected utility | CPU mean / p95 (s) |
+|---:|---|---:|---:|---:|---:|---:|---:|
+| 0.00 | MG edge-only | 5 | 9.000 | 100.0% | 2.137 | 0.629 | 0.006 / 0.016 |
+| 0.00 | MG hierarchical | 5 | 9.600 | 100.0% | 3.621 | 0.604 | 0.013 / 0.016 |
+| 0.00 | Node-only | 5 | 18.000 | 100.0% | 4.473 | 0.604 | 0.016 / 0.016 |
+| 0.00 | Structured SW-UCB | 5 | 8.000 | 100.0% | 2.285 | 0.614 | 0.128 / 0.153 |
+| 0.25 | MG edge-only | 5 | 10.000 | 100.0% | 2.315 | 0.617 | 0.016 / 0.016 |
+| 0.25 | MG hierarchical | 5 | 43.800 | 100.0% | 4.969 | 0.585 | 0.009 / 0.028 |
+| 0.25 | Node-only | 5 | 42.000 | 100.0% | 5.046 | 0.592 | 0.013 / 0.028 |
+| 0.25 | Structured SW-UCB | 5 | 8.000 | 100.0% | 2.973 | 0.601 | 0.119 / 0.138 |
+| 0.50 | MG edge-only | 5 | 15.000 | 100.0% | 2.830 | 0.622 | 0.009 / 0.016 |
+| 0.50 | MG hierarchical | 5 | 29.800 | 100.0% | 5.018 | 0.586 | 0.019 / 0.028 |
+| 0.50 | Node-only | 5 | 55.400 | 80.0% | 5.685 | 0.584 | 0.009 / 0.016 |
+| 0.50 | Structured SW-UCB | 5 | 13.200 | 100.0% | 2.712 | 0.610 | 0.119 / 0.125 |
+| 0.75 | MG edge-only | 5 | 15.000 | 100.0% | 2.506 | 0.619 | 0.019 / 0.028 |
+| 0.75 | MG hierarchical | 5 | 27.600 | 100.0% | 4.811 | 0.584 | 0.016 / 0.016 |
+| 0.75 | Node-only | 5 | 38.400 | 80.0% | 5.635 | 0.573 | 0.013 / 0.016 |
+| 0.75 | Structured SW-UCB | 5 | 29.600 | 80.0% | 4.498 | 0.595 | 0.113 / 0.159 |
+| 1.00 | MG edge-only | 5 | 18.200 | 100.0% | 3.071 | 0.616 | 0.016 / 0.016 |
+| 1.00 | MG hierarchical | 5 | 16.600 | 100.0% | 4.625 | 0.581 | 0.016 / 0.028 |
+| 1.00 | Node-only | 5 | 26.200 | 100.0% | 4.546 | 0.596 | 0.009 / 0.016 |
+| 1.00 | Structured SW-UCB | 5 | 12.400 | 100.0% | 3.029 | 0.611 | 0.122 / 0.138 |
 
-| Method | Step | Phase | Selected component route | Expected utility | Oracle utility |
-| --- | ---: | --- | --- | ---: | ---: |
-| Mycelial V0 | 0 | initial | `prompt_compact -> retriever_hybrid -> model_economy -> guardrail_standard -> output_concise` | 0.416 | 0.468 |
-| Mycelial V0 | 99 | pre-shock | `prompt_compact -> retriever_hybrid -> model_economy -> guardrail_standard -> output_concise` | 0.416 | 0.468 |
-| Mycelial V0 | 100 | shock | `prompt_compact -> retriever_hybrid -> model_balanced -> guardrail_standard -> output_concise` | 0.324 | 0.453 |
-| Mycelial V0 | 239 | final | `prompt_structured -> retriever_keyword -> model_premium -> guardrail_strict -> output_concise` | 0.410 | 0.453 |
-| Structured semi-bandit (reference) | 0 | initial | `prompt_structured -> retriever_keyword -> model_premium -> guardrail_strict -> output_detailed` | 0.420 | 0.468 |
-| Structured semi-bandit (reference) | 99 | pre-shock | `prompt_structured -> retriever_hybrid -> model_economy -> guardrail_strict -> output_concise` | 0.443 | 0.468 |
-| Structured semi-bandit (reference) | 100 | shock | `prompt_structured -> retriever_keyword -> model_premium -> guardrail_strict -> output_detailed` | 0.420 | 0.453 |
-| Structured semi-bandit (reference) | 239 | final | `prompt_structured -> retriever_hybrid -> model_economy -> guardrail_strict -> output_concise` | 0.443 | 0.453 |
-| Reactive shortest path (reference) | 0 | initial | `prompt_structured -> retriever_hybrid -> model_balanced -> guardrail_strict -> output_detailed` | 0.468 | 0.468 |
-| Reactive shortest path (reference) | 99 | pre-shock | `prompt_structured -> retriever_hybrid -> model_balanced -> guardrail_strict -> output_detailed` | 0.468 | 0.468 |
-| Reactive shortest path (reference) | 100 | shock | `prompt_structured -> retriever_hybrid -> model_balanced -> guardrail_strict -> output_detailed` | 0.361 | 0.453 |
-| Reactive shortest path (reference) | 239 | final | `prompt_structured -> retriever_hybrid -> model_economy -> guardrail_strict -> output_detailed` | 0.453 | 0.453 |
+## Figures
 
-## Aggregate results
+![recovery_by_rho](figures/recovery_by_rho.png)
+![regret_by_rho](figures/regret_by_rho.png)
 
-| Method | Recovery probability | SRC, recovered only | Censored runs | CPST (USD) | Success rate | Post-shock utility | SER | p95 decision (ms) | Mean primitive ops |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Mycelial V0 | 0.0% | n/a | 1 | 0.003494 | 85.4% | 0.396 | 78.4% | 0.0705 | 12.0 |
-| Reactive shortest path (reference) | 100.0% | 50.0 | 0 | 0.002794 | 95.0% | 0.452 | 0.1% | 0.3495 | 288.0 |
-| Structured semi-bandit (reference) | 100.0% | 270.0 | 0 | 0.005196 | 92.9% | 0.426 | 40.4% | 0.0589 | 12.0 |
+## Interpretation boundary
 
-### How to read the table
+- The experiment isolates representation under an identical local-feedback contract.
+- The structured SW-UCB baseline uses node-edge features and therefore does not give MG a representation monopoly.
+- The oracle defines expected optimal utility; it is not a deployable competitor.
+- Development and pilot executions are for debugging and sample-size planning only.
+- A failed gate does not prove absence of all effects; interpretation follows the frozen analysis plan.
 
-- **Recovery probability:** fraction of runs that met the sustained utility criterion before the horizon ended.
-- **SRC:** local edge-feedback samples needed to recover. It is summarized only for recovered runs; non-recovery remains right-censored.
-- **CPST:** total simulated execution cost divided by successful tasks.
-- **SER:** post-shock samples spent on unaffected edges outside the post-shock oracle path, using one frozen external classifier.
-- **Decision time and primitive operations:** routing overhead only, kept separate from simulated task latency.
+## Reproducibility
 
-## Reproducibility and fairness controls
-
-Every seed produced a frozen compressed trial file before comparison. Its SHA-256 digest is recorded in `results.json`. The outcome for every edge and step was pre-generated, but a router could retrieve feedback only for its chosen path. Mycelial parameters were selected on disjoint development seeds [17, 29, 43, 59, 71] and frozen before this final run. The V0 seed set is an engineering demonstration set, not a publication-grade untouched holdout. Hard policy constraints were applied before routing.
-
-## What this V0 proves
-
-- The package builds the intended layered execution graph.
-- Mycelial conductance, lazy temporal decay, local feedback, softmax routing, explicit exploration, and single-edge fallback execute together.
-- Only traversed edges receive feedback updates.
-- A localized shock can be injected reproducibly.
-- Results, traces, trial hashes, recovery censoring, CPST, SER, and computational accounting are generated automatically.
-
-## What this V0 does not prove
-
-- It does not validate H1 (sparse-shock recovery), H2 (scaling), or H3 (structural reuse).
-- It does not establish statistical or practical superiority over structured baselines.
-- Its two reference baselines are inspectable V0 comparators, not certified reproductions of every research baseline.
-- It does not use live cloud providers, real customer prompts, production traffic, or a global quality evaluator.
-- It provides no convergence or regret guarantee.
-
-## Next evidence gates
-
-1. Freeze development and evaluation seed partitions, then tune on development seeds only.
-2. Generate causal shared-fraction trials and verify unique pre- and post-shock optima with margins.
-3. Run the H1 sparse-shock suite with at least 50 evaluation replications when computation is cheap.
-4. Run H2 across depth, branching, and non-stationarity regimes.
-5. Run H3 with trial-level shared fraction and censoring-aware analysis.
-6. Execute the required decay/exploration ablations.
-7. Only after local evidence is credible, validate one cloud at a time using the same adapter contract and frozen workload.
-
-The detailed single-cloud sequence is defined in `docs/CLOUD_VALIDATION.md`. Production multi-cloud routing remains a later roadmap phase, not part of V0.
+Raw paired trials are under `raw/`, processed statistics under `processed/`, traces under `traces/`, and file hashes plus runtime versions are recorded in `manifest.json`.

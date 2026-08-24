@@ -1,96 +1,87 @@
 # Architecture
 
-## System boundary
+## Design goal
 
-```mermaid
-flowchart TD
-    C["Frozen YAML"] --> V["Schema validator"]
-    V --> T["Immutable trial generator"]
-    T --> E["Execution environment"]
-    E --> R["Router"]
-    R --> H["Hard policy boundary"]
-    H --> G["Layered DAG"]
-    G --> F["Local feedback"]
-    F --> R
-    E --> M["Metrics and report"]
-```
+V1 must answer one scientific question without becoming a premature cloud platform:
 
-The environment owns outcomes. A router owns routing state. The hard-policy boundary removes prohibited edges before the router sees candidates. Metrics consume the resulting trace but cannot influence the current run.
+> Under which shared-shock regimes does hierarchical node-edge state reduce recovery burden relative to independent edge state, without unacceptable negative transfer?
 
-## Module map
-
-| Module | Responsibility |
-| --- | --- |
-| `config.py` | Load YAML and enforce the frozen V0 contract |
-| `graph.py` | Build and validate the typed layered DAG; enforce hard constraints |
-| `trial.py` | Pre-generate local potential outcomes and compute a trial digest |
-| `routing.py` | Mycelial V0 and two transparent reference policies |
-| `experiment.py` | Execute identical trials, compute recovery and operational metrics |
-| `report.py` | Produce a dual-audience Markdown report |
-| `cli.py` | Expose `demo`, `experiment`, and `freeze` commands |
-
-## Frozen Mycelial state
-
-Every edge `e` stores:
-
-- conductance `g_e`;
-- time of last decay;
-- time of last use;
-- time of last feedback.
-
-The timestamps are separate so candidate evaluation, actual traversal, and feedback cannot be conflated.
-
-For elapsed time `delta`, lazy decay is:
+## Boundaries
 
 ```text
-g_e <- max(g_min, g_e * (1 - lambda)^delta)
+Frozen YAML + seed list
+          |
+          v
+Immutable Scenario Generator
+  - DAG topology
+  - latent edge means
+  - node/interaction shock
+  - indexed potential outcomes
+  - certified pre/post optima
+          |
+          +-------------------------------+
+          |               |               |
+      Edge-only       Node-only      Hierarchical      Structured SW-UCB
+          |               |               |                    |
+          +---------------+---------------+--------------------+
+                                  |
+                         Paired raw trial records
+                                  |
+                         Frozen paired analysis
+                                  |
+                       Markdown report + figures
 ```
 
-After traversed-edge feedback:
+## Why scenarios are immutable
+
+Running two agents sequentially against one mutable environment is not a paired experiment. The first method could consume RNG state or mutate time. V1 instead creates a scenario containing indexed potential outcomes. If two methods traverse the same edge at the same step, they receive the same realized local reward. Different actions query different outcomes from the same frozen world.
+
+## Randomness isolation
+
+Stable SHA-256 namespaces derive independent seeds for:
+
+- scenario parameters;
+- potential-outcome noise;
+- each method at every `(seed, rho)` pair.
+
+No method shares a mutable RNG. Process completion order therefore cannot alter scientific results.
+
+## Shock construction
+
+Let `n` be a unit-length pattern supported on edges incident to a selected node, and let `i` be a unit-length edge-interaction pattern with disjoint support. The shock is:
 
 ```text
-g_e <- clip(g_e + eta * local_reward + xi * explored, g_min, g_max)
+d(rho) = -magnitude * (sqrt(rho) * n + sqrt(1-rho) * i)
 ```
 
-The normalized local reward is:
+Because the patterns are orthogonal, the total L2 magnitude remains constant for all `rho`. Only the shared fraction changes.
+
+## Method separation
+
+| Method | Shared representation | Policy family | Purpose |
+|---|---|---|---|
+| Edge-only | None | Mycelial softmax + decay + exploration | Original mechanism/control |
+| Node-only | Node effects | Same Mycelial policy family | Pooling ablation |
+| Hierarchical | Source + target + interaction | Same Mycelial policy family | Proposed representation |
+| Structured SW-UCB | Same node-edge features | Sliding-window linear UCB | Strong representation-aware baseline |
+
+The first three help isolate representation. Structured SW-UCB tests whether the result is merely a generic benefit of shared features.
+
+## Identifiability
+
+The hierarchical score uses an additive decomposition:
 
 ```text
-alpha_q * quality
-- alpha_l * normalized_latency
-- alpha_c * normalized_cost
-- alpha_f * failure
-- alpha_rho * load
+score(u, v, t) = base + source_effect[u] + target_effect[v] + interaction[u, v]
 ```
 
-Weights are configuration values and must be frozen before evaluation.
+After online updates, every component family is projected to a sum-to-zero parameterization and shrunk toward zero. This makes the numerical decomposition reproducible. It does not imply that weakly observed components become strongly evidenced; uncertainty remains an empirical limitation.
 
-Every V0 path contains the same number of scored components, so common path utility is the mean of these edge-local utilities. This preserves the ranking of their additive sum and avoids judging a local router against a differently shaped objective. Task success and CPST remain end-to-end measures.
+## Atomicity and provenance
 
-## Route selection
+Each `(seed, rho)` result is written to a temporary file, flushed, and atomically renamed. Scientific values and volatile provenance are separated conceptually. Runtime duration, timestamps, and machine identity must not be used in deterministic hash comparisons.
 
-At a node with multiple feasible outgoing edges:
+## Extension ports
 
-```text
-P(e | u) = exp(g_e / temperature) / sum_j exp(g_j / temperature)
-```
+Future adapters may implement live model providers, graph discovery, policy constraints, or distributed state. They must remain outside `environment/` and `agents/` until a new protocol explicitly authorizes them. V1 has no runtime dependency on a cloud, database, queue, or orchestrator.
 
-With probability `p_expl`, the router instead samples uniformly and labels the choice `explicit-exploration`. A single feasible edge uses `single-edge-fallback`. These modes are logged separately.
-
-For a selected path of length `L_P` and mean visited out-degree `d_P`, Mycelial selection examines `O(L_P * d_P)` edges, performs `O(L_P)` feedback updates, and stores `O(|E|)` state. The implementation reports primitive operations separately from task latency.
-
-## Fairness and information flow
-
-For every seed, the environment generates one local observation for every `(step, edge)` pair before a comparison. A method sees only observations for its chosen path. Therefore:
-
-- noise is paired across methods;
-- future outcomes are unavailable to routers;
-- changing post-shock severity does not change pre-shock observations;
-- all policy decisions can be reproduced from seed, configuration, and code.
-
-## Reference baselines
-
-`StructuredSemiBanditRouter` stores edge-level sample means and uses an upper-confidence score during local traversal. `ReactiveShortestPathRouter` stores exponentially weighted edge utilities and selects the best currently estimated complete path. Both are intentionally small, inspectable V0 comparators. Final research claims require verified, independently reviewed baseline implementations and computational accounting.
-
-## Hard constraints
-
-`HardPolicy` blocks configured components and components whose declared cost exceeds a hard cap. Filtering occurs before Mycelial conductance, UCB, or path estimates are evaluated. If a layer has no feasible option, execution fails closed with `NoFeasiblePathError`.
