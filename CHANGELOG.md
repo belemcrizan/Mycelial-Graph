@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.0 - 2026-08-31
+
+- Added Mycelial Graph V2.0-alpha as an additive scientific layer (resource ledger, synthetic environment, resource controller, Pareto and quality non-inferiority reporting).
+- Left MG-EXP-V1 configs, CLI, agents, and confirmatory lock unchanged.
+- Added `mycelial-graph v2-*` commands and `experiments/v2/` with a separate confirmatory lock.
+- Fixed git provenance decoding on Windows paths that are not cp1252-encodable (scientific payloads unchanged).
+
 ## 0.1.0 - 2026-08-24
 
 - Reframed the core experiment as a non-stationary graph semi-bandit benchmark.

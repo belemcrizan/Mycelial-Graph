@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mycelial-graph"
-version = "0.1.0"
-description = "A reproducible research framework for local adaptation and structural reuse in dynamic AI execution graphs."
+version = "0.2.0"
+description = "A reproducible research framework for local adaptation, structural reuse, and resource allocation in dynamic AI execution graphs."
 readme = "README.md"
 requires-python = ">=3.11"
 license = {text = "Apache-2.0"}
