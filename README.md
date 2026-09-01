@@ -114,6 +114,7 @@ mycelial-graph claim-audit --matrix docs/claim_evidence_matrix.yaml
 - A positive development result is not evidence for publication.
 - V2.0-alpha is a simulated resource-allocation layer with its own locked confirmatory protocol.
 - MG-EXP-V2.1 (Evidence Bridge) is additive instrumentation: iso-model, VOC bench, strong baselines, local executable smoke. It is not confirmatory and is not SWE-bench.
+- MG-EXP-V2.1-A replaces known-fix injection with a local autonomous repair loop on isolated fixtures. It still does not support a real coding-agent token-reduction claim.
 
 ## License
 

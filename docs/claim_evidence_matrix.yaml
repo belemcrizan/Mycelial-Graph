@@ -27,7 +27,7 @@ claims:
     ablation_evidence: false
     statistical_status: not_tested
     external_validity: E0
-    allowed_wording: "Not supported. Local fixtures are not SWE-bench and do not authorize this claim."
+    allowed_wording: "Not supported. An autonomous local repair loop on two fixtures is not SWE-bench and does not authorize this claim."
     allowed_wording_status: NOT_SUPPORTED
   - id: C04
     claim: "Fungal networks prove the controller"

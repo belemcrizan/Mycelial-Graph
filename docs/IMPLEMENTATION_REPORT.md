@@ -29,7 +29,7 @@ V1 modules were not rewritten. V2 analysis JSON schema for alpha runs is unchang
 
 ## New tests
 
-`tests/test_v2_1.py`: VOC stability, reservation, iso-model collapse, oracle regret sign, strong baseline factory, waste identity, voc-bench smoke, executable real grader, claim audit, CLI.
+`tests/test_v2_1.py`: VOC stability, reservation, iso-model collapse, oracle regret sign, strong baseline factory, waste identity, voc-bench smoke, executable real grader, autonomous agent (no gold injection), claim audit, CLI.
 
 ## New benchmarks
 
@@ -37,7 +37,7 @@ V1 modules were not rewritten. V2 analysis JSON schema for alpha runs is unchang
 - Iso-model development config  
 - Budget curves (`mycelial-graph budget-curve`)  
 - Waste audit  
-- Local real-smoke (2 tasks)
+- Local real-smoke (2 tasks, autonomous repair loop, no gold-patch injection)
 
 ## Results
 

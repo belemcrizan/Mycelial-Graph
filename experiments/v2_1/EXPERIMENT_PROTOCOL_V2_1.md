@@ -22,7 +22,7 @@ V2.0-alpha remains a historical milestone. This protocol changes the scientific 
 |---|---|---|
 | Iso-model | retrieval, verification, stop | model-class latent attributes identical |
 | Multi-model | model class | deferred; not confirmatory in V2.1 |
-| Real smoke | matched scaffold, executable tests | no live providers; not SWE-bench |
+| Real smoke | matched scaffold, autonomous local agent, executable tests | no live providers; no gold-patch injection; not SWE-bench |
 
 ## Forbidden claims
 

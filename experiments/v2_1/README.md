@@ -8,4 +8,4 @@ mycelial-graph voc-bench --config experiments/v2_1/config.development.yaml
 mycelial-graph real-smoke
 ```
 
-Iso-model is on. Confirmatory is not authorized.
+The real-smoke track uses an isolated workspace and an autonomous read/test/edit loop. `apply_fix=True` is gone. Oracle sources remain on the task object for evaluation metadata only.

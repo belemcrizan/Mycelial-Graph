@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.2 - 2026-08-31
+
+- Replaced the V2.1 coding smoke known-fix shortcut (`apply_fix=True`) with an autonomous local agent loop: read, search, retrieve, reason, test, inspect, edit, verify, escalate, stop.
+- Quality is now the executable grader on an isolated workspace copy. Oracle patches are evaluation metadata only and are never injected into the agent path.
+- Action traces carry `action_id` and `context_id` hashes. This is still not a live coding-agent or SWE-bench result.
+
 ## 0.2.1 - 2026-08-31
 
 - Added MG-EXP-V2.1 Evidence Bridge as an additive layer (VOC difference+ratio, counterfactual VOC bench, iso-model generator flag, budget curves, waste proxies, strong allocation baselines, local executable smoke tasks, claim audit).
