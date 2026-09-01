@@ -2,6 +2,10 @@
 
 The roadmap separates scientific evidence from product capability. Features advance only when a measured bottleneck or validated hypothesis justifies them.
 
+## Parallel track: V2.0-alpha resource allocation
+
+V2 is a separate protocol (MG-EXP-V2). Alpha is simulation-only. It does not replace V1 evidence gates and does not authorize live provider spend.
+
 ## Current: V1 research edition
 
 Goal: determine whether hierarchical node-edge state has a measurable recovery advantage under controlled shared shocks.
