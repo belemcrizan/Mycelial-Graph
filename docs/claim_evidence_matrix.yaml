@@ -1,0 +1,61 @@
+claims:
+  - id: C01
+    claim: "Mycelial Graph V1 confirmatory recovery advantage"
+    mechanism: hierarchical node-edge state
+    synthetic_evidence: development_only
+    real_evidence: false
+    ablation_evidence: specified
+    statistical_status: confirmatory_locked
+    external_validity: E1
+    allowed_wording: "V1 tests whether hierarchical state reduces recovery burden under controlled shared shocks. No confirmatory run is included."
+    allowed_wording_status: CONFIRMATORY_LOCKED
+  - id: C02
+    claim: "V2.0-alpha reduces tokens while preserving quality"
+    mechanism: conductance, prune, transfer, MVC stop
+    synthetic_evidence: development_demonstrator
+    real_evidence: false
+    ablation_evidence: alpha_ablations
+    statistical_status: development_only
+    external_validity: E1
+    allowed_wording: "V2.0-alpha is a simulated resource-allocation layer. Development plots are not confirmatory evidence."
+    allowed_wording_status: DEVELOPMENT_ONLY
+  - id: C03
+    claim: "Mycelial reduces real coding-agent tokens"
+    mechanism: computational metabolism
+    synthetic_evidence: false
+    real_evidence: false
+    ablation_evidence: false
+    statistical_status: not_tested
+    external_validity: E0
+    allowed_wording: "Not supported. Local fixtures are not SWE-bench and do not authorize this claim."
+    allowed_wording_status: NOT_SUPPORTED
+  - id: C04
+    claim: "Fungal networks prove the controller"
+    mechanism: biological analogy
+    synthetic_evidence: false
+    real_evidence: false
+    ablation_evidence: false
+    statistical_status: not_applicable
+    external_validity: E0
+    allowed_wording: "Forbidden. Use fungal-inspired computational mechanisms with evidence grades A–D."
+    allowed_wording_status: NOT_SUPPORTED
+  - id: C05
+    claim: "VOC estimator is calibrated on synthetic potential outcomes"
+    mechanism: difference and ratio VOC
+    synthetic_evidence: voc_bench
+    real_evidence: false
+    ablation_evidence: false
+    statistical_status: development_only
+    external_validity: E1
+    allowed_wording: "The V2.1 VOC bench reports calibration error on frozen synthetic outcomes. It is not real-agent evidence."
+    allowed_wording_status: SYNTHETIC_ONLY
+  - id: C06
+    claim: "Iso-model savings are not cheaper-model routing"
+    mechanism: locked model-class latents
+    synthetic_evidence: protocol_defined
+    real_evidence: false
+    ablation_evidence: pending
+    statistical_status: development_only
+    external_validity: E1
+    allowed_wording: "Iso-model is a track definition. A positive result would still be synthetic until a real matched-scaffold experiment exists."
+    allowed_wording_status: SYNTHETIC_ONLY
