@@ -20,4 +20,5 @@ jobs:
       - run: python -m pip install -e .
       - run: python -m unittest discover -s tests -v
       - run: mycelial-graph validate --config experiments/v1/config.development.yaml
+      - run: mycelial-graph v2-validate --config experiments/v2/config.development.yaml
 

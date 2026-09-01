@@ -1,5 +1,7 @@
 # Mycelial Graph V1 Research Edition
 
+V2.0-alpha is an **additive** scientific layer. It does not replace V1. The V1 question, protocol, CLI, and confirmatory lock remain in force. See [V2 implementation plan](docs/V2_IMPLEMENTATION_PLAN.md) and `mycelial-graph v2-demo`.
+
 Mycelial Graph studies a practical question: **can an AI execution system recover from a local disruption without relearning everything?**
 
 Modern AI work rarely uses one model in isolation. A task may cross a prompt strategy, retriever, model, tool, guardrail, parser, cloud region, and fallback. Mycelial Graph represents these choices as a directed graph. Like an adaptive transport network, frequently useful connections become easier to select, degraded connections weaken, and unaffected structure can retain what it already learned.
@@ -66,6 +68,15 @@ report            -> pass, conditional result, inconclusive, or refuted
 
 The confirmatory configuration deliberately points to a missing `seeds.confirmatory.txt`. This is an execution lock, not a packaging error. Follow [`experiments/v1/SAMPLE_SIZE_ADDENDUM.md`](experiments/v1/SAMPLE_SIZE_ADDENDUM.md) after the pilot.
 
+## V2.0-alpha (additive)
+
+V2 asks a second question without unfreezing V1: can an adaptive graph spend extra inference resources only where they are worth it, while keeping quality non-inferior and counting **all** tokens, including the router? See [V2 research questions](docs/V2_RESEARCH_QUESTIONS.md) and [MG-EXP-V2](experiments/v2/EXPERIMENT_PROTOCOL_V2.md). Physarum is not a fungus. This layer is not production-ready.
+
+```powershell
+mycelial-graph v2-validate --config experiments/v2/config.development.yaml
+mycelial-graph v2-demo
+```
+
 ## Commands
 
 ```powershell
@@ -74,6 +85,10 @@ mycelial-graph experiment --config experiments/v1/config.pilot.yaml --output out
 mycelial-graph analyze --config experiments/v1/config.pilot.yaml --output outputs/pilot
 mycelial-graph report --config experiments/v1/config.pilot.yaml --output outputs/pilot
 mycelial-graph sample-size --config experiments/v1/config.pilot.yaml --output outputs/pilot
+mycelial-graph v2-experiment --config experiments/v2/config.development.yaml --output outputs/v2-dev
+mycelial-graph v2-analyze --config experiments/v2/config.development.yaml --output outputs/v2-dev
+mycelial-graph v2-report --config experiments/v2/config.development.yaml --output outputs/v2-dev
+mycelial-graph v2-resource-audit --output outputs/v2-dev
 ```
 
 ## Read next
@@ -83,6 +98,7 @@ mycelial-graph sample-size --config experiments/v1/config.pilot.yaml --output ou
 - [Frozen Experiment Protocol](experiments/v1/EXPERIMENT_PROTOCOL_V1.md) - hypotheses and immutable rules.
 - [Analysis Plan](experiments/v1/ANALYSIS_PLAN.md) - estimands, bootstrap, gates, and interpretation.
 - [Roadmap](docs/ROADMAP.md) - evidence-gated growth toward real providers and cloud tests.
+- [V2 implementation plan](docs/V2_IMPLEMENTATION_PLAN.md) - additive resource-allocation layer.
 - [Sustainability](docs/SUSTAINABILITY.md) - technical, financial, scientific, and environmental sustainability.
 - [Migration from V0](docs/MIGRATION_FROM_V0.md) - how to integrate the three prototypes without a blind code merge.
 
@@ -93,6 +109,7 @@ mycelial-graph sample-size --config experiments/v1/config.pilot.yaml --output ou
 - No confirmatory run is included.
 - No cloud-provider superiority, convergence theorem, or production-readiness claim is made.
 - A positive development result is not evidence for publication.
+- V2.0-alpha is a simulated resource-allocation layer with its own locked confirmatory protocol.
 
 ## License
 
