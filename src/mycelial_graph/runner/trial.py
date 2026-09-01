@@ -31,6 +31,7 @@ def code_commit(project_root: Path) -> str:
                 ["git", "rev-parse", "--show-toplevel"],
                 cwd=project_root,
                 text=True,
+                encoding="utf-8",
                 stderr=subprocess.DEVNULL,
             ).strip()
         ).resolve()
@@ -40,6 +41,7 @@ def code_commit(project_root: Path) -> str:
             ["git", "rev-parse", "HEAD"],
             cwd=project_root,
             text=True,
+            encoding="utf-8",
             stderr=subprocess.DEVNULL,
         ).strip()
     except (subprocess.CalledProcessError, FileNotFoundError):
