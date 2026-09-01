@@ -1,10 +1,16 @@
 from __future__ import annotations
 
 from ..types import ConstraintConfig, UtilityConfig
+from .voc import voc_ratio
 
 
 def marginal_value(expected_quality_gain: float, extra_resource: float) -> float:
-    return float(expected_quality_gain / max(extra_resource, 1e-6))
+    """Ratio-form MVC retained for V2.0-alpha compatibility.
+
+    Prefer `estimate_voc` for V2.1 analysis. Do not use the ratio when the
+    extra resource approaches zero.
+    """
+    return voc_ratio(expected_quality_gain, extra_resource)
 
 
 def should_spend(
