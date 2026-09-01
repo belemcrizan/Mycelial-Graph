@@ -115,6 +115,34 @@ class RealSmokeTests(unittest.TestCase):
         self.assertTrue(all(by_policy["always_high_compute"]))
         self.assertFalse(any(by_policy["always_low_compute"]))
 
+    def test_agent_does_not_inject_known_fix(self) -> None:
+        from mycelial_graph.v2.real.tasks import default_smoke_tasks
+        from mycelial_graph.v2.real import run_real_task
+
+        for task in default_smoke_tasks():
+            original = task.read_source()
+            result = run_real_task(task, "always_high_compute")
+            self.assertEqual(task.read_source(), original)
+            self.assertFalse(result.used_known_fix)
+            names = [row["name"] for row in result.actions]
+            self.assertIn("read_file", names)
+            self.assertIn("execute_test", names)
+            self.assertIn("edit_code", names)
+            self.assertIn("verify", names)
+            self.assertNotIn(task.oracle_source.strip(), original)
+            first_test = next(row for row in result.actions if row["name"] == "execute_test")
+            self.assertNotEqual(first_test["summary"], "passed")
+            self.assertTrue(all("action_id" in row and row["context_id"].startswith("ctx-") for row in result.actions))
+
+    def test_low_compute_never_edits(self) -> None:
+        from mycelial_graph.v2.real.tasks import default_smoke_tasks
+        from mycelial_graph.v2.real import run_real_task
+
+        result = run_real_task(default_smoke_tasks()[0], "always_low_compute")
+        names = [row["name"] for row in result.actions]
+        self.assertNotIn("edit_code", names)
+        self.assertFalse(result.passed)
+
 
 class ClaimAuditTests(unittest.TestCase):
     def test_claim_matrix_is_internally_consistent(self) -> None:
