@@ -21,13 +21,20 @@ SUPPORTED_METHODS = {
     "v2_no_uncertainty",
     "v2_static_topology",
     "v2_no_shock_memory",
+    "thompson_sampling",
+    "cost_sensitive_bandit",
+    "structured_sw_ucb",
+    "uncertainty_threshold",
+    "adaptive_early_stop",
+    "lagrangian_budget",
+    "static_cascade",
 }
 
 
 def validate_v2_config(config: V2ExperimentConfig) -> list[str]:
     errors: list[str] = []
-    if config.protocol_version != "MG-EXP-V2":
-        errors.append("protocol_version must be MG-EXP-V2.")
+    if config.protocol_version not in {"MG-EXP-V2", "MG-EXP-V2.1"}:
+        errors.append("protocol_version must be MG-EXP-V2 or MG-EXP-V2.1.")
     if config.run_kind not in {"development", "pilot", "confirmatory"}:
         errors.append("run_kind must be development, pilot, or confirmatory.")
     if config.graph.internal_layers != 3:

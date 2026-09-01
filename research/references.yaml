@@ -1,0 +1,107 @@
+references:
+  - id: fricker2017mycelium
+    title: The Mycelium as a Network
+    authors: [Mark D. Fricker, Luke L. M. Heaton, Nick S. Jones, Lynne Boddy]
+    year: 2017
+    venue: Microbiology Spectrum
+    doi: 10.1128/microbiolspec.FUNK-0033-2017
+    domain: fungal_networks
+    mechanism: architecture_flow_plasticity
+    evidence_type: review
+    biological_species: mixed_review
+    used_for: biological_motivation
+    notes: Verified via ASM/Microbiology Spectrum landing page 2026-08-31.
+    verified: true
+  - id: bebber2007transport
+    title: Biological solutions to transport network design
+    authors: [Daniel P. Bebber, Juliet Hynes, Peter R. Darrah, Lynne Boddy, Mark D. Fricker]
+    year: 2007
+    venue: Proceedings of the Royal Society B
+    doi: 10.1098/rspb.2007.0459
+    pmid: "17623638"
+    pmcid: PMC2288531
+    domain: fungal_networks
+    mechanism: cords_transport_robustness
+    evidence_type: experiment_plus_network_analysis
+    biological_species: basidiomycete_cord_formers
+    used_for: prune_reinforce_inspiration
+    notes: Verified via Europe PMC / RSPB DOI 2026-08-31.
+    verified: true
+  - id: fischer2019fuse
+    title: "Communicate and Fuse: How Filamentous Fungi Establish and Maintain an Interconnected Mycelial Network"
+    authors: [Monika S. Fischer, N. Louise Glass]
+    year: 2019
+    venue: Frontiers in Microbiology
+    doi: 10.3389/fmicb.2019.00619
+    pmid: "31001214"
+    domain: fungal_cell_biology
+    mechanism: anastomosis_recognition
+    evidence_type: review
+    biological_species: Neurospora_crassa_primary
+    used_for: fusion_deferred
+    notes: Verified via Frontiers DOI 2026-08-31.
+    verified: true
+  - id: harris2008branching
+    title: "Branching of fungal hyphae: regulation, mechanisms and comparison with other branching systems"
+    authors: [Steven D. Harris]
+    year: 2008
+    venue: Mycologia
+    doi: 10.3852/08-177
+    domain: fungal_cell_biology
+    mechanism: apical_lateral_branching
+    evidence_type: review
+    biological_species: filamentous_fungi_review
+    used_for: branching_deferred
+    notes: Verified via Mycologia DOI 2026-08-31.
+    verified: true
+  - id: harris2019branching
+    title: Hyphal branching in filamentous fungi
+    authors: [Steven D. Harris]
+    year: 2019
+    venue: Developmental Biology
+    doi: 10.1016/j.ydbio.2019.02.012
+    pmid: "30831088"
+    domain: fungal_cell_biology
+    mechanism: hyphal_branching
+    evidence_type: review
+    biological_species: filamentous_fungi_review
+    used_for: branching_deferred
+    notes: Verified via DOI/PubMed 2026-08-31.
+    verified: true
+  - id: russell1991metareasoning
+    title: Principles of metareasoning
+    authors: [Stuart Russell, Eric Wefald]
+    year: 1991
+    venue: Artificial Intelligence
+    doi: 10.1016/0004-3702(91)90015-C
+    domain: ai_metareasoning
+    mechanism: value_of_computation
+    evidence_type: theory
+    used_for: voc_definition
+    notes: Verified via Elsevier DOI 2026-08-31.
+    verified: true
+  - id: schuster2022calm
+    title: Confident Adaptive Language Modeling
+    authors: [Tal Schuster, Adam Fisch, Jai Gupta, Mostafa Dehghani, Dara Bahri, Vinh Q. Tran, Yi Tay, Donald Metzler]
+    year: 2022
+    venue: NeurIPS
+    doi: 10.52202/068431-1269
+    arxiv: 2207.07061
+    domain: adaptive_inference
+    mechanism: early_exit
+    evidence_type: conference
+    used_for: related_work_ttc
+    notes: Verified via arXiv abs and NeurIPS proceedings DOI 2026-08-31.
+    verified: true
+  - id: ong2024routellm
+    title: "RouteLLM: Learning to Route LLMs with Preference Data"
+    authors: [Isaac Ong, Amjad Almahairi, Vincent Wu, Wei-Lin Chiang, Tianhao Wu, Joseph E. Gonzalez, M. Waleed Kadous, Ion Stoica]
+    year: 2024
+    venue: arXiv / ICLR 2025
+    arxiv: 2406.18665
+    domain: llm_routing
+    mechanism: strong_weak_model_router
+    evidence_type: preprint_and_conference
+    used_for: related_work_routing
+    notes: Verified via arXiv abs 2406.18665 on 2026-08-31. ICLR 2025 PDF also located.
+    verified: true

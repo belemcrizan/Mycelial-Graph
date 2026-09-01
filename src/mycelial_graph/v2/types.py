@@ -51,6 +51,7 @@ class EnvironmentConfig:
     token_noise_std: float
     latency_noise_std: float
     max_generation_attempts: int
+    iso_model: bool = False
 
 
 @dataclass(frozen=True)
@@ -104,6 +105,7 @@ class AnalysisConfig:
     confidence_level: float
     quality_noninferiority_margin: float
     engineering_token_gate: float
+    mmrr: float = 0.05
 
 
 @dataclass(frozen=True)

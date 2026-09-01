@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1 - 2026-08-31
+
+- Added MG-EXP-V2.1 Evidence Bridge as an additive layer (VOC difference+ratio, counterfactual VOC bench, iso-model generator flag, budget curves, waste proxies, strong allocation baselines, local executable smoke tasks, claim audit).
+- Left MG-EXP-V1 and MG-EXP-V2 (V2.0-alpha) protocols, confirmatory locks, and CLI meaning unchanged.
+- Documented unimplemented alpha ablation aliases and a verified literature snapshot.
+
 ## 0.2.0 - 2026-08-31
 
 - Added Mycelial Graph V2.0-alpha as an additive scientific layer (resource ledger, synthetic environment, resource controller, Pareto and quality non-inferiority reporting).
