@@ -89,6 +89,9 @@ mycelial-graph v2-experiment --config experiments/v2/config.development.yaml --o
 mycelial-graph v2-analyze --config experiments/v2/config.development.yaml --output outputs/v2-dev
 mycelial-graph v2-report --config experiments/v2/config.development.yaml --output outputs/v2-dev
 mycelial-graph v2-resource-audit --output outputs/v2-dev
+mycelial-graph voc-bench --config experiments/v2_1/config.development.yaml
+mycelial-graph real-smoke
+mycelial-graph claim-audit --matrix docs/claim_evidence_matrix.yaml
 ```
 
 ## Read next
@@ -110,6 +113,7 @@ mycelial-graph v2-resource-audit --output outputs/v2-dev
 - No cloud-provider superiority, convergence theorem, or production-readiness claim is made.
 - A positive development result is not evidence for publication.
 - V2.0-alpha is a simulated resource-allocation layer with its own locked confirmatory protocol.
+- MG-EXP-V2.1 (Evidence Bridge) is additive instrumentation: iso-model, VOC bench, strong baselines, local executable smoke. It is not confirmatory and is not SWE-bench.
 
 ## License
 

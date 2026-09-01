@@ -2,6 +2,10 @@
 
 The roadmap separates scientific evidence from product capability. Features advance only when a measured bottleneck or validated hypothesis justifies them.
 
+## Parallel track: V2.1 Evidence Bridge
+
+MG-EXP-V2.1 does not replace V2.0-alpha. It adds iso-model allocation, VOC calibration, stronger baselines, and a local executable smoke track. Confirmatory remains locked.
+
 ## Parallel track: V2.0-alpha resource allocation
 
 V2 is a separate protocol (MG-EXP-V2). Alpha is simulation-only. It does not replace V1 evidence gates and does not authorize live provider spend.
