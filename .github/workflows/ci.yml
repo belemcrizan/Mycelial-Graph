@@ -21,4 +21,7 @@ jobs:
       - run: python -m unittest discover -s tests -v
       - run: mycelial-graph validate --config experiments/v1/config.development.yaml
       - run: mycelial-graph v2-validate --config experiments/v2/config.development.yaml
+      - run: mycelial-graph v2-validate --config experiments/v2_1/config.development.yaml
+      - run: mycelial-graph claim-audit --matrix docs/claim_evidence_matrix.yaml
+      - run: mycelial-graph real-smoke
 
