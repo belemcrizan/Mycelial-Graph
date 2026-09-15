@@ -1,0 +1,831 @@
+{
+  "source": "research/MASTER_PROMPT.md",
+  "sections": [
+    {
+      "section": 0,
+      "requirement": "NON-NEGOTIABLE PRINCIPLES",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 1,
+      "requirement": "CENTRAL SCIENTIFIC THESIS",
+      "priority": "P1",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A \u2192 B or bounded theory"
+    },
+    {
+      "section": 2,
+      "requirement": "FORMALIZE THE PROBLEM",
+      "priority": "P1",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A \u2192 B or bounded theory"
+    },
+    {
+      "section": 3,
+      "requirement": "PRIMARY QUESTION",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 4,
+      "requirement": "FINISH V1 BEFORE MAJOR EXPANSION",
+      "priority": "P0",
+      "status": "PLANNED",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 5,
+      "requirement": "PRESERVE AND STRENGTHEN EXISTING STATISTICS",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 6,
+      "requirement": "BUILD MYCELIALBENCH",
+      "priority": "P2",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B/C: exploratory validity map"
+    },
+    {
+      "section": 7,
+      "requirement": "MAKE RHO A FIRST-CLASS SCIENTIFIC VARIABLE",
+      "priority": "P1",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B or bounded theory"
+    },
+    {
+      "section": 8,
+      "requirement": "EXTEND TO TWO-DIMENSIONAL PHASE MAPS",
+      "priority": "P1",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B or bounded theory"
+    },
+    {
+      "section": 9,
+      "requirement": "NEGATIVE TRANSFER MUST BE A PRIMARY PHENOMENON",
+      "priority": "P1",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B or bounded theory"
+    },
+    {
+      "section": 10,
+      "requirement": "FORMALIZE KNOWLEDGE RETENTION",
+      "priority": "P1",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B or bounded theory"
+    },
+    {
+      "section": 11,
+      "requirement": "LEARN HOW MUCH TO SHARE",
+      "priority": "P5",
+      "status": "PLANNED",
+      "next_gate": "A complete + separate falsifiable research protocol"
+    },
+    {
+      "section": 12,
+      "requirement": "LATENT CAUSE INFERENCE",
+      "priority": "P5",
+      "status": "PLANNED",
+      "next_gate": "A complete + separate falsifiable research protocol"
+    },
+    {
+      "section": 13,
+      "requirement": "CHANGE-POINT DETECTION",
+      "priority": "P2",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B/C: exploratory validity map"
+    },
+    {
+      "section": 14,
+      "requirement": "STRONG BASELINES",
+      "priority": "P1",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A \u2192 B or bounded theory"
+    },
+    {
+      "section": 15,
+      "requirement": "FULL ABLATION PROGRAM",
+      "priority": "P1",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B or bounded theory"
+    },
+    {
+      "section": 16,
+      "requirement": "MULTIPLE TOPOLOGIES",
+      "priority": "P2",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B/C: exploratory validity map"
+    },
+    {
+      "section": 17,
+      "requirement": "HARDER NON-STATIONARY REGIMES",
+      "priority": "P2",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B/C: exploratory validity map"
+    },
+    {
+      "section": 18,
+      "requirement": "PARTIAL OBSERVABILITY",
+      "priority": "P2",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B/C: exploratory validity map"
+    },
+    {
+      "section": 19,
+      "requirement": "DELAYED AND MISSING FEEDBACK",
+      "priority": "P2",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B/C: exploratory validity map"
+    },
+    {
+      "section": 20,
+      "requirement": "REAL WORKLOADS",
+      "priority": "P3",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 D/H: external evidence and provenance"
+    },
+    {
+      "section": 21,
+      "requirement": "REAL AI EXECUTION GRAPH",
+      "priority": "P3",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 D/H: external evidence and provenance"
+    },
+    {
+      "section": 22,
+      "requirement": "REAL PROVIDER VALIDATION",
+      "priority": "P3",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 D/H: external evidence and provenance"
+    },
+    {
+      "section": 23,
+      "requirement": "TRACE REPLAY",
+      "priority": "P3",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 D/H: external evidence and provenance"
+    },
+    {
+      "section": 24,
+      "requirement": "DATASET RELEASE",
+      "priority": "P3",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 D/H: external evidence and provenance"
+    },
+    {
+      "section": 25,
+      "requirement": "MULTI-OBJECTIVE EVALUATION",
+      "priority": "P2",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B/C: exploratory validity map"
+    },
+    {
+      "section": 26,
+      "requirement": "V2 \u2014 ADAPTIVE COMPUTATION",
+      "priority": "P5",
+      "status": "PLANNED",
+      "next_gate": "A complete + separate falsifiable research protocol"
+    },
+    {
+      "section": 27,
+      "requirement": "UNCERTAINTY AS A CORE STATE VARIABLE",
+      "priority": "P5",
+      "status": "PLANNED",
+      "next_gate": "A complete + separate falsifiable research protocol"
+    },
+    {
+      "section": 28,
+      "requirement": "EPISTEMIC VS ALEATORIC UNCERTAINTY",
+      "priority": "P5",
+      "status": "PLANNED",
+      "next_gate": "A complete + separate falsifiable research protocol"
+    },
+    {
+      "section": 29,
+      "requirement": "VALUE OF INFORMATION",
+      "priority": "P5",
+      "status": "PLANNED",
+      "next_gate": "A complete + separate falsifiable research protocol"
+    },
+    {
+      "section": 30,
+      "requirement": "STOP AS A REAL ACTION",
+      "priority": "P5",
+      "status": "PLANNED",
+      "next_gate": "A complete + separate falsifiable research protocol"
+    },
+    {
+      "section": 31,
+      "requirement": "HARD POLICY CONSTRAINTS",
+      "priority": "P4",
+      "status": "PLANNED",
+      "next_gate": "A complete + demonstrated implementation need"
+    },
+    {
+      "section": 32,
+      "requirement": "POLICY ENGINE",
+      "priority": "P4",
+      "status": "PLANNED",
+      "next_gate": "A complete + demonstrated implementation need"
+    },
+    {
+      "section": 33,
+      "requirement": "FAULT CONTAINMENT",
+      "priority": "P4",
+      "status": "PLANNED",
+      "next_gate": "A complete + demonstrated implementation need"
+    },
+    {
+      "section": 34,
+      "requirement": "CASCADING FAILURES",
+      "priority": "P4",
+      "status": "PLANNED",
+      "next_gate": "A complete + demonstrated implementation need"
+    },
+    {
+      "section": 35,
+      "requirement": "ADVERSARIAL ROBUSTNESS",
+      "priority": "P2",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B/C: exploratory validity map"
+    },
+    {
+      "section": 36,
+      "requirement": "THEORETICAL PROGRAM",
+      "priority": "P5",
+      "status": "PLANNED",
+      "next_gate": "A complete + separate falsifiable research protocol"
+    },
+    {
+      "section": 37,
+      "requirement": "BEGIN WITH A SIMPLIFIED THEORETICAL MODEL",
+      "priority": "P5",
+      "status": "PLANNED",
+      "next_gate": "A complete + separate falsifiable research protocol"
+    },
+    {
+      "section": 38,
+      "requirement": "SAMPLE COMPLEXITY",
+      "priority": "P5",
+      "status": "PLANNED",
+      "next_gate": "A complete + separate falsifiable research protocol"
+    },
+    {
+      "section": 39,
+      "requirement": "CONSISTENCY AND FAILURE CONDITIONS",
+      "priority": "P5",
+      "status": "PLANNED",
+      "next_gate": "A complete + separate falsifiable research protocol"
+    },
+    {
+      "section": 40,
+      "requirement": "HEAVY-TAILED ENVIRONMENTS",
+      "priority": "P2",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B/C: exploratory validity map"
+    },
+    {
+      "section": 41,
+      "requirement": "SLO-AWARE ROUTING",
+      "priority": "P4",
+      "status": "PLANNED",
+      "next_gate": "A complete + demonstrated implementation need"
+    },
+    {
+      "section": 42,
+      "requirement": "CONTEXTUAL ROUTING",
+      "priority": "P2",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B/C: exploratory validity map"
+    },
+    {
+      "section": 43,
+      "requirement": "CONTEXT-DEPENDENT SHOCKS",
+      "priority": "P2",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B/C: exploratory validity map"
+    },
+    {
+      "section": 44,
+      "requirement": "GRAPH DISCOVERY",
+      "priority": "P5",
+      "status": "PLANNED",
+      "next_gate": "A complete + separate falsifiable research protocol"
+    },
+    {
+      "section": 45,
+      "requirement": "DYNAMIC TOPOLOGY",
+      "priority": "P5",
+      "status": "PLANNED",
+      "next_gate": "A complete + separate falsifiable research protocol"
+    },
+    {
+      "section": 46,
+      "requirement": "META-LEARNING / LEARNING TO ADAPT",
+      "priority": "P2",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B/C: exploratory validity map"
+    },
+    {
+      "section": 47,
+      "requirement": "MEMORY CONSOLIDATION",
+      "priority": "P2",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B/C: exploratory validity map"
+    },
+    {
+      "section": 48,
+      "requirement": "CONTINUAL LEARNING METRICS",
+      "priority": "P2",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B/C: exploratory validity map"
+    },
+    {
+      "section": 49,
+      "requirement": "CAUSAL HIERARCHY",
+      "priority": "P5",
+      "status": "PLANNED",
+      "next_gate": "A complete + separate falsifiable research protocol"
+    },
+    {
+      "section": 50,
+      "requirement": "INTERVENTIONS",
+      "priority": "P5",
+      "status": "PLANNED",
+      "next_gate": "A complete + separate falsifiable research protocol"
+    },
+    {
+      "section": 51,
+      "requirement": "ACTIVE FAULT LOCALIZATION",
+      "priority": "P5",
+      "status": "PLANNED",
+      "next_gate": "A complete + separate falsifiable research protocol"
+    },
+    {
+      "section": 52,
+      "requirement": "REPRODUCIBILITY METADATA",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 53,
+      "requirement": "ONE-COMMAND PAPER REPRODUCTION",
+      "priority": "P3",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 D/H: external evidence and provenance"
+    },
+    {
+      "section": 54,
+      "requirement": "ARTIFACT EVALUATION",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 55,
+      "requirement": "SCIENTIFIC CI",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 56,
+      "requirement": "PROPERTY-BASED TESTING",
+      "priority": "P0",
+      "status": "PLANNED",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 57,
+      "requirement": "MUTATION TESTING",
+      "priority": "P0",
+      "status": "PLANNED",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 58,
+      "requirement": "CONFIG FUZZING",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 59,
+      "requirement": "PERFORMANCE ENGINEERING",
+      "priority": "P4",
+      "status": "PLANNED",
+      "next_gate": "A complete + demonstrated implementation need"
+    },
+    {
+      "section": 60,
+      "requirement": "ARCHITECTURAL MODULARIZATION",
+      "priority": "P4",
+      "status": "PLANNED",
+      "next_gate": "A complete + demonstrated implementation need"
+    },
+    {
+      "section": 61,
+      "requirement": "SIMPLE SDK",
+      "priority": "P4",
+      "status": "PLANNED",
+      "next_gate": "A complete + demonstrated implementation need"
+    },
+    {
+      "section": 62,
+      "requirement": "OBSERVABILITY",
+      "priority": "P4",
+      "status": "PLANNED",
+      "next_gate": "A complete + demonstrated implementation need"
+    },
+    {
+      "section": 63,
+      "requirement": "DECISION PROVENANCE",
+      "priority": "P4",
+      "status": "PLANNED",
+      "next_gate": "A complete + demonstrated implementation need"
+    },
+    {
+      "section": 64,
+      "requirement": "DASHBOARD",
+      "priority": "P4",
+      "status": "PLANNED",
+      "next_gate": "A complete + demonstrated implementation need"
+    },
+    {
+      "section": 65,
+      "requirement": "PAPER FIGURES",
+      "priority": "P1",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B or bounded theory"
+    },
+    {
+      "section": 66,
+      "requirement": "PREREGISTRATION",
+      "priority": "P0",
+      "status": "PLANNED",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 67,
+      "requirement": "RELEASES AND DOI",
+      "priority": "P3",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 D/H: external evidence and provenance"
+    },
+    {
+      "section": 68,
+      "requirement": "CITATION",
+      "priority": "P3",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 D/H: external evidence and provenance"
+    },
+    {
+      "section": 69,
+      "requirement": "PAPER",
+      "priority": "P1",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B or bounded theory"
+    },
+    {
+      "section": 70,
+      "requirement": "RELATED WORK",
+      "priority": "P1",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B or bounded theory"
+    },
+    {
+      "section": 71,
+      "requirement": "NOVELTY MAP",
+      "priority": "P1",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B or bounded theory"
+    },
+    {
+      "section": 72,
+      "requirement": "FAILURE MODES",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 73,
+      "requirement": "SCIENTIFIC RED TEAM",
+      "priority": "P1",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B or bounded theory"
+    },
+    {
+      "section": 74,
+      "requirement": "EXTERNAL REPRODUCTION",
+      "priority": "P3",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 D/H: external evidence and provenance"
+    },
+    {
+      "section": 75,
+      "requirement": "COLLABORATION",
+      "priority": "P3",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 D/H: external evidence and provenance"
+    },
+    {
+      "section": 76,
+      "requirement": "MYCELIALBENCH CHALLENGE",
+      "priority": "P2",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B/C: exploratory validity map"
+    },
+    {
+      "section": 77,
+      "requirement": "MAP WHERE MYCELIAL LOSES",
+      "priority": "P1",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B or bounded theory"
+    },
+    {
+      "section": 78,
+      "requirement": "BIOLOGICAL METAPHOR DISCIPLINE",
+      "priority": "P1",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A \u2192 B or bounded theory"
+    },
+    {
+      "section": 79,
+      "requirement": "LONG-TERM SCIENTIFIC IDENTITY",
+      "priority": "P1",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A \u2192 B or bounded theory"
+    },
+    {
+      "section": 80,
+      "requirement": "LONG-TERM SYSTEM VISION",
+      "priority": "P5",
+      "status": "PLANNED",
+      "next_gate": "A complete + separate falsifiable research protocol"
+    },
+    {
+      "section": 81,
+      "requirement": "ADDITIONAL FRONTIER DIRECTION \u2014 STRUCTURAL UNCERTAINTY",
+      "priority": "P5",
+      "status": "PLANNED",
+      "next_gate": "A complete + separate falsifiable research protocol"
+    },
+    {
+      "section": 82,
+      "requirement": "ADDITIONAL FRONTIER DIRECTION \u2014 COUNTERFACTUAL ROUTING",
+      "priority": "P2",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B/C: exploratory validity map"
+    },
+    {
+      "section": 83,
+      "requirement": "ADDITIONAL FRONTIER DIRECTION \u2014 CALIBRATION",
+      "priority": "P2",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B/C: exploratory validity map"
+    },
+    {
+      "section": 84,
+      "requirement": "ADDITIONAL FRONTIER DIRECTION \u2014 DISTRIBUTION SHIFT",
+      "priority": "P2",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B/C: exploratory validity map"
+    },
+    {
+      "section": 85,
+      "requirement": "ADDITIONAL FRONTIER DIRECTION \u2014 IDENTIFIABILITY",
+      "priority": "P5",
+      "status": "PLANNED",
+      "next_gate": "A complete + separate falsifiable research protocol"
+    },
+    {
+      "section": 86,
+      "requirement": "ADDITIONAL FRONTIER DIRECTION \u2014 CALIBRATED ABSTENTION",
+      "priority": "P5",
+      "status": "PLANNED",
+      "next_gate": "A complete + separate falsifiable research protocol"
+    },
+    {
+      "section": 87,
+      "requirement": "ADDITIONAL FRONTIER DIRECTION \u2014 ADAPTATION DEBT",
+      "priority": "P5",
+      "status": "PLANNED",
+      "next_gate": "A complete + separate falsifiable research protocol"
+    },
+    {
+      "section": 88,
+      "requirement": "ADDITIONAL FRONTIER DIRECTION \u2014 BELIEF PROPAGATION BUDGET",
+      "priority": "P5",
+      "status": "PLANNED",
+      "next_gate": "A complete + separate falsifiable research protocol"
+    },
+    {
+      "section": 89,
+      "requirement": "ADDITIONAL FRONTIER DIRECTION \u2014 FEDERATED / DECENTRALIZED ADAPTATION",
+      "priority": "P5",
+      "status": "PLANNED",
+      "next_gate": "A complete + separate falsifiable research protocol"
+    },
+    {
+      "section": 90,
+      "requirement": "ADDITIONAL FRONTIER DIRECTION \u2014 MECHANISM INTERPRETABILITY",
+      "priority": "P2",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B/C: exploratory validity map"
+    },
+    {
+      "section": 91,
+      "requirement": "ADDITIONAL FRONTIER DIRECTION \u2014 MINIMUM SUFFICIENT COMPLEXITY",
+      "priority": "P1",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B or bounded theory"
+    },
+    {
+      "section": 92,
+      "requirement": "ADDITIONAL FRONTIER DIRECTION \u2014 COMPUTE BUDGET FOR RESEARCH ITSELF",
+      "priority": "P2",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B/C: exploratory validity map"
+    },
+    {
+      "section": 93,
+      "requirement": "ADDITIONAL FRONTIER DIRECTION \u2014 CLAIM REGISTRY",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 94,
+      "requirement": "ADDITIONAL FRONTIER DIRECTION \u2014 RESULT IMMUTABILITY",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 95,
+      "requirement": "ADDITIONAL FRONTIER DIRECTION \u2014 EXPERIMENT LEDGER",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 96,
+      "requirement": "ADDITIONAL FRONTIER DIRECTION \u2014 RESEARCH DEBT REGISTER",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 97,
+      "requirement": "ADDITIONAL FRONTIER DIRECTION \u2014 ENGINEERING DEBT REGISTER",
+      "priority": "P4",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A complete + demonstrated implementation need"
+    },
+    {
+      "section": 98,
+      "requirement": "ADDITIONAL FRONTIER DIRECTION \u2014 DOCUMENT EVIDENCE LEVELS",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 99,
+      "requirement": "PROJECT EXECUTION ORDER",
+      "priority": "P1",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A \u2192 B or bounded theory"
+    },
+    {
+      "section": 100,
+      "requirement": "EACH IMPLEMENTATION ITERATION MUST FOLLOW THIS LOOP",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 101,
+      "requirement": "BEFORE MAKING A CHANGE, CLASSIFY IT",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 102,
+      "requirement": "REQUIRED RESPONSE FORMAT FOR EACH DEVELOPMENT CYCLE",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 103,
+      "requirement": "CODE QUALITY STANDARD",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 104,
+      "requirement": "EXPERIMENT QUALITY STANDARD",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 105,
+      "requirement": "DOCUMENTATION STANDARD",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 106,
+      "requirement": "CLAIM LANGUAGE",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 107,
+      "requirement": "DO NOT OVER-ENGINEER",
+      "priority": "P4",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A complete + demonstrated implementation need"
+    },
+    {
+      "section": 108,
+      "requirement": "DO NOT TURN EVERYTHING INTO AN LLM AGENT",
+      "priority": "P4",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A complete + demonstrated implementation need"
+    },
+    {
+      "section": 109,
+      "requirement": "SUCCESS CRITERIA FOR \u201cGLOBAL-LEVEL\u201d",
+      "priority": "P1",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B or bounded theory"
+    },
+    {
+      "section": 110,
+      "requirement": "DEFINITION OF DONE FOR THE CURRENT PROGRAM",
+      "priority": "P1",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B or bounded theory"
+    },
+    {
+      "section": 111,
+      "requirement": "FINAL RESEARCH NORTH STAR",
+      "priority": "P1",
+      "status": "PLANNED",
+      "next_gate": "A \u2192 B or bounded theory"
+    },
+    {
+      "section": 112,
+      "requirement": "IMMEDIATE EXECUTION INSTRUCTION",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 113,
+      "requirement": "REQUIRED PRIORITY LABELS",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 114,
+      "requirement": "REQUIRED EVIDENCE MATRIX",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 115,
+      "requirement": "REQUIRED \u201cDO NOT CLAIM YET\u201d SECTION",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 116,
+      "requirement": "QUALITY BAR",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    },
+    {
+      "section": 117,
+      "requirement": "FINAL INSTRUCTION",
+      "priority": "P0",
+      "status": "ACTIVE / PARTIAL",
+      "next_gate": "A: integrity and pre-outcome commitments"
+    }
+  ]
+}

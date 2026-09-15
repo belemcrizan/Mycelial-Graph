@@ -54,7 +54,7 @@ If you prefer not to activate the environment:
 .\.venv\Scripts\mycelial-graph.exe demo
 ```
 
-The demo writes raw paired trials, processed statistics, figures, a manifest, and `REPORT.md` under `outputs/demo/`. It is explicitly development-only evidence.
+The demo writes raw paired trials, processed statistics, figures, a manifest, and `REPORT.md` under `outputs/v1-development/`. It is explicitly development-only evidence.
 
 ## Scientific workflow
 
@@ -67,6 +67,7 @@ report            -> pass, conditional result, inconclusive, or refuted
 ```
 
 The confirmatory configuration now has `seeds.confirmatory.txt` (first 97 pool entries after the pilot addendum). **Confirmatory execution has not been run.** Do not treat the pilot as confirmatory.
+The confirmatory configuration deliberately points to a missing `seeds.confirmatory.txt` and now also requires a committed `CONFIRMATORY_FREEZE.json` binding the reviewed pilot, sample size and frozen inputs. These are execution locks, not packaging errors. Follow [`experiments/v1/SAMPLE_SIZE_ADDENDUM.md`](experiments/v1/SAMPLE_SIZE_ADDENDUM.md) after the pilot.
 
 ## V2.0-alpha (additive)
 
@@ -93,6 +94,23 @@ mycelial-graph voc-bench --config experiments/v2_1/config.development.yaml
 mycelial-graph real-smoke
 mycelial-graph claim-audit --matrix docs/claim_evidence_matrix.yaml
 ```
+
+## Evidence-first development cycle
+
+The current work follows the [complete 118-section research roadmap](GLOBAL_RESEARCH_ROADMAP.md), with [claim-to-evidence mapping](CLAIMS.md), separate [research debt](RESEARCH_DEBT.md) and [engineering debt](ENGINEERING_DEBT.md), and [failure modes](FAILURE_MODES.md). The exact requested program is preserved in [research/MASTER_PROMPT.md](research/MASTER_PROMPT.md).
+
+V1 now validates the entire planned population and every manifested artifact before statistics, retains execution-failure diagnostics, rejects incompatible resume, and requires a committed [confirmatory freeze](experiments/v1/FREEZE_CONTRACT.md). [Amendment 001](experiments/v1/PROTOCOL_AMENDMENT_001.md) documents enforcement without changing the frozen methods, parameters or estimands. Development and pilot cannot trigger method promotion.
+
+```sh
+python scripts/reproduce_v1.py --kind development --output outputs/reproduced-v1 --workers 2
+python -m mycelial_graph verify-seal --output outputs/reproduced-v1
+```
+
+See [artifact evaluation](ARTIFACT.md), [reproduction details](REPRODUCIBILITY.md), [the audit](research/V1_AUDIT.md), and [cycle 001](research/CYCLE_001.md). The historical checked-in demo is preserved; it has a documented byte/hash mismatch and is not treated as verified evidence.
+
+### Do not claim yet
+
+No production readiness, universal superiority, causal fault localization, phase transition, real-provider generalization, theoretical sample-complexity gain, DOI or independent reproduction has been established. No V1 confirmatory result is available. Later benchmark, runtime and V3 features remain evidence-gated research requirements.
 
 ## Read next
 

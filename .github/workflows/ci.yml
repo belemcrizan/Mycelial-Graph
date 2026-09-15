@@ -25,3 +25,5 @@ jobs:
       - run: mycelial-graph claim-audit --matrix docs/claim_evidence_matrix.yaml
       - run: mycelial-graph real-smoke
 
+      - run: python scripts/reproduce_v1.py --output outputs/ci-v1 --workers 2
+      - run: python -m mycelial_graph verify-seal --output outputs/ci-v1

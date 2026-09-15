@@ -10,6 +10,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 from ..types import ExperimentConfig
+from ..artifacts import ArtifactError, ensure_unsealed, load_validated_trials
 
 
 METHOD_LABELS = {
@@ -59,8 +60,12 @@ def _make_figures(analysis: dict, output: Path) -> list[Path]:
 
 def generate_report(config: ExperimentConfig, output_directory: str | Path) -> Path:
     output = Path(output_directory).resolve()
+    ensure_unsealed(output)
+    _, provenance = load_validated_trials(config, output)
     analysis_path = output / "processed" / "analysis.json"
     analysis = json.loads(analysis_path.read_text(encoding="utf-8"))
+    if analysis.get("provenance") != provenance or analysis.get("run_kind") != config.run_kind:
+        raise ArtifactError("Analysis does not belong to this verified experiment; analyze the original artifact first.")
     figures = _make_figures(analysis, output)
     primary = analysis["primary_contrast"]
     gate = analysis["decision_gate"]
@@ -75,6 +80,7 @@ def generate_report(config: ExperimentConfig, output_directory: str | Path) -> P
         f"**Protocol:** `{config.protocol_version}`  ",
         f"**Experiment:** `{config.experiment_id}`  ",
         f"**Run kind:** `{config.run_kind}`",
+        f"**Decision state:** `{analysis['decision_state']}`",
         "",
         f"> {status_warning}",
         "",
@@ -97,6 +103,9 @@ def generate_report(config: ExperimentConfig, output_directory: str | Path) -> P
         f"| Statistical superiority | {gate['statistical_superiority']} |",
         f"| Estimated engineering gain | {gate['engineering_gain']} |",
         f"| Non-inferiority at rho=0 | {gate['noninferiority_at_rho_0']} |",
+        f"| Scientific criteria met (descriptive outside confirmatory) | {gate['scientific_criteria_met']} |",
+        f"| Confirmatory population | {gate['confirmatory_population']} |",
+        "| Operational budget validated | False; not yet specified |",
         f"| Promote hierarchical state | {gate['promote_to_v1']} |",
         "",
         "## Group metrics",
