@@ -814,8 +814,11 @@ def historical_artifact_audit() -> dict[str, Any]:
 
 
 def claim_audit() -> dict[str, Any]:
+    from mycelial_graph.science.scientific_state import audit_scientific_state
+
     wording = audit_claims(MATRIX_PATH)
     invariants = audit_v1_invariants(MATRIX_PATH, ROOT)
+    scientific_state = audit_scientific_state(ROOT)
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     seed_hash = sha256_file(V1 / "seeds.confirmatory.txt") or ""
     readme_state = {
@@ -842,14 +845,26 @@ def claim_audit() -> dict[str, Any]:
             "failures": invariants["failures"],
         },
         "readme_machine_verifiable_state": readme_state,
-        "ok": wording["ok"] and invariants["ok"] and not stale_docs,
+        "scientific_state": {
+            "ok": scientific_state["ok"],
+            "n_checks": scientific_state["n_checks"],
+            "failures": scientific_state["failures"],
+            "state": scientific_state["state"],
+        },
+        "ok": wording["ok"] and invariants["ok"] and scientific_state["ok"] and not stale_docs,
     }
-    if not wording["ok"] or not invariants["ok"]:
+    if not wording["ok"] or not invariants["ok"] or not scientific_state["ok"]:
         finding(
             "F-CLAIM-01",
             "C",
             "Claim audit fails against repository state",
-            json.dumps({"wording": wording["errors"], "invariants": invariants["failures"]}),
+            json.dumps(
+                {
+                    "wording": wording["errors"],
+                    "invariants": invariants["failures"],
+                    "scientific_state": scientific_state["failures"],
+                }
+            ),
             "STOP: documentation asserts machine-checkable state that is false.",
         )
     if stale_docs:

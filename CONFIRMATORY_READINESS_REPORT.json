@@ -11,6 +11,19 @@
       "states_seed_count_97": true,
       "states_seed_hash": true
     },
+    "scientific_state": {
+      "failures": [],
+      "n_checks": 54,
+      "ok": true,
+      "state": {
+        "confirmatory.executed": true,
+        "confirmatory.n": 97,
+        "confirmatory.status": "REFUTED",
+        "equalization_triage.status": "EQ-B",
+        "moratorium.active": true,
+        "paper_a.submitted": false
+      }
+    },
     "v1_readiness_invariants": {
       "failures": [],
       "n_checks": 36,
@@ -20,7 +33,7 @@
     "wording_consistency": {
       "claim_boundary": "Passing this audit means the matrix is internally consistent, not that claims are empirically true.",
       "errors": [],
-      "n_claims": 12,
+      "n_claims": 13,
       "ok": true
     }
   },
@@ -40,7 +53,7 @@
     "state_is_terminal": true
   },
   "finding_counts": {
-    "A": 6,
+    "A": 5,
     "B": 2,
     "C": 0
   },
@@ -79,13 +92,6 @@
       "detail": "Before this cycle the report emitted a binary promotion verdict, unlabelled rho curves, and no containment check, so exploratory rho evidence could read as confirmatory and the frozen interpretation matrix had no machine-readable outcome. The added result states, role labels, and claim guard are deterministic functions of already-frozen quantities and change no hypothesis, estimand, threshold, or sample.",
       "id": "F-REPORT-02",
       "title": "Report generator required claim containment, role labels, and a result-state taxonomy"
-    },
-    {
-      "action": "DOCUMENT: record the executing environment in the confirmatory manifest.",
-      "class": "A",
-      "detail": "The pilot manifest records {\"numpy\": {\"pilot\": \"2.5.3\", \"current\": \"2.2.6\"}, \"scipy\": {\"pilot\": \"1.18.1\", \"current\": \"1.15.3\"}, \"pyyaml\": {\"pilot\": \"6.0.3\", \"current\": \"6.0.2\"}}. All 5 sampled sealed pilot scenarios regenerate to identical scientific hashes in the current environment, so the frozen RNG streams, scenario construction, and potential-outcome tables are unaffected by the version difference. The confirmatory manifest records the actual versions used.",
-      "id": "F-PROV-03",
-      "title": "Software environment differs from the one recorded for the pilot"
     },
     {
       "action": "DOCUMENT: the confirmatory question has reached a terminal state.",
@@ -188,7 +194,7 @@
       {
         "exists": true,
         "path": "experiments/v1/SAMPLE_SIZE_ADDENDUM.md",
-        "sha256": "2031e4238f7d5480082f6d417bd705fa92dba659c09960a5e5e43fe998c25ade"
+        "sha256": "ba2aa2f8b06cae9a69fbd3a63ca5b2a9de51c79fa4c775487f00912571e2e0da"
       },
       {
         "exists": true,
@@ -292,7 +298,7 @@
     "missing_files": [],
     "regenerated": false
   },
-  "justification": "No Class C findings. 6 Class A finding(s) documented and 2 Class B finding(s) resolved transparently before confirmatory execution. The frozen seed selection, sample size, configuration binding, multiplicity policy, and reproducibility invariants all reproduce mechanically.",
+  "justification": "No Class C findings. 5 Class A finding(s) documented and 2 Class B finding(s) resolved transparently before confirmatory execution. The frozen seed selection, sample size, configuration binding, multiplicity policy, and reproducibility invariants all reproduce mechanically.",
   "moratorium_audit": {
     "declares_exit_condition": true,
     "document_present": true,
@@ -356,26 +362,13 @@
   "protocol_version": "MG-EXP-V1",
   "provenance_audit": {
     "current_environment": {
-      "numpy": "2.2.6",
+      "numpy": "2.5.3",
       "python": "3.13.3 (tags/v3.13.3:6280bb5, Apr  8 2025, 14:47:33) [MSC v.1943 64 bit (AMD64)]",
-      "pyyaml": "6.0.2",
-      "scipy": "1.15.3"
+      "pyyaml": "6.0.3",
+      "scipy": "1.18.1"
     },
-    "environment_drift": {
-      "numpy": {
-        "current": "2.2.6",
-        "pilot": "2.5.3"
-      },
-      "pyyaml": {
-        "current": "6.0.2",
-        "pilot": "6.0.3"
-      },
-      "scipy": {
-        "current": "1.15.3",
-        "pilot": "1.18.1"
-      }
-    },
-    "head_commit": "5f314d2dfb15f508dfd4e630e8c0e49031e60c6a",
+    "environment_drift": {},
+    "head_commit": "8d27332c9b0ea07a982b335ce5be069180770c09",
     "pilot_code_commit": "2c0a9630ae97e050a8ad31f5a06ce2a9b9ab2b22",
     "pilot_recorded_environment": {
       "numpy": "2.5.3",
@@ -418,28 +411,46 @@
     ]
   },
   "repository_state": {
-    "audited_at_utc": "2026-09-15T03:06:24.143261Z",
-    "branch": "feat/p0-v1-pilot-theory-external",
-    "commit": "5f314d2dfb15f508dfd4e630e8c0e49031e60c6a",
+    "audited_at_utc": "2026-09-15T05:37:57.825668Z",
+    "branch": "paper-a-v1-submission",
+    "commit": "8d27332c9b0ea07a982b335ce5be069180770c09",
     "dirty": true,
     "dirty_paths": [
-      "HANGELOG.md",
+      "github/workflows/ci.yml",
+      "CHANGELOG.md",
       "CONFIRMATORY_READINESS_REPORT.json",
       "CONFIRMATORY_READINESS_REPORT.md",
+      "POST_SUBMISSION_PROPOSALS.md",
       "README.md",
       "V1_CONFIRMATORY_MORATORIUM.md",
       "docs/CLAIM_EVIDENCE_MATRIX.md",
+      "docs/GETTING_STARTED.md",
       "docs/claim_evidence_matrix.yaml",
-      "experiments/v1/artifacts/CONFIRMATORY_FREEZE_SUPPLEMENT.json",
-      "research/ledger/ledger.jsonl",
+      "experiments/v1/artifacts/diagnostics/REPRODUCTION_REPORT.md",
+      "paper/ANONYMIZATION.md",
+      "paper/CLAIM_MAP.yaml",
+      "paper/SUBMISSION.md",
+      "paper/submission/README_ANONYMOUS.md",
+      "paper/submission/build_anonymous_zip.py",
+      "paper/tmlr/paper.tex",
+      "reproduce_confirmatory.py",
+      "research/CLAIMS.md",
+      "research/CLAIM_EVIDENCE_MATRIX.md",
+      "research/DO_NOT_CLAIM.md",
+      "research/LIMITATIONS.md",
       "scripts/audit_v1_readiness.py",
-      "src/mycelial_graph/science/claim_invariants.py",
-      "src/mycelial_graph/v2/evaluation/claim_audit.py",
-      "tests/test_v1_confirmatory_integrity.py",
-      "experiments/v1/artifacts/CONFIRMATORY_RUN_CONTRACT.json",
-      "experiments/v1/artifacts/confirmatory/"
+      "src/mycelial_graph/cli.py",
+      "tests/test_paper_a.py",
+      "paper/SUBMISSION_CHECKLIST.json",
+      "paper/SUBMISSION_CHECKLIST.md",
+      "paper/SUBMISSION_RECEIPT.json",
+      "research/runtime.json",
+      "research/state.json",
+      "src/mycelial_graph/science/canonical_bytes.py",
+      "src/mycelial_graph/science/scientific_state.py",
+      "tests/test_scientific_state.py"
     ],
-    "numpy": "2.2.6",
+    "numpy": "2.5.3",
     "python": "3.13.3"
   },
   "reproducibility_audit": {

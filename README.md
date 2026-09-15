@@ -1,11 +1,22 @@
 # Mycelial Graph V1 Research Edition
 
+<!-- canonical-scientific-state
+confirmatory.executed=true
+confirmatory.status=REFUTED
+confirmatory.n=97
+equalization_triage.status=EQ-B
+paper_a.submitted=false
+moratorium.active=true
+-->
+
 > **Headline result (2026-09-15).** The frozen V1 confirmatory experiment has been run. Its
-> primary hypothesis is **`REFUTED`**: at ρ=0.50 hierarchical node-edge pooling recovered
-> **42.1% slower** than edge-only adaptation (95% CI +11.9% to +79.1%, n=97 paired scenarios), and
-> the ρ=0 negative-transfer safety gate also failed. Details and claim boundary in
-> [Honest status](#honest-status). A refutation is a legitimate scientific outcome and is reported
-> here without reframing.
+> primary hypothesis is **`REFUTED`**: at ρ=0.50 **the fixed hierarchical routing update recovered
+> 42.1% slower than the edge-only comparator under the frozen V1 configuration** (95% CI +11.9%
+> to +79.1%, n=97 paired scenarios), and the ρ=0 negative-transfer safety gate also failed.
+> Post-confirmatory equalization triage classified the comparison as **EQ-B**, so this is a
+> result for the complete frozen policy mechanism, not an isolated test of hierarchical
+> representation. Details and claim boundary in [Honest status](#honest-status). A refutation
+> is a legitimate scientific outcome and is reported here without reframing.
 
 **Paper A.** A TMLR-formatted manuscript of this frozen result is in
 [`paper/tmlr/paper.tex`](paper/tmlr/paper.tex). Current TMLR policy was verified 2026-09-15
@@ -26,7 +37,7 @@ This repository is a reproducible research implementation by **Crizan Belem Ribe
 
 ## What changed from V0
 
-V0 demonstrated local edge conductance. V1 preserves that mechanism and adds the scientific controls needed to determine *why* a method wins:
+V0 demonstrated local edge conductance. V1 preserves that mechanism and adds controls for a pre-specified comparison of recovery behavior under controlled shared and edge-specific disruptions:
 
 - immutable scenarios with identical potential outcomes for every method;
 - isolated random-number streams for environment and agents;
@@ -73,7 +84,26 @@ python -m pip install -e .
 python reproduce_confirmatory.py
 ```
 
-`python reproduce_confirmatory.py` verifies sealed hashes and, if local raw trials exist, recomputes the frozen primary contrast. Full re-execution: `python reproduce_confirmatory.py --full`. Measured decision CPU of the sealed confirmatory run: **0.122 CPU-hours**.
+These commands are not interchangeable:
+
+- `python reproduce_confirmatory.py` is **verification / reanalysis**. It checks freeze bindings
+  and sealed hashes. If local raw confirmatory trials already exist under `outputs/confirmatory/`,
+  it also recomputes the frozen primary contrast from those files. It does **not** recreate the
+  1,940 trials by itself.
+- `python reproduce_confirmatory.py --full` is the canonical **full reproduction**. It re-executes
+  the frozen experiment from frozen inputs (97 seeds × 5 ρ × 4 methods = 1,940 trials) into
+  `outputs/confirmatory-full/` by default, then analyzes, reports, and checks equality with the
+  sealed result. It does not overwrite existing `outputs/confirmatory/` checkpoints.
+
+The 1,940 raw confirmatory records are **not committed**. Sealed summaries and hashes live in
+`experiments/v1/artifacts/confirmatory/`. Raw payloads are generated only by `--full` (or the
+runbook experiment command) into `outputs/confirmatory/raw/`.
+
+Canonical sealed-run **decision CPU** (sum of per-trial `decision_cpu_seconds`): **437.59375 CPU-s
+= 0.122 CPU-hours**. This is not wall-clock time and is not the process CPU of a later `--full`
+replay. A later canonical `--full` replay on this machine (4 workers, Python 3.13.3, Windows 11)
+took **403.8 s wall-clock**; its per-trial decision CPU summed to **0.269 CPU-hours**. Those are
+different metrics. Source: [`research/runtime.json`](research/runtime.json).
 
 The demo remains a development-only path:
 
@@ -168,9 +198,8 @@ hierarchical-versus-edge-only, is **exploratory or diagnostic** under the frozen
 
 A [V1 confirmatory moratorium](V1_CONFIRMATORY_MORATORIUM.md) is in force. V2.0-alpha, V2.1,
 V2.1-A, `theory/`, `external/`, and the pooling/real protocol tracks are frozen — preserved,
-not deleted — until V1 reaches a legitimate terminal state.
-The confirmatory configuration now has `seeds.confirmatory.txt` (first 97 pool entries after the pilot addendum). **Confirmatory execution has not been run.** Do not treat the pilot as confirmatory.
-The confirmatory configuration deliberately points to a missing `seeds.confirmatory.txt` and now also requires a committed `CONFIRMATORY_FREEZE.json` binding the reviewed pilot, sample size and frozen inputs. These are execution locks, not packaging errors. Follow [`experiments/v1/SAMPLE_SIZE_ADDENDUM.md`](experiments/v1/SAMPLE_SIZE_ADDENDUM.md) after the pilot.
+not deleted — until Paper A has been submitted and the submission receipt has been recorded.
+A completed confirmatory result alone does not unlock the broader program.
 
 ## V2.0-alpha (additive, frozen)
 
@@ -183,20 +212,40 @@ mycelial-graph v2-demo
 
 ## Commands
 
+### Active V1 / Paper A commands
+
+```powershell
+mycelial-graph validate --config experiments/v1/config.confirmatory.yaml
+python scripts/audit_v1_readiness.py
+mycelial-graph claim-audit --matrix docs/claim_evidence_matrix.yaml
+python reproduce_confirmatory.py
+python reproduce_confirmatory.py --full
+python paper/submission/build_anonymous_zip.py
+```
+
+Pilot-pipeline commands remain valid for the already-sealed pilot artifacts, not as a second confirmatory path:
+
 ```powershell
 mycelial-graph validate --config experiments/v1/config.pilot.yaml
 mycelial-graph experiment --config experiments/v1/config.pilot.yaml --output outputs/pilot --workers 4
 mycelial-graph analyze --config experiments/v1/config.pilot.yaml --output outputs/pilot
 mycelial-graph report --config experiments/v1/config.pilot.yaml --output outputs/pilot
 mycelial-graph sample-size --config experiments/v1/config.pilot.yaml --output outputs/pilot
+```
+
+### Frozen under submission moratorium
+
+These commands still exist so frozen code keeps its tests. They are **not** current project priorities and must not be used to start V1.5, Paper B, harness, or product work until Paper A is submitted:
+
+```powershell
+mycelial-graph v2-validate --config experiments/v2/config.development.yaml
+mycelial-graph v2-demo
 mycelial-graph v2-experiment --config experiments/v2/config.development.yaml --output outputs/v2-dev
 mycelial-graph v2-analyze --config experiments/v2/config.development.yaml --output outputs/v2-dev
 mycelial-graph v2-report --config experiments/v2/config.development.yaml --output outputs/v2-dev
 mycelial-graph v2-resource-audit --output outputs/v2-dev
 mycelial-graph voc-bench --config experiments/v2_1/config.development.yaml
 mycelial-graph real-smoke
-mycelial-graph claim-audit --matrix docs/claim_evidence_matrix.yaml
-python scripts/audit_v1_readiness.py
 ```
 
 ## Evidence-first development cycle
@@ -214,7 +263,7 @@ See [artifact evaluation](ARTIFACT.md), [reproduction details](REPRODUCIBILITY.m
 
 ### Do not claim yet
 
-No production readiness, universal superiority, causal fault localization, phase transition, real-provider generalization, theoretical sample-complexity gain, DOI or independent reproduction has been established. No V1 confirmatory result is available. Later benchmark, runtime and V3 features remain evidence-gated research requirements.
+No production readiness, universal superiority, causal fault localization, phase transition, real-provider generalization, theoretical sample-complexity gain, DOI or independent reproduction has been established. The V1 confirmatory result is `REFUTED` for the complete frozen policy mechanism; see [Honest status](#honest-status). Later benchmark, runtime and V3 features remain evidence-gated research requirements.
 
 ## Read next
 
@@ -276,11 +325,24 @@ pre-selected paired scenarios, with no post-pilot tuning. Sealed evidence:
 - **Integrity.** 97/97 primary pairs executed, censoring administrative only, zero method
   failures inside the frozen contrasts.
 
+**Confirmatory outcome versus mechanistic attribution.** The frozen confirmatory status remains
+`REFUTED`. That status applies to the *complete frozen policy mechanism* (the implemented
+`hierarchical` routing update versus the `edge_only` comparator under the frozen V1
+configuration). It is not a finding that hierarchical representation, in isolation, caused the
+loss.
+
+Post-confirmatory equalization triage identified a material mismatch in effective policy scale
+between the frozen comparison arms (`EQ-B`). This limits mechanistic attribution of the observed
+performance difference to hierarchical representation alone. It does not alter the frozen
+confirmatory result or retroactively equalize the experiment. This is a post-confirmatory
+diagnostic, not a reclassification of the confirmatory result.
+
 What this means, stated no more strongly than the design permits: in this synthetic layered-DAG
-semi-bandit, under this shock construction and this parameter range, hierarchical node-edge
-pooling did not accelerate recovery at ρ=0.50 and did not clear its own negative-transfer safety
-gate at ρ=0. That is a real negative result for the mechanism this repository was built around, and
-it is reported as such. It does not say hierarchical pooling is useless everywhere, and it does not
+semi-bandit, under this shock construction and this parameter range, the fixed hierarchical
+routing update did not accelerate recovery at ρ=0.50 and did not clear its own negative-transfer
+safety gate at ρ=0. That is a real negative result for the complete frozen mechanism this
+repository was built around, and it is reported as such. It does not say hierarchical pooling is
+useless everywhere, it does not say hierarchical representation caused the loss, and it does not
 establish anything about other ρ values, a crossover, or real systems — the design cannot support
 those statements in either direction.
 
@@ -315,6 +377,7 @@ record: `research/ledger/ledger.jsonl`. Claim boundary:
 
 - crossover `rho*` existence or location; any phase-transition or monotone-`rho` claim;
 - universal or all-`rho` superiority of hierarchical pooling or of Mycelial Graph;
+- **Attribution of the V1 performance difference to hierarchical representation alone; effective policy scale was not equalized in the frozen comparison.**
 - production readiness or real-world/production superiority;
 - real-provider or cloud-provider generalisation;
 - causal fault localisation (the execution DAG is not a causal DAG);

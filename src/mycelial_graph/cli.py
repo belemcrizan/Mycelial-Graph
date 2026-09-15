@@ -303,14 +303,18 @@ def main(argv: list[str] | None = None) -> int:
 
         if args.command == "claim-audit":
             from .science.claim_invariants import audit_v1_invariants
+            from .science.scientific_state import audit_scientific_state
             from .v2.evaluation.claim_audit import audit_claims
 
+            root = Path(__file__).resolve().parents[2]
             wording = audit_claims(args.matrix)
-            invariants = audit_v1_invariants(args.matrix, Path(__file__).resolve().parents[2])
+            invariants = audit_v1_invariants(args.matrix, root)
+            scientific_state = audit_scientific_state(root)
             result = {
-                "ok": wording["ok"] and invariants["ok"],
+                "ok": wording["ok"] and invariants["ok"] and scientific_state["ok"],
                 "wording_consistency": wording,
                 "v1_readiness_invariants": invariants,
+                "scientific_state": scientific_state,
             }
             print(json.dumps(result, indent=2))
             return 0 if result["ok"] else 3

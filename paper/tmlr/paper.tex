@@ -19,8 +19,8 @@
 \maketitle
 
 \begin{abstract}
-A pre-registered, frozen comparison found that the tested hierarchical node-edge credit-sharing mechanism did not improve disruption recovery relative to edge-only adaptation under the primary V1 regime, and the pre-specified negative-transfer safety criterion was not satisfied.
-On $n=97$ paired synthetic scenarios at shared-shock fraction $\rho=0.50$, mean restricted recovery time was $42.1\%$ \emph{higher} for hierarchical pooling than for edge-only adaptation (bootstrap $95\%$ interval $+11.9\%$ to $+79.1\%$; one-sided upper bound $+72.1\%$).
+A pre-registered, frozen comparison found that the tested hierarchical routing update did not improve disruption recovery relative to the edge-only comparator under the frozen V1 configuration, and the pre-specified negative-transfer safety criterion was not satisfied.
+On $n=97$ paired synthetic scenarios at shared-shock fraction $\rho=0.50$, mean restricted recovery time was $42.1\%$ \emph{higher} for the fixed hierarchical routing update than for edge-only adaptation (bootstrap $95\%$ interval $+11.9\%$ to $+79.1\%$; one-sided upper bound $+72.1\%$).
 The frozen analysis plan therefore classifies the primary hypothesis as \textbf{REFUTED}.
 At $\rho=0$, the one-sided upper bound $+16.3\%$ exceeds the pre-specified non-inferiority margin $+10\%$, so the negative-transfer safety gate also fails.
 This paper reports that terminal result without narrative rescue.
@@ -51,6 +51,8 @@ The confirmatory decision used a paired bootstrap, one-sided $95\%$ upper bound,
 A separate safety gate at $\rho=0$ tested non-inferiority against margin $\Delta_{\mathrm{NI}}=+0.10$.
 
 The experiment reached a legitimate terminal state: \textbf{REFUTED}, and the safety gate failed.
+That status applies to the complete frozen policy mechanism, not to hierarchical representation in isolation.
+A post-confirmatory equalization audit identified a material effective-policy mismatch (class EQ-B), limiting attribution of the observed difference to hierarchical representation alone.
 A negative result that remains unpublished does not capitalize the work that produced it.
 We therefore report the frozen test and the strongest interpretation the artifacts support, and we keep every mechanistic story in a labelled diagnostic section.
 
@@ -140,7 +142,7 @@ That is methodological discipline, not a weakness to hide.
 \section{Confirmatory results}
 
 \paragraph{Primary contrast ($\rho=0.50$, hierarchical vs edge-only).}
-Mean restricted recovery time was $51.18$ for hierarchical pooling and $36.01$ for edge-only adaptation, so $\widehat{\deltaRRT}=+42.1\%$
+Mean restricted recovery time was $51.18$ for the fixed hierarchical routing update and $36.01$ for the edge-only comparator, so $\widehat{\deltaRRT}=+42.1\%$
 (bootstrap $95\%$ interval $+11.9\%$ to $+79.1\%$; one-sided upper bound $+72.1\%$; $10{,}000$ resamples; $n=97$).
 The relevant benefit $-20\%$ lies outside the interval.
 The frozen mapping therefore returns \textbf{REFUTED}.
@@ -248,7 +250,7 @@ Those threats remain in Section~\ref{sec:threats}.
 The strongest threats are listed first.
 \begin{itemize}
 \item \textbf{Synthetic environment.} No real-provider traces were used. External validity is $\mathrm{UNSUPPORTED}$.
-\item \textbf{Effective-policy mismatch (EQ-B).} Nominal hyperparameter equality did not yield equalized action distributions. Mechanistic attribution to ``hierarchy'' is limited.
+\item \textbf{Effective-policy mismatch (EQ-B).} Nominal hyperparameter equality did not yield equalized action distributions. Attribution of the V1 performance difference to hierarchical representation alone is unsupported; effective policy scale was not equalized in the frozen comparison. Mechanistic attribution to ``hierarchy'' is limited. The frozen result remains $\mathrm{REFUTED}$ for the complete tested mechanism.
 \item \textbf{Limited dynamic range.} Even at $\rho=1$, restricted recovery time does not detect a sharing advantage under the frozen one-sided rule.
 \item \textbf{Shock construction.} Constant $\ell_2$ magnitude with a single node pattern and a single interaction edge may not match other disruption models.
 \item \textbf{Small pilot and variance instability.} $N=97$ used a normal approximation on $20$ pairs; confirmatory paired SD was $1.72\times$ larger.
@@ -261,15 +263,48 @@ The strongest threats are listed first.
 
 \section{Reproducibility}
 
+\subsection{Verification versus full reproduction}
 Sealed confirmatory artifacts, configuration hash, seed-file hash, and the result state $\mathrm{REFUTED}$ are in the supplementary package.
-The canonical command is
+The default command
 \begin{verbatim}
 python reproduce_confirmatory.py
 \end{verbatim}
-It verifies freeze bindings and sealed hashes, and recomputes the primary contrast when local raw trials are present.
-Measured decision CPU over the $1940$ confirmatory trials is $\mathbf{0.122}$ CPU-hours.
-Wall-clock of the original execution was not stored in the run manifest; a full re-execution is available with \texttt{--full}.
-Dependency pins matching the sealed environment are \texttt{numpy==2.2.6}, \texttt{scipy==1.15.3}, \texttt{PyYAML==6.0.2}, \texttt{matplotlib==3.10.1}, Python $3.13.3$ (Python $3.11$ is also tested in CI).
+is verification and, when local raw trials already exist, reanalysis.
+It checks freeze bindings and sealed hashes.
+If \texttt{outputs/confirmatory/raw} is present it recomputes the frozen primary contrast from those files.
+It does not recreate the $1940$ trials by itself.
+
+The canonical full reproduction command is
+\begin{verbatim}
+python reproduce_confirmatory.py --full
+\end{verbatim}
+It re-executes the frozen experiment from frozen inputs ($97$ seeds $\times$ $5$ $\rho$ values $\times$ $4$ methods $= 1940$ trials), then analyzes, reports, and checks equality with the sealed result.
+The $1940$ raw confirmatory records are not stored in the git history; they are generated by \texttt{--full}.
+Sealed summaries and hashes are committed.
+
+\subsection{Line-ending canonicalization and hashes}
+Historically frozen hashes, including the confirmatory seed-file hash and the sealed artifact hashes, are hashes of the stored bytes.
+They are not recomputed after newline rewriting.
+New text hashes declared by this repository are LF-canonicalized (\texttt{.gitattributes}: \texttt{* text=auto eol=lf}).
+A regression test distinguishes raw-byte hashes from LF-canonical hashes so that CRLF checkout cannot silently retarget a newly declared hash.
+
+\subsection{Pinned dependencies}
+The tested environment is Python $3.13.3$ (Python $3.11$ is also tested in CI) with
+\texttt{numpy==2.2.6}, \texttt{scipy==1.15.3}, \texttt{PyYAML==6.0.2}, \texttt{matplotlib==3.10.1},
+as pinned in \texttt{requirements.lock.txt}.
+Install with \texttt{python -m pip install -r requirements.lock.txt} and then \texttt{python -m pip install -e .}.
+The claim/state auditor, freeze audit, and unit tests are current repository capabilities; they are not described as future work.
+
+\subsection{Runtime}
+Canonical runtime metadata is \texttt{research/runtime.json}.
+Measured sealed-run \emph{decision CPU} is the sum of per-trial \texttt{decision\_cpu\_seconds} over the $1940$ confirmatory trials:
+$\mathbf{437.59375}$ CPU-s $= \mathbf{0.122}$ CPU-hours.
+This is not wall-clock time, not verification time, and not the process CPU of a later \texttt{--full} replay.
+Do not substitute a different CPU-hour figure for this sealed decision-CPU metric.
+A later canonical full replay (\texttt{python reproduce\_confirmatory.py --full}, $4$ workers, Python $3.13.3$, Windows 11) took $403.8$\,s wall-clock; the sum of per-trial \texttt{decision\_cpu\_seconds} on that replay was $0.269$ CPU-hours.
+Decision CPU is machine- and timer-dependent; the confirmatory classification is not.
+Wall-clock of the original sealed execution was not stored in the run manifest; full-replay wall-clock is recorded in \texttt{research/runtime.json}.
+
 No independent external party has reproduced the result.
 A current ML Reproducibility Challenge track exists (MLRC 2026) but is scoped to reproducibility studies of already-published work with TMLR acceptance in a stated window; this original confirmatory report is not submitted there.
 The closest external-reproduction mechanism is the public artifact package after venue-compatible archival.
@@ -284,9 +319,10 @@ They do not rewrite V1.
 
 \section{Conclusion}
 
-Under a frozen protocol, hierarchical node-edge credit sharing recovered more slowly than edge-only adaptation at $\rho=0.50$ and did not clear its negative-transfer safety gate at $\rho=0$.
-The primary hypothesis is $\mathrm{REFUTED}$.
-Post-confirmatory diagnostics identify variance instability in a small pilot, an EQ-B effective-policy mismatch, and limited dynamic range, without converting any of those findings into confirmatory evidence.
+Under a frozen protocol, the fixed hierarchical routing update recovered more slowly than the edge-only comparator at $\rho=0.50$ and did not clear its negative-transfer safety gate at $\rho=0$.
+The primary hypothesis is $\mathrm{REFUTED}$ for that complete frozen mechanism.
+A post-confirmatory equalization audit identified a material effective-policy mismatch, limiting attribution of the observed difference to hierarchical representation alone.
+Post-confirmatory diagnostics also identify variance instability in a small pilot and limited dynamic range, without converting any of those findings into confirmatory evidence.
 The honest scientific position is the bounded negative result, not a post-hoc success story.
 
 \bibliography{references}
@@ -305,8 +341,9 @@ No central prose claim is intended to exceed this map.
 \toprule
 Section & Claim & Status & Forbidden stronger wording \\
 \midrule
-Abstract / Results & Hierarchical RRT $+42.1\%$ vs edge-only at $\rho=0.50$; $\mathrm{REFUTED}$ & $\mathrm{FROZEN\_CONFIRMATORY}$ & Universal failure of hierarchical pooling \\
+Abstract / Results & Frozen hierarchical routing update RRT $+42.1\%$ vs edge-only at $\rho=0.50$; $\mathrm{REFUTED}$ & $\mathrm{FROZEN\_CONFIRMATORY}$ & Universal failure of hierarchical pooling \\
 Safety gate & Upper bound $+16.3\%>+10\%$ & $\mathrm{FROZEN\_CONFIRMATORY}$ & Proof of harmful negative transfer everywhere \\
+Attribution & Representation-only cause of the loss & $\mathrm{UNSUPPORTED}$ & Hierarchical representation caused the loss \\
 Pilot & Unfavourable/non-conclusive; not used to retune & $\mathrm{PILOT}$ / not confirmatory & Pilot as confirmatory evidence \\
 Sample size & $N=97$ from pilot normal approximation & Frozen design & Adequacy of the approximation \\
 Variance diagnostic & SD ratio $1.72\times$ & $\mathrm{POST\_CONFIRMATORY\_DIAGNOSTIC}$ & General law of pilot instability \\

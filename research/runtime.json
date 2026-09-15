@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "metric_definitions": {
+    "decision_cpu_seconds": "Sum of per-trial time.process_time() spent inside run_method for the sealed confirmatory payloads. Not wall-clock. Not full-process CPU of a later replay.",
+    "decision_cpu_hours": "decision_cpu_seconds / 3600",
+    "full_cpu_seconds": "Sum of per-trial decision_cpu_seconds from a --full replay, or process CPU of that invocation when recorded separately",
+    "wall_clock_seconds": "perf_counter elapsed time of a specific invocation"
+  },
+  "sealed_confirmatory": {
+    "decision_cpu_seconds": 437.59375,
+    "decision_cpu_hours": 0.12155381944444445,
+    "decision_cpu_hours_rounded_3dp": 0.122,
+    "n_trials": 1940,
+    "measurement_source": "experiments/v1/artifacts/diagnostics/runtime.json (sum of per-trial decision_cpu_seconds)",
+    "commit": "5f314d2dfb15f508dfd4e630e8c0e49031e60c6a",
+    "artifact_hash_field": "experiments/v1/artifacts/confirmatory/CONFIRMATORY_EVIDENCE.json sealed_artifact_sha256.processed/analysis.json",
+    "wall_clock_seconds": null,
+    "wall_clock_original_run": "NOT_IN_MANIFEST",
+    "note": "Sealed decision CPU is 437.59375 s = 0.122 h. Do not report 0.112 CPU-h or 402.0 CPU-s for this metric. A later --full replay on one machine used ~404 s wall-clock; dividing that wall-clock by 3600 yields ~0.112 h and is a different quantity."
+  },
+  "full_reproduction": {
+    "status": "MEASURED",
+    "decision_cpu_seconds": 967.953125,
+    "decision_cpu_hours": 0.2688758680555556,
+    "process_cpu_seconds": 0.296875,
+    "process_cpu_hours": 8.246527777777778e-05,
+    "wall_clock_seconds": 403.8242388999788,
+    "n_trials": 1940,
+    "workers": 4,
+    "python_version": "3.13.3",
+    "os": "Windows-11-10.0.26200-SP0",
+    "cpu_model": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+    "peak_memory_bytes": null,
+    "result_match": true,
+    "hash_match": true,
+    "command": "python reproduce_confirmatory.py --full",
+    "measurement_environment": {
+      "python": "3.13.3 (tags/v3.13.3:6280bb5, Apr  8 2025, 14:47:33) [MSC v.1943 64 bit (AMD64)]",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+      "workers": 4
+    }
+  }
+}

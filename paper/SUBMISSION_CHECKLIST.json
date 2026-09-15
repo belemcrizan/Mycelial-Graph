@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-09-15T05:35:00Z",
+  "overall": "READY_FOR_HUMAN_OPENREVIEW",
+  "paper_a_submitted": false,
+  "moratorium_active": true,
+  "items": {
+    "readme_contradictions": "PASS",
+    "cpu_metric_consistency": "PASS",
+    "headline_claim": "PASS",
+    "eq_b_honest_status": "PASS",
+    "moratorium_alignment": "PASS",
+    "anonymized_tex": "PASS",
+    "anonymous_zip": "PASS",
+    "section_8_2_debt": "PASS",
+    "full_reproduction": "PASS",
+    "commands_section": "PASS",
+    "compiled_pdf": "HUMAN_BOUNDARY",
+    "openreview_login": "HUMAN_BOUNDARY",
+    "anonymous_git_mirror": "HUMAN_BOUNDARY",
+    "zenodo_public_doi": "NOT_APPLICABLE",
+    "equalization_freeze_gate": "NOT_APPLICABLE"
+  },
+  "anonymous_zip": {
+    "path": "paper/submission/anonymous_supplement.zip",
+    "sha256": "f4cc8bd9e08183316dcd244c6cbf4607d8372ad6d48f4517c6b83344cda3ecb1",
+    "bytes": 761222
+  },
+  "full_reproduction": {
+    "command": "python reproduce_confirmatory.py --full",
+    "result_match": true,
+    "hash_match": true,
+    "wall_clock_seconds": 403.8242388999788,
+    "decision_cpu_hours": 0.2688758680555556,
+    "n_trials": 1940
+  }
+}

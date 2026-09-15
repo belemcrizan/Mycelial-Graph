@@ -47,6 +47,8 @@ mycelial-graph demo
 
 PowerShell does not use `source .venv/bin/activate`; that command is for Bash on Linux and macOS.
 
+`python reproduce_confirmatory.py` is verification/reanalysis. Recreate all 1,940 frozen trials with `python reproduce_confirmatory.py --full`. Raw confirmatory records are not in git.
+
 ## Understanding the output
 
 ```text

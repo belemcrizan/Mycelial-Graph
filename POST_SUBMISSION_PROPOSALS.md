@@ -15,3 +15,5 @@ is not.
 | Dynamic regret co-primary | RRT and regret already disagree at ρ=1 | High | Medium | Multiplicity | V1.5 protocol | No |
 | Registered Report for V1.5 | Protects another negative result | High | Medium | Venue availability unknown | Venue check | No |
 | External red team of V1 | Adversarial invalidation attempt | High | Compensation may be required | Unauthorized spend | User authorization | Maybe |
+| Record original-run wall-clock into sealed manifest | Original wall-clock was never stored; cannot rewrite sealed bytes | Low | Low | Tampering with sealed provenance | Do not do this | No |
+| Host anonymous.4open.science mirror | Reviewer-accessible git without identity in the PDF | Medium | Low | Deanonymization if GitHub URL leaks | Human account | No |
