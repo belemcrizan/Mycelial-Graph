@@ -1,0 +1,78 @@
+protocol_version: MG-EXP-V2.1
+experiment_id: MG-EXP-V2.1-DEVELOPMENT
+run_kind: development
+
+graph:
+  internal_layers: 3
+  alternatives_per_layer: 3
+
+horizon:
+  pre_shock_steps: 4
+  post_shock_steps: 6
+  recovery_trailing_window: 2
+  recovery_confirmation_window: 3
+  recovery_utility_fraction: 0.90
+
+environment:
+  regimes: [STATIC]
+  primary_regime: STATIC
+  shock_magnitude: 0.40
+  quality_noise_std: 0.04
+  token_noise_std: 0.12
+  latency_noise_std: 0.10
+  max_generation_attempts: 8000
+  iso_model: true
+
+resources:
+  global_budget_tokens: 20000
+  scarce_budget_tokens: 8000
+  router_tokens_per_candidate: 2
+  state_overhead_tokens: 1
+
+utility:
+  lambda_tokens: 0.35
+  lambda_cost: 0.25
+  lambda_latency: 0.08
+  lambda_risk: 0.20
+  lambda_failure: 0.40
+  lambda_state: 0.02
+  mvc_threshold: 0.0008
+  switching_penalty: 0.05
+  switch_cooldown: 3
+
+controller:
+  initial_conductance: 0.50
+  minimum_conductance: 0.05
+  maximum_conductance: 1.80
+  learning_rate: 0.18
+  temporal_decay: 0.02
+  exploration_probability: 0.10
+  temperature: 0.22
+  transfer_mix: 0.20
+  prune_threshold: 0.55
+  prune_persistence: 4
+  min_prune_observations: 3
+  hysteresis: 0.04
+  floor_budget_fraction: 0.02
+
+constraints:
+  minimum_quality: 0.35
+  max_risk: 0.55
+  mandatory_verification: false
+
+analysis:
+  bootstrap_samples: 200
+  confidence_level: 0.95
+  quality_noninferiority_margin: 0.05
+  engineering_token_gate: 0.10
+  mmrr: 0.05
+
+methods:
+  - always_high_compute
+  - always_low_compute
+  - adaptive_early_stop
+  - cost_sensitive_bandit
+  - thompson_sampling
+  - v2_mycelial
+
+seeds_file: seeds.development.txt

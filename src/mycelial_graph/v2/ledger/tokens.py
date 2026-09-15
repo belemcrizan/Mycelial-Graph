@@ -151,6 +151,7 @@ class TotalResourceLedger:
 
     def to_dict(self) -> dict[str, Any]:
         return {
+            "ledger_schema_version": "v2.1-waste-1",
             "input_tokens": self.input_tokens,
             "output_tokens": self.output_tokens,
             "reasoning_tokens": self.reasoning_tokens,

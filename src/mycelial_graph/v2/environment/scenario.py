@@ -164,7 +164,7 @@ def _path_quality(graph: LayeredDAG, quality: np.ndarray) -> list[tuple[float, t
 
 
 def _base_attributes(
-    graph: LayeredDAG, difficulty: str
+    graph: LayeredDAG, difficulty: str, iso_model: bool = False
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     n_edges = len(graph.edges)
     quality = np.zeros(n_edges)
@@ -184,11 +184,12 @@ def _base_attributes(
             fail[edge.id] = 0.03
             price[edge.id] = 0.02
         elif role == "model":
-            quality[edge.id] = q_model[alt]
-            tokens[edge.id] = TOKEN_BY_CLASS[alt]
-            latency[edge.id] = LATENCY_BY_CLASS[alt]
-            fail[edge.id] = FAIL_BY_CLASS[alt]
-            price[edge.id] = PRICE_BY_CLASS[alt]
+            model_alt = 1 if iso_model else alt
+            quality[edge.id] = q_model[model_alt]
+            tokens[edge.id] = TOKEN_BY_CLASS[model_alt]
+            latency[edge.id] = LATENCY_BY_CLASS[model_alt]
+            fail[edge.id] = FAIL_BY_CLASS[model_alt]
+            price[edge.id] = PRICE_BY_CLASS[model_alt]
         elif role == "verification":
             quality[edge.id] = 0.62 + VERIFY_QUALITY_LIFT[alt]
             tokens[edge.id] = VERIFY_TOKENS[alt]
@@ -278,7 +279,9 @@ def generate_resource_scenario(
     n_edges = len(graph.edges)
     steps = config.horizon.total_steps
 
-    quality_pre, token_pre, latency_pre, fail_pre, price_pre = _base_attributes(graph, difficulty)
+    quality_pre, token_pre, latency_pre, fail_pre, price_pre = _base_attributes(
+        graph, difficulty, iso_model=config.environment.iso_model
+    )
     quality_pre = np.clip(quality_pre + param_rng.normal(0.0, 0.01, n_edges), 0.05, 0.95)
 
     quality_post, token_post, latency_post, fail_post, price_post, budget_post = _apply_regime(

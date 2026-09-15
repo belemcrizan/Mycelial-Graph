@@ -1,5 +1,23 @@
 # Changelog
 
+## Unreleased
+
+- Added isolated theory, external-validation, and adaptive-pooling tracks without changing MG-EXP-V1 methods, configs, or confirmatory meaning.
+- Added license-gated adapters, dry-run collector, IPS support diagnostics, scientific ledger helpers, and MG-EXP-REAL-001 / MG-EXP-POOLING-001 protocols.
+- Did not add a V1 confirmatory result.
+
+## 0.2.2 - 2026-08-31
+
+- Replaced the V2.1 coding smoke known-fix shortcut (`apply_fix=True`) with an autonomous local agent loop: read, search, retrieve, reason, test, inspect, edit, verify, escalate, stop.
+- Quality is now the executable grader on an isolated workspace copy. Oracle patches are evaluation metadata only and are never injected into the agent path.
+- Action traces carry `action_id` and `context_id` hashes. This is still not a live coding-agent or SWE-bench result.
+
+## 0.2.1 - 2026-08-31
+
+- Added MG-EXP-V2.1 Evidence Bridge as an additive layer (VOC difference+ratio, counterfactual VOC bench, iso-model generator flag, budget curves, waste proxies, strong allocation baselines, local executable smoke tasks, claim audit).
+- Left MG-EXP-V1 and MG-EXP-V2 (V2.0-alpha) protocols, confirmatory locks, and CLI meaning unchanged.
+- Documented unimplemented alpha ablation aliases and a verified literature snapshot.
+
 ## 0.2.0 - 2026-08-31
 
 - Added Mycelial Graph V2.0-alpha as an additive scientific layer (resource ledger, synthetic environment, resource controller, Pareto and quality non-inferiority reporting).

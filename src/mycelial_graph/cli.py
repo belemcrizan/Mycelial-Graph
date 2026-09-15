@@ -79,6 +79,43 @@ def _parser() -> argparse.ArgumentParser:
 
     v2_audit = sub.add_parser("v2-resource-audit", help="Check traces against ledger totals.")
     v2_audit.add_argument("--output", required=True)
+
+    voc = sub.add_parser("voc-bench", help="Counterfactual VOC calibration on frozen V2 scenarios.")
+    voc.add_argument("--config", required=True)
+
+    budget = sub.add_parser("budget-curve", help="Quality versus budget curve for one method.")
+    budget.add_argument("--config", required=True)
+    budget.add_argument("--method", default="v2_mycelial")
+    budget.add_argument("--output", default="outputs/v2_1-budget")
+
+    waste = sub.add_parser("waste-audit", help="Decompose ledger totals into waste proxies.")
+    waste.add_argument("--output", required=True)
+
+    sub.add_parser("real-smoke", help="Run local executable coding fixtures (not SWE-bench).")
+    sub.add_parser("shadow-run", help="Shadow-mode recommendations on local coding fixtures.")
+
+    claim = sub.add_parser("claim-audit", help="Audit the machine-readable claim matrix.")
+    claim.add_argument("--matrix", default="docs/claim_evidence_matrix.yaml")
+
+    collect = sub.add_parser("collect", help="Conservative trace collector (dry-run by default).")
+    collect.add_argument("--dry-run", action="store_true", default=True)
+    collect.add_argument("--max-cost", type=float, default=0.0)
+    collect.add_argument("--max-requests", type=int, default=1)
+    collect.add_argument("--max-duration", type=float, default=1.0)
+    collect.add_argument("--authorize-spend", action="store_true", default=False)
+
+    ope = sub.add_parser("ope-check", help="IPS diagnostics on a JSONL logged-bandit file.")
+    ope.add_argument("--input", required=True)
+
+    freeze_run = sub.add_parser("bind-run", help="Bind hashes for a completed run without unlocking confirmatory.")
+    freeze_run.add_argument("--config", required=True)
+    freeze_run.add_argument("--output", required=True)
+    freeze_run.add_argument("--destination", required=True)
+
+    pooling_toy = sub.add_parser("pooling-toy", help="Run the isolated MG-EXP-POOLING-001 toy model.")
+    pooling_toy.add_argument("--seed", type=int, default=0)
+
+    sub.add_parser("evidence-audit", help="Print the next-stage audit document path.")
     return parser
 
 
@@ -197,6 +234,123 @@ def main(argv: list[str] | None = None) -> int:
             result = audit_resource_traces(args.output)
             print(json.dumps(result, indent=2))
             return 0 if result["ok"] else 3
+
+        if args.command == "voc-bench":
+            from .v2.config import load_v2_config
+            from .v2.evaluation import run_voc_benchmark
+            from .v2.validation import require_valid_v2_config
+
+            config = load_v2_config(args.config)
+            require_valid_v2_config(config)
+            seeds_path = config.source_path.parent / config.seeds_file
+            seeds = tuple(int(line) for line in seeds_path.read_text(encoding="utf-8").splitlines() if line.strip())
+            print(json.dumps(run_voc_benchmark(config, seeds), indent=2, default=str))
+            return 0
+
+        if args.command == "budget-curve":
+            from .v2.config import load_v2_config
+            from .v2.evaluation import budget_response_curve
+            from .v2.validation import require_valid_v2_config
+
+            config = load_v2_config(args.config)
+            require_valid_v2_config(config)
+            seeds_path = config.source_path.parent / config.seeds_file
+            seeds = tuple(int(line) for line in seeds_path.read_text(encoding="utf-8").splitlines() if line.strip())
+            Path(args.output).mkdir(parents=True, exist_ok=True)
+            result = budget_response_curve(
+                config,
+                args.method,
+                seeds,
+                output_directory=Path(args.output),
+                project_root=Path(__file__).resolve().parents[2],
+            )
+            out = Path(args.output) / "budget_curve.json"
+            out.write_text(json.dumps(result, indent=2), encoding="utf-8")
+            print(out)
+            return 0
+
+        if args.command == "waste-audit":
+            from .v2.evaluation.waste import decompose_waste, waste_identity_ok
+
+            mismatches = []
+            rows = []
+            for path in sorted((Path(args.output) / "raw").rglob("*.json")):
+                payload = json.loads(path.read_text(encoding="utf-8"))["scientific_payload"]
+                for trial in payload["results"]:
+                    breakdown = decompose_waste(
+                        trial["ledger"],
+                        success=trial["success_rate"] >= 0.5,
+                        retrieval_used=True,
+                    )
+                    if not waste_identity_ok(breakdown, trial["ledger"]["total_tokens"]):
+                        mismatches.append(trial["trial_id"])
+                    rows.append(breakdown.to_dict())
+            print(json.dumps({"ok": not mismatches, "mismatches": mismatches, "n": len(rows)}, indent=2))
+            return 0 if not mismatches else 3
+
+        if args.command == "real-smoke":
+            from .v2.real import run_real_smoke
+
+            print(json.dumps(run_real_smoke(), indent=2))
+            return 0
+
+        if args.command == "shadow-run":
+            from .v2.real import default_smoke_tasks, run_real_task
+
+            rows = [run_real_task(task, "always_high_compute", shadow=True).__dict__ for task in default_smoke_tasks()]
+            print(json.dumps({"mode": "shadow", "results": rows}, indent=2))
+            return 0
+
+        if args.command == "claim-audit":
+            from .v2.evaluation.claim_audit import audit_claims
+
+            result = audit_claims(args.matrix)
+            print(json.dumps(result, indent=2))
+            return 0 if result["ok"] else 3
+
+        if args.command == "collect":
+            from .external.collector import CollectorLimits, collect_workload
+
+            result = collect_workload(
+                [{"prompt_id": "dry-run-fixture", "task_type": "healthcheck"}],
+                [{"provider": "none", "model": "none", "estimated_cost": 0.0, "endpoint": "dry-run"}],
+                CollectorLimits(
+                    dry_run=True if args.dry_run else False,
+                    max_cost=args.max_cost,
+                    max_requests=args.max_requests,
+                    max_duration_seconds=args.max_duration,
+                    authorize_spend=args.authorize_spend,
+                ),
+            )
+            print(json.dumps(result, indent=2))
+            return 0
+
+        if args.command == "ope-check":
+            from .external.ope import ips_estimate
+
+            rows = [json.loads(line) for line in Path(args.input).read_text(encoding="utf-8").splitlines() if line.strip()]
+            print(json.dumps(ips_estimate(rows).to_dict(), indent=2))
+            return 0
+
+        if args.command == "bind-run":
+            from .science.freeze import bind_run_contract, write_contract
+
+            payload = bind_run_contract(args.config, args.output, Path(__file__).resolve().parents[2])
+            print(write_contract(args.destination, payload))
+            return 0
+
+        if args.command == "pooling-toy":
+            from dataclasses import asdict
+
+            from .pooling.toy_model import rho_grid
+
+            print(json.dumps([asdict(row) for row in rho_grid(args.seed)], indent=2))
+            return 0
+
+        if args.command == "evidence-audit":
+            path = Path(__file__).resolve().parents[2] / "docs" / "NEXT_STAGE_AUDIT.md"
+            print(str(path))
+            return 0 if path.exists() else 2
 
         if args.command == "demo":
             from .analysis import analyze_results

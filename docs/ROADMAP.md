@@ -2,9 +2,19 @@
 
 The roadmap separates scientific evidence from product capability. Features advance only when a measured bottleneck or validated hypothesis justifies them.
 
+## Parallel track: V2.1 Evidence Bridge
+
+MG-EXP-V2.1 does not replace V2.0-alpha. It adds iso-model allocation, VOC calibration, stronger baselines, and a local executable smoke track. Confirmatory remains locked.
+
 ## Parallel track: V2.0-alpha resource allocation
 
 V2 is a separate protocol (MG-EXP-V2). Alpha is simulation-only. It does not replace V1 evidence gates and does not authorize live provider spend.
+
+## Parallel tracks (do not contaminate V1)
+
+- Track A — V1 evidence: pilot → power → freeze → confirmatory.
+- Track B — theory: `theory/` (conjectures, not theorems).
+- Track C — external data: `external/` adapters; MG-EXP-REAL-001 not executed.
 
 ## Current: V1 research edition
 
@@ -12,11 +22,11 @@ Goal: determine whether hierarchical node-edge state has a measurable recovery a
 
 Exit evidence:
 
-- independent pilot completed;
-- sample size frozen;
-- confirmatory data collected without tuning;
-- primary and non-inferiority gates evaluated;
-- limitations and negative results reported.
+- independent pilot completed (2026-09-15, not confirmatory);
+- sample size recorded (N=97);
+- confirmatory data **not** yet collected;
+- primary and non-inferiority gates evaluated only on the pilot (failed; not promotional);
+- limitations and negative/exploratory directions reported.
 
 ## Next: single-cloud POC
 

@@ -1,5 +1,4 @@
-# EXECUTION LOCK: this configuration intentionally references a file that is
-# created only after the independent pilot fixes N in SAMPLE_SIZE_ADDENDUM.md.
+# Seeds exist after SAMPLE_SIZE_ADDENDUM.md. Confirmatory execution is still a separate step; do not treat the pilot as confirmatory.
 protocol_version: MG-EXP-V1
 experiment_id: MG-EXP-V1-CONFIRMATORY
 run_kind: confirmatory

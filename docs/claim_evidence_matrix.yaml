@@ -1,0 +1,121 @@
+claims:
+  - id: C01
+    claim: "Mycelial Graph V1 confirmatory recovery advantage"
+    mechanism: hierarchical node-edge state
+    synthetic_evidence: development_only
+    real_evidence: false
+    ablation_evidence: specified
+    statistical_status: confirmatory_locked
+    external_validity: E1
+    allowed_wording: "V1 tests whether hierarchical state reduces recovery burden under controlled shared shocks. No confirmatory run is included."
+    allowed_wording_status: CONFIRMATORY_LOCKED
+  - id: C02
+    claim: "V2.0-alpha reduces tokens while preserving quality"
+    mechanism: conductance, prune, transfer, MVC stop
+    synthetic_evidence: development_demonstrator
+    real_evidence: false
+    ablation_evidence: alpha_ablations
+    statistical_status: development_only
+    external_validity: E1
+    allowed_wording: "V2.0-alpha is a simulated resource-allocation layer. Development plots are not confirmatory evidence."
+    allowed_wording_status: DEVELOPMENT_ONLY
+  - id: C03
+    claim: "Mycelial reduces real coding-agent tokens"
+    mechanism: computational metabolism
+    synthetic_evidence: false
+    real_evidence: false
+    ablation_evidence: false
+    statistical_status: not_tested
+    external_validity: E0
+    allowed_wording: "Not supported. An autonomous local repair loop on two fixtures is not SWE-bench and does not authorize this claim."
+    allowed_wording_status: NOT_SUPPORTED
+  - id: C04
+    claim: "Fungal networks prove the controller"
+    mechanism: biological analogy
+    synthetic_evidence: false
+    real_evidence: false
+    ablation_evidence: false
+    statistical_status: not_applicable
+    external_validity: E0
+    allowed_wording: "Forbidden. Use fungal-inspired computational mechanisms with evidence grades A–D."
+    allowed_wording_status: NOT_SUPPORTED
+  - id: C05
+    claim: "VOC estimator is calibrated on synthetic potential outcomes"
+    mechanism: difference and ratio VOC
+    synthetic_evidence: voc_bench
+    real_evidence: false
+    ablation_evidence: false
+    statistical_status: development_only
+    external_validity: E1
+    allowed_wording: "The V2.1 VOC bench reports calibration error on frozen synthetic outcomes. It is not real-agent evidence."
+    allowed_wording_status: SYNTHETIC_ONLY
+  - id: C06
+    claim: "Iso-model savings are not cheaper-model routing"
+    mechanism: locked model-class latents
+    synthetic_evidence: protocol_defined
+    real_evidence: false
+    ablation_evidence: pending
+    statistical_status: development_only
+    external_validity: E1
+    allowed_wording: "Iso-model is a track definition. A positive result would still be synthetic until a real matched-scaffold experiment exists."
+    allowed_wording_status: SYNTHETIC_ONLY
+  - id: C07
+    claim: "A theoretically derived rho-star law governs sharing"
+    mechanism: bias-variance sketch on a Gaussian toy
+    synthetic_evidence: false
+    real_evidence: false
+    ablation_evidence: false
+    statistical_status: not_tested
+    external_validity: E0
+    allowed_wording: "rho* is an open problem for the V1 RRT estimand. A Gaussian MSE sketch is not a V1 prediction."
+    allowed_wording_status: NOT_SUPPORTED
+  - id: C08
+    claim: "Hierarchical methods enjoy a proved sample-complexity advantage"
+    mechanism: target regret form
+    synthetic_evidence: false
+    real_evidence: false
+    ablation_evidence: false
+    statistical_status: not_tested
+    external_validity: E0
+    allowed_wording: "The hierarchical rate formula is a conjecture, not a theorem."
+    allowed_wording_status: NOT_SUPPORTED
+  - id: C09
+    claim: "Adaptive pooling is superior to hierarchical Mycelial"
+    mechanism: James-Stein toy competitor
+    synthetic_evidence: toy_mse_only
+    real_evidence: false
+    ablation_evidence: false
+    statistical_status: not_tested
+    external_validity: E0
+    allowed_wording: "An isolated toy competitor exists. It has not been compared to V1 hierarchical RRT."
+    allowed_wording_status: NOT_SUPPORTED
+  - id: C10
+    claim: "Causal fault localization"
+    mechanism: execution DAG
+    synthetic_evidence: false
+    real_evidence: false
+    ablation_evidence: false
+    statistical_status: not_applicable
+    external_validity: E0
+    allowed_wording: "Forbidden. Execution DAG is not a causal DAG."
+    allowed_wording_status: NOT_SUPPORTED
+  - id: C11
+    claim: "Real-provider generalization"
+    mechanism: none
+    synthetic_evidence: false
+    real_evidence: false
+    ablation_evidence: false
+    statistical_status: not_tested
+    external_validity: E0
+    allowed_wording: "Not supported. External adapters exist; no provider traces were collected."
+    allowed_wording_status: NOT_SUPPORTED
+  - id: C14
+    claim: "MG-EXP-REAL-001 completed"
+    mechanism: replay protocol
+    synthetic_evidence: false
+    real_evidence: false
+    ablation_evidence: false
+    statistical_status: not_tested
+    external_validity: E0
+    allowed_wording: "The protocol is designed and not executed."
+    allowed_wording_status: NOT_SUPPORTED

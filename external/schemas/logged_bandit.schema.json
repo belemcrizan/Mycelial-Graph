@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "logged_bandit",
+  "type": "object",
+  "required": [
+    "timestamp_utc",
+    "context_id",
+    "action",
+    "reward",
+    "propensity",
+    "policy_version"
+  ]
+}
