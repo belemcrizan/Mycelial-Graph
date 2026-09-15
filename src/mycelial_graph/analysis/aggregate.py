@@ -11,6 +11,7 @@ from ..runner.checkpoint import atomic_write_json
 from ..artifacts import ensure_unsealed, load_validated_trials
 from ..types import ExperimentConfig
 from .bootstrap import paired_relative_effect
+from .result_state import classify_result_state
 
 
 def _read_trials(output_directory: Path, config: ExperimentConfig) -> list[dict[str, Any]]:
@@ -46,6 +47,20 @@ def _group_metrics(trials: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return rows
 
 
+def _row_role(row: dict[str, Any], config: ExperimentConfig) -> str:
+    """Role label from `HYPOTHESIS_MATRIX.md`, so no row can be read as confirmatory."""
+    rho = float(row["rho"])
+    primary_rho = float(config.analysis.primary_rho)
+    frozen_pair = row["method"] in {"hierarchical", "edge_only"}
+    if frozen_pair and (np.isclose(rho, primary_rho) or np.isclose(rho, 0.0)):
+        return "CONFIRMATORY INPUT"
+    if np.isclose(rho, primary_rho) or np.isclose(rho, 0.0):
+        return "SECONDARY"
+    if np.isclose(rho, 1.0):
+        return "DIAGNOSTIC"
+    return "EXPLORATORY"
+
+
 def _paired_arrays(
     trials: list[dict[str, Any]], rho: float, treatment: str, control: str
 ) -> tuple[np.ndarray, np.ndarray]:
@@ -66,6 +81,46 @@ def _paired_arrays(
         np.array([pair[treatment] for pair in pairs], dtype=float),
         np.array([pair[control] for pair in pairs], dtype=float),
     )
+
+
+def _frozen_sample_size(config: ExperimentConfig) -> int | None:
+    """Frozen pair count for a confirmatory run, or None when no lock applies."""
+    if config.run_kind != "confirmatory":
+        return None
+    from ..validation import load_seeds
+
+    return len(load_seeds((config.source_path.parent / config.seeds_file).resolve()))
+
+
+def _frozen_contrast_integrity(
+    trials: list[dict[str, Any]],
+    config: ExperimentConfig,
+    primary_pairs: int,
+) -> dict[str, Any]:
+    """Count integrity violations that suspend automated primary interpretation.
+
+    Censoring is administrative when an unrecovered trial is restricted at the post-shock
+    horizon. Anything else, and any method-level failure inside the frozen rho=0.50 primary
+    contrast or the rho=0 safety gate, is an integrity violation under `ANALYSIS_PLAN.md` §6.
+    """
+    frozen_rho = {0.0, float(config.analysis.primary_rho)}
+    frozen_methods = {"hierarchical", "edge_only"}
+    non_administrative = 0
+    failures_in_frozen = 0
+    for trial in trials:
+        if trial["censored"] and int(trial["restricted_recovery_time"]) != config.horizon.post_shock_steps:
+            non_administrative += 1
+        in_frozen_contrast = trial["method"] in frozen_methods and any(
+            np.isclose(float(trial["rho"]), rho) for rho in frozen_rho
+        )
+        if in_frozen_contrast and trial.get("method_status", "completed") != "completed":
+            failures_in_frozen += 1
+    return {
+        "non_administrative_censoring": non_administrative,
+        "method_failures_in_frozen_contrasts": failures_in_frozen,
+        "primary_pairs": primary_pairs,
+        "censoring_is_administrative_only": non_administrative == 0,
+    }
 
 
 def analyze_results(config: ExperimentConfig, output_directory: str | Path) -> Path:
@@ -109,6 +164,22 @@ def analyze_results(config: ExperimentConfig, output_directory: str | Path) -> P
         and gate["engineering_gain"]
         and gate["noninferiority_at_rho_0"] is True
     )
+    gate["automated_requirements"] = "protocol section 8.2 requirements 1-3"
+    gate["operational_cost_budget_requirement"] = (
+        "protocol section 8.2 requirement 4 is not automated: no cost budget is frozen, "
+        "so product promotion additionally requires a separate operational-cost decision"
+    )
+    primary_dict = {**primary.__dict__}
+    noninferiority_dict = {**noninferiority.__dict__} if noninferiority else None
+    integrity = _frozen_contrast_integrity(trials, config, len(primary_treatment))
+    result_state = classify_result_state(
+        primary_dict,
+        noninferiority_dict,
+        integrity,
+        config.analysis.engineering_gain_gate,
+        config.analysis.noninferiority_margin,
+        _frozen_sample_size(config),
+    )
     gate["confirmatory_population"] = config.run_kind == "confirmatory"
     gate["operational_budget_validated"] = False
     gate["promote_to_v1"] = False  # Protocol section 8.2 requires a separately justified operational budget.
@@ -134,19 +205,31 @@ def analyze_results(config: ExperimentConfig, output_directory: str | Path) -> P
             "rho": config.analysis.primary_rho,
             "treatment": "hierarchical",
             "control": "edge_only",
-            **primary.__dict__,
+            "role": "PRIMARY",
+            **primary_dict,
         },
         "noninferiority_contrast": (
             {
                 "rho": 0.0,
                 "margin": config.analysis.noninferiority_margin,
-                **noninferiority.__dict__,
+                "role": "SAFETY GATE",
+                **noninferiority_dict,
             }
-            if noninferiority
+            if noninferiority_dict
             else None
         ),
         "decision_gate": gate,
-        "group_metrics": _group_metrics(trials),
+        "frozen_contrast_integrity": integrity,
+        "result_state": result_state,
+        "group_metrics": [
+            {**row, "role": _row_role(row, config)} for row in _group_metrics(trials)
+        ],
+        "claim_boundary": (
+            "Only the rho=0.50 hierarchical-versus-edge-only contrast and the rho=0 "
+            "non-inferiority gate are confirmatory. Every other row is secondary, exploratory, "
+            "or diagnostic and cannot support an inferential claim. See "
+            "experiments/v1/HYPOTHESIS_MATRIX.md."
+        ),
     }
     path = output / "processed" / "analysis.json"
     atomic_write_json(path, analysis)

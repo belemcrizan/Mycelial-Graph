@@ -1,0 +1,487 @@
+{
+  "claim_audit": {
+    "ok": true,
+    "readme_machine_verifiable_state": {
+      "declares_cannot_establish_crossover": true,
+      "declares_no_independent_reproduction": true,
+      "single_seed_file_description": true,
+      "stale_missing_seed_file_statements": [],
+      "states_ni_margin": true,
+      "states_primary_rho": true,
+      "states_seed_count_97": true,
+      "states_seed_hash": true
+    },
+    "v1_readiness_invariants": {
+      "failures": [],
+      "n_checks": 36,
+      "n_invariants": 9,
+      "ok": true
+    },
+    "wording_consistency": {
+      "claim_boundary": "Passing this audit means the matrix is internally consistent, not that claims are empirically true.",
+      "errors": [],
+      "n_claims": 12,
+      "ok": true
+    }
+  },
+  "decision": "GO",
+  "execution_status": {
+    "code_revision_at_execution": "5f314d2dfb15f508dfd4e630e8c0e49031e60c6a",
+    "config_hash": "5d7e92d2ec2805418f2b07e641188814282d544de55eb8c1461f4400b025452a",
+    "config_hash_matches_freeze": true,
+    "executed": true,
+    "experiment_id": "MG-EXP-V1-CONFIRMATORY",
+    "primary_pairs": 97,
+    "reproduction_status": "internal / automated; no independent external reproduction",
+    "result_state": "REFUTED",
+    "scientific_job_count": 485,
+    "sealed_report_claim_violations": [],
+    "seeds_file_sha256": "8ef4c6b0dc481fea70054b6d7cbc9ecc2663f63b4523f3f55bb374a0339ee00c",
+    "state_is_terminal": true
+  },
+  "finding_counts": {
+    "A": 6,
+    "B": 2,
+    "C": 0
+  },
+  "findings": [
+    {
+      "action": "DOCUMENT: record as a limitation of the power calculation.",
+      "class": "A",
+      "detail": "power.py requests an optional simulation-based check before locking N. It was not run, so N=97 is the pre-specified formula output rather than a simulation-verified value. The formula was the pre-specified procedure, so this changes nothing about what was promised.",
+      "id": "F-POWER-03",
+      "title": "Optional simulation-based power supplement was not performed"
+    },
+    {
+      "action": "DOCUMENT: state the limitation in the report and hypothesis matrix.",
+      "class": "A",
+      "detail": "ANALYSIS_PLAN.md section 7 powers the design for the primary contrast only. The rho=0 non-inferiority gate was pre-specified with a +0.10 margin but no power target. A gate failure is therefore interpretable, while a gate pass carries unquantified type-II risk. This was frozen before the pilot and must not be repaired by changing N.",
+      "id": "F-POWER-04",
+      "title": "The rho=0 safety gate is not separately power-analysed"
+    },
+    {
+      "action": "AMEND/DOCUMENT: record the additional hashes in CONFIRMATORY_FREEZE_SUPPLEMENT.json before execution, leaving the original freeze contract untouched.",
+      "class": "B",
+      "detail": "CONFIRMATORY_FREEZE.json binds the confirmatory config hash, the seed file and its hash, N, the protocol version, and the pilot code commit. It does not bind the hash of EXPERIMENT_PROTOCOL_V1.md, ANALYSIS_PLAN.md, or the analysis/reporting code, so those could in principle change without invalidating the freeze. Closing this gap adds evidence only: it changes no hypothesis, estimand, sample size, seed, or method.",
+      "id": "F-FREEZE-02",
+      "title": "The freeze binds configuration and seeds but not protocol text or analysis code"
+    },
+    {
+      "action": "DOCUMENT: no amendment to the multiplicity policy is required.",
+      "class": "A",
+      "detail": "ANALYSIS_PLAN.md section 5 already designates one primary contrast, one safety gate, and everything else as secondary/exploratory. The enumeration in HYPOTHESIS_MATRIX.md restates that policy without replacing it.",
+      "id": "F-MULT-02",
+      "title": "Multiplicity control was already frozen and is left unchanged"
+    },
+    {
+      "action": "AMEND/DOCUMENT: recorded in AMENDMENT_002.md before confirmatory execution.",
+      "class": "B",
+      "detail": "Before this cycle the report emitted a binary promotion verdict, unlabelled rho curves, and no containment check, so exploratory rho evidence could read as confirmatory and the frozen interpretation matrix had no machine-readable outcome. The added result states, role labels, and claim guard are deterministic functions of already-frozen quantities and change no hypothesis, estimand, threshold, or sample.",
+      "id": "F-REPORT-02",
+      "title": "Report generator required claim containment, role labels, and a result-state taxonomy"
+    },
+    {
+      "action": "DOCUMENT: record the executing environment in the confirmatory manifest.",
+      "class": "A",
+      "detail": "The pilot manifest records {\"numpy\": {\"pilot\": \"2.5.3\", \"current\": \"2.2.6\"}, \"scipy\": {\"pilot\": \"1.18.1\", \"current\": \"1.15.3\"}, \"pyyaml\": {\"pilot\": \"6.0.3\", \"current\": \"6.0.2\"}}. All 5 sampled sealed pilot scenarios regenerate to identical scientific hashes in the current environment, so the frozen RNG streams, scenario construction, and potential-outcome tables are unaffected by the version difference. The confirmatory manifest records the actual versions used.",
+      "id": "F-PROV-03",
+      "title": "Software environment differs from the one recorded for the pilot"
+    },
+    {
+      "action": "DOCUMENT: the confirmatory question has reached a terminal state.",
+      "class": "A",
+      "detail": "The experiment ran at commit 5f314d2dfb15f508dfd4e630e8c0e49031e60c6a on 97 primary pairs under the frozen configuration hash, and the sealed report passes claim containment. Result state: REFUTED. All five result states are legitimate terminal states; this one is reported without reframing.",
+      "id": "F-EXEC-03",
+      "title": "V1 confirmatory executed and sealed with result state REFUTED"
+    },
+    {
+      "action": "DOCUMENT: verified mechanically by invariant I01.",
+      "class": "A",
+      "detail": "The README previously asserted that seeds.confirmatory.txt exists with the first 97 pool entries, while docs/GETTING_STARTED.md and docs/V2_IMPLEMENTATION_PLAN.md still described it as deliberately missing. The file exists, contains exactly 97 unique seeds equal to the unfiltered pool prefix, and its SHA-256 matches the freeze. The documentation now carries one internally consistent description of that state.",
+      "id": "F-CLAIM-03",
+      "title": "README seed-file contradiction resolved"
+    }
+  ],
+  "freeze_audit": {
+    "amendment_history": [
+      "AMENDMENT_001.md",
+      "AMENDMENT_002.md"
+    ],
+    "bound": {
+      "confirmatory_config_hash": true,
+      "execution_status": true,
+      "pilot_code_commit": true,
+      "post_pilot_method_tuning_declared": true,
+      "protocol_version": true,
+      "required_confirmatory_pairs": true,
+      "sample_size_method": true,
+      "seeds_file": true,
+      "seeds_sha256": true
+    },
+    "config_hash_in_freeze": "5d7e92d2ec2805418f2b07e641188814282d544de55eb8c1461f4400b025452a",
+    "config_hash_matches": true,
+    "config_hash_observed": "5d7e92d2ec2805418f2b07e641188814282d544de55eb8c1461f4400b025452a",
+    "confirmatory_executed_flag": false,
+    "freeze_fields": [
+      "caveat",
+      "confirmatory_config_hash",
+      "confirmatory_executed",
+      "confirmatory_seed_range",
+      "pilot_code_commit_at_execution",
+      "post_pilot_method_tuning",
+      "protocol_version",
+      "required_confirmatory_pairs",
+      "sample_size_method",
+      "seeds_file",
+      "seeds_sha256",
+      "simulation_based_power",
+      "status",
+      "working_tree_note"
+    ],
+    "not_bound_by_freeze": [
+      "EXPERIMENT_PROTOCOL_V1.md content hash",
+      "ANALYSIS_PLAN.md content hash",
+      "analysis and reporting code hashes",
+      "bootstrap RNG seeds (hard-coded in analysis/bootstrap.py and analysis/aggregate.py)"
+    ],
+    "scientific_parameters_covered_by_config_hash": {
+      "bootstrap_samples": 10000,
+      "confidence_level": 0.95,
+      "engineering_gain_gate": 0.2,
+      "methods": [
+        "edge_only",
+        "node_only",
+        "hierarchical",
+        "structured_sw_ucb"
+      ],
+      "noninferiority_margin": 0.1,
+      "primary_estimand_rho": 0.5,
+      "recovery_confirmation_window": 20,
+      "recovery_trailing_window": 10,
+      "recovery_utility_fraction": 0.9,
+      "rho_grid": [
+        0.0,
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "seeds_file": "seeds.confirmatory.txt",
+      "shock_magnitude": 0.55,
+      "superiority_alpha": 0.05,
+      "tau_post_shock_steps": 300
+    }
+  },
+  "freeze_supplement": "experiments/v1/artifacts/CONFIRMATORY_FREEZE_SUPPLEMENT.json",
+  "frozen_artifacts": {
+    "artifacts": [
+      {
+        "exists": true,
+        "path": "experiments/v1/EXPERIMENT_PROTOCOL_V1.md",
+        "sha256": "6137bd649870d3177bcf9be568d902f8feb15aad98f13c956986fa6dfec46425"
+      },
+      {
+        "exists": true,
+        "path": "experiments/v1/ANALYSIS_PLAN.md",
+        "sha256": "9e28c7b4a6a2a735b6cff360b6271601084d4422468ef4546d305b886320e61c"
+      },
+      {
+        "exists": true,
+        "path": "experiments/v1/SAMPLE_SIZE_ADDENDUM.md",
+        "sha256": "2031e4238f7d5480082f6d417bd705fa92dba659c09960a5e5e43fe998c25ade"
+      },
+      {
+        "exists": true,
+        "path": "experiments/v1/AMENDMENT_001.md",
+        "sha256": "6b9f431db2121d278c02ddc2882a1e2c4554e6e7d9c113d84fcf9160ba22091f"
+      },
+      {
+        "exists": true,
+        "path": "experiments/v1/AMENDMENT_002.md",
+        "sha256": "28ac77a90752c05fc8757dd94db930c9db6d2fbbaf00d3b93fe82de936de47fc"
+      },
+      {
+        "exists": true,
+        "path": "experiments/v1/HYPOTHESIS_MATRIX.md",
+        "sha256": "7b684952f4828e78d959dc29fdf5d4cfaefce8274aa042d2d73e5be4c6dca37a"
+      },
+      {
+        "exists": true,
+        "path": "experiments/v1/config.confirmatory.yaml",
+        "sha256": "3b2ce024eb2f76894f117a8264d46c5e1ea42f957071cf16e1bf09636e14b72f"
+      },
+      {
+        "exists": true,
+        "path": "experiments/v1/config.pilot.yaml",
+        "sha256": "0623dcf8fc0a7a59d1ecbfbda4c0eb2a0a47668e92bef3e1d79b234c0cbb4ed2"
+      },
+      {
+        "exists": true,
+        "path": "experiments/v1/seeds.confirmatory.txt",
+        "sha256": "8ef4c6b0dc481fea70054b6d7cbc9ecc2663f63b4523f3f55bb374a0339ee00c"
+      },
+      {
+        "exists": true,
+        "path": "experiments/v1/seeds.confirmatory.pool.txt",
+        "sha256": "a47e95c0c042843bb6f9cc61cd8c523510aa8381de64a97f793d45aa5a23b173"
+      },
+      {
+        "exists": true,
+        "path": "experiments/v1/seeds.pilot.txt",
+        "sha256": "3068ffef39ea5670e6ccd0ec380bfdbb70bb342602dc9f820486c9b5f9261339"
+      },
+      {
+        "exists": true,
+        "path": "experiments/v1/seeds.development.txt",
+        "sha256": "64e087317ce70f2d56438a159c2934190917d4b201131a39ff8d2db52ba26482"
+      },
+      {
+        "exists": true,
+        "path": "experiments/v1/artifacts/CONFIRMATORY_FREEZE.json",
+        "sha256": "7a176e64e004f2440db62921f0517de73af60d577e29d63bc51d1aafbb318414"
+      },
+      {
+        "exists": true,
+        "path": "experiments/v1/artifacts/PILOT_EVIDENCE.json",
+        "sha256": "94455ca327803d0e3f4503ac0226da8a005a2b13e1342711496fa5cf1048a7dc"
+      },
+      {
+        "exists": true,
+        "path": "experiments/v1/artifacts/analysis.json",
+        "sha256": "bdd4e85d256a59124e16400a8f499340349cbfa18c1f5fe8a80bb21930e05135"
+      },
+      {
+        "exists": true,
+        "path": "experiments/v1/artifacts/sample_size.json",
+        "sha256": "87ddf13e8f4531e035fd6bbf6a18d33ee19b904d6e1301225988e444ef09d2fe"
+      },
+      {
+        "exists": true,
+        "path": "src/mycelial_graph/analysis/aggregate.py",
+        "sha256": "2f4e38b7e10b7bfa2cba151d27fb8d964e13546e737a5419788776d7e675c816"
+      },
+      {
+        "exists": true,
+        "path": "src/mycelial_graph/analysis/bootstrap.py",
+        "sha256": "044eb79fc4c98a63389d3fa83b50123f198a36b55f3303ee96a98104b9e454b8"
+      },
+      {
+        "exists": true,
+        "path": "src/mycelial_graph/analysis/result_state.py",
+        "sha256": "bc089ba8391d785796190f55ccc7a50e2802705651deb2316a1b1587a52fcaed"
+      },
+      {
+        "exists": true,
+        "path": "src/mycelial_graph/reporting/report.py",
+        "sha256": "1399ccce0a204e43fc1d9f7eaf2ed085bf7b0109d79bc95afa49904aab085701"
+      },
+      {
+        "exists": true,
+        "path": "src/mycelial_graph/science/claim_guard.py",
+        "sha256": "a95c81d242beae49148059ba457d3f1685391e91f45c8f100410e6cf9794c361"
+      }
+    ],
+    "missing": [],
+    "validation_status": "OK"
+  },
+  "historical_artifact_audit": {
+    "artifact": "outputs/demo",
+    "classification": "historical artifact - preserved but not verified evidence",
+    "files_declared": 125,
+    "hash_mismatches": [],
+    "missing_files": [],
+    "regenerated": false
+  },
+  "justification": "No Class C findings. 6 Class A finding(s) documented and 2 Class B finding(s) resolved transparently before confirmatory execution. The frozen seed selection, sample size, configuration binding, multiplicity policy, and reproducibility invariants all reproduce mechanically.",
+  "moratorium_audit": {
+    "declares_exit_condition": true,
+    "document_present": true,
+    "forbids_enough_improvements_exit": true
+  },
+  "multiplicity_audit": {
+    "adjustment_rationale": "The confirmatory family contains exactly one superiority hypothesis (rho=0.50 hierarchical vs edge-only). The rho=0 contrast is a pre-specified safety gate that can only restrict, never create, a positive claim. No alpha split or step-down procedure is required, and none is introduced.",
+    "adjustment_required": false,
+    "classification": "A",
+    "confirmatory_family_size": 1,
+    "frozen_statements": {
+      "exploratory_may_not_be_called_confirmatory": true,
+      "noninferiority_margin_frozen_in_protocol": true,
+      "others_declared_secondary_or_exploratory": true,
+      "primary_hypothesis_frozen_in_protocol": true,
+      "safety_gate_declared_secondary": true,
+      "single_primary_contrast_declared": true
+    },
+    "hypothesis_matrix": true,
+    "multiplicity_policy_frozen": true
+  },
+  "next_permitted_action": "V1 confirmatory has reached the terminal state REFUTED. Report it only inside the claim boundary in experiments/v1/HYPOTHESIS_MATRIX.md. Selective unfreezing may begin, but a new question requires its own protocol, power calculation, rho grid, multiplicity strategy, freeze, and seeds. V1 may not be reused as a crossover study.",
+  "power_audit": {
+    "absolute_design_effect": 8.24,
+    "addendum_states_n_97": true,
+    "censoring_assumption": "administrative censoring at tau = post_shock_steps only",
+    "control_mean_rrt": 41.2,
+    "freeze_n": 97,
+    "method": "normal approximation for paired mean difference",
+    "n_reproduces": true,
+    "note": "N=97 provides the planned power for the primary contrast only. It does NOT imply adequate power for the rho=0 non-inferiority gate, for any other rho, or for estimating or establishing a crossover rho*.",
+    "one_sided_alpha": 0.05,
+    "paired_difference_sd": 32.52140995195561,
+    "pilot_and_confirmatory_share_design": {
+      "analysis": true,
+      "environment": true,
+      "graph": true,
+      "horizon": true,
+      "methods": true,
+      "mycelial": true,
+      "structured_sw_ucb": true
+    },
+    "pilot_raw_recomputed": {
+      "control_mean_rrt": 41.2,
+      "matches_recorded": true,
+      "paired_difference_sd": 32.52140995195561,
+      "pairs": 20
+    },
+    "post_pilot_method_tuning": false,
+    "powered_contrast": "hierarchical vs edge_only at rho=0.50 on the relative difference in mean restricted recovery time (the frozen primary estimand)",
+    "powers_crossover": false,
+    "powers_safety_gate": false,
+    "recomputed_n": 97,
+    "recorded_n": 97,
+    "relative_design_effect": -0.2,
+    "simulation_based_power_performed": false,
+    "target_power": 0.8,
+    "test_direction": "one-sided, H1: delta_RRT < 0",
+    "variability_source": "paired SD from 20 pilot scenarios at rho=0.5"
+  },
+  "protocol_version": "MG-EXP-V1",
+  "provenance_audit": {
+    "current_environment": {
+      "numpy": "2.2.6",
+      "python": "3.13.3 (tags/v3.13.3:6280bb5, Apr  8 2025, 14:47:33) [MSC v.1943 64 bit (AMD64)]",
+      "pyyaml": "6.0.2",
+      "scipy": "1.15.3"
+    },
+    "environment_drift": {
+      "numpy": {
+        "current": "2.2.6",
+        "pilot": "2.5.3"
+      },
+      "pyyaml": {
+        "current": "6.0.2",
+        "pilot": "6.0.3"
+      },
+      "scipy": {
+        "current": "1.15.3",
+        "pilot": "1.18.1"
+      }
+    },
+    "head_commit": "5f314d2dfb15f508dfd4e630e8c0e49031e60c6a",
+    "pilot_code_commit": "2c0a9630ae97e050a8ad31f5a06ce2a9b9ab2b22",
+    "pilot_recorded_environment": {
+      "numpy": "2.5.3",
+      "python": "3.13.3 (tags/v3.13.3:6280bb5, Apr  8 2025, 14:47:33) [MSC v.1943 64 bit (AMD64)]",
+      "pyyaml": "6.0.3",
+      "scipy": "1.18.1"
+    },
+    "sealed_pilot_scenario_mismatches": [],
+    "sealed_pilot_scenarios_checked": 5,
+    "sealed_pilot_scenarios_reproduced": 5,
+    "v1_simulator_source_diff_since_pilot": "",
+    "v1_simulator_unchanged_since_pilot": true
+  },
+  "report": "MG-EXP-V1 confirmatory readiness audit",
+  "reporting_audit": {
+    "claim_guard_patterns": [
+      "V1-CROSSOVER-EXISTENCE",
+      "V1-CROSSOVER-LOCATION",
+      "V1-PHASE-TRANSITION",
+      "V1-RHO-GENERALISATION",
+      "V1-PRODUCTION",
+      "V1-EXTERNAL-VALIDITY",
+      "V1-CAUSAL",
+      "V1-THEORY",
+      "V1-INDEPENDENT-REPRODUCTION",
+      "V1-PILOT-PROMOTION"
+    ],
+    "figures_labelled_exploratory": true,
+    "guard_allows_documented_limitation": true,
+    "guard_rejects_crossover_assertion": true,
+    "ok": true,
+    "report_applies_claim_guard": true,
+    "report_labels_roles": true,
+    "result_states_supported": [
+      "SUPPORTED",
+      "CONDITIONAL",
+      "INCONCLUSIVE",
+      "REFUTED",
+      "PROTOCOL_INVALID"
+    ]
+  },
+  "repository_state": {
+    "audited_at_utc": "2026-09-15T03:06:24.143261Z",
+    "branch": "feat/p0-v1-pilot-theory-external",
+    "commit": "5f314d2dfb15f508dfd4e630e8c0e49031e60c6a",
+    "dirty": true,
+    "dirty_paths": [
+      "HANGELOG.md",
+      "CONFIRMATORY_READINESS_REPORT.json",
+      "CONFIRMATORY_READINESS_REPORT.md",
+      "README.md",
+      "V1_CONFIRMATORY_MORATORIUM.md",
+      "docs/CLAIM_EVIDENCE_MATRIX.md",
+      "docs/claim_evidence_matrix.yaml",
+      "experiments/v1/artifacts/CONFIRMATORY_FREEZE_SUPPLEMENT.json",
+      "research/ledger/ledger.jsonl",
+      "scripts/audit_v1_readiness.py",
+      "src/mycelial_graph/science/claim_invariants.py",
+      "src/mycelial_graph/v2/evaluation/claim_audit.py",
+      "tests/test_v1_confirmatory_integrity.py",
+      "experiments/v1/artifacts/CONFIRMATORY_RUN_CONTRACT.json",
+      "experiments/v1/artifacts/confirmatory/"
+    ],
+    "numpy": "2.2.6",
+    "python": "3.13.3"
+  },
+  "reproducibility_audit": {
+    "bootstrap_reproducible": true,
+    "bootstrap_rng_frozen": true,
+    "certified_distinct_pre_post_optima": true,
+    "deterministic_scenario_generation": true,
+    "distinct_post_shock_world_per_rho": true,
+    "failed": [],
+    "ok": true,
+    "oracle_expected_regret_zero": true,
+    "paired_rho_family_shares_pre_shock_world": true,
+    "probe_seeds": [
+      700000,
+      700048,
+      700096
+    ],
+    "seed_population_separation": true,
+    "shock_l2_constant_across_rho": true
+  },
+  "seed_audit": {
+    "byte_length": 776,
+    "cherry_picking_detected": false,
+    "config_validation_errors": [],
+    "deterministic_selection_verified": true,
+    "expected_n": 97,
+    "first_seed": 700000,
+    "freeze_sha256": "8ef4c6b0dc481fea70054b6d7cbc9ecc2663f63b4523f3f55bb374a0339ee00c",
+    "hash_matches_freeze": true,
+    "is_unfiltered_pool_prefix": true,
+    "last_seed": 700096,
+    "line_ending": "CRLF",
+    "observed_n": 97,
+    "overlap_with_development": [],
+    "overlap_with_pilot": [],
+    "pool_overlap_with_development": [],
+    "pool_overlap_with_pilot": [],
+    "pool_size": 500,
+    "pool_unique": true,
+    "seed_file_referenced_by_config": "seeds.confirmatory.txt",
+    "sha256": "8ef4c6b0dc481fea70054b6d7cbc9ecc2663f63b4523f3f55bb374a0339ee00c",
+    "sorted_ascending": true,
+    "unique": true
+  }
+}

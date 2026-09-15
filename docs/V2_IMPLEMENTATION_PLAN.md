@@ -66,7 +66,7 @@ These are scientific contracts, not style preferences.
 6. **Certified unique pre/post optima** with configured margin; entire rho family accepted or rejected together.
 7. **Censoring-aware RRT.** Unrecovered trials have `recovery_time=null`, `censored=true`, `RRT=tau`.
 8. **Primary V1 contrast** remains hierarchical vs edge-only at `rho=0.50`. V2 analysis must not overwrite that pipeline.
-9. **Confirmatory lock.** Missing `seeds.confirmatory.txt` is intentional. V2 confirmatory is locked the same way, in a separate directory.
+9. **Confirmatory lock.** An absent `seeds.confirmatory.txt` is intentional until a sample-size addendum exists. V1 released that lock after its pilot (`N=97`); V2 remains locked the same way, in a separate directory.
 10. **Atomic checkpoints.** Completed canonical results are never silently overwritten.
 11. **Provenance isolation.** Timestamps, hostname, and CPU duration are not part of scientific hashes.
 12. **No live APIs.** No keys, no required providers. Simulation first.

@@ -1,0 +1,69 @@
+{
+  "claim_boundary": "Only the rho=0.50 hierarchical-versus-edge-only contrast and the rho=0 non-inferiority gate are confirmatory. Every other row is secondary, exploratory, or diagnostic and cannot support an inferential claim. See experiments/v1/HYPOTHESIS_MATRIX.md.",
+  "code_revision_at_execution": "5f314d2dfb15f508dfd4e630e8c0e49031e60c6a",
+  "code_revision_at_seal": "5f314d2dfb15f508dfd4e630e8c0e49031e60c6a",
+  "config_hash": "5d7e92d2ec2805418f2b07e641188814282d544de55eb8c1461f4400b025452a",
+  "decision_gate": {
+    "automated_requirements": "protocol section 8.2 requirements 1-3",
+    "engineering_gain": false,
+    "noninferiority_at_rho_0": false,
+    "operational_cost_budget_requirement": "protocol section 8.2 requirement 4 is not automated: no cost budget is frozen, so product promotion additionally requires a separate operational-cost decision",
+    "promote_to_v1": false,
+    "statistical_superiority": false
+  },
+  "environment": {
+    "numpy": "2.2.6",
+    "python": "3.13.3 (tags/v3.13.3:6280bb5, Apr  8 2025, 14:47:33) [MSC v.1943 64 bit (AMD64)]",
+    "pyyaml": "6.0.2",
+    "scipy": "1.15.3"
+  },
+  "experiment_id": "MG-EXP-V1-CONFIRMATORY",
+  "frozen_contrast_integrity": {
+    "censoring_is_administrative_only": true,
+    "method_failures_in_frozen_contrasts": 0,
+    "non_administrative_censoring": 0,
+    "primary_pairs": 97
+  },
+  "noninferiority_contrast": {
+    "bootstrap_tail_probability": 0.1603839616038396,
+    "confidence_high": 0.19708367910308724,
+    "confidence_low": -0.13685974094619968,
+    "estimate": 0.015186915887850412,
+    "margin": 0.1,
+    "one_sided_upper_bound": 0.1630922517648258,
+    "rho": 0.0,
+    "role": "SAFETY GATE",
+    "samples": 10000
+  },
+  "primary_contrast": {
+    "bootstrap_tail_probability": 0.9977002299770023,
+    "confidence_high": 0.7908796754419934,
+    "confidence_low": 0.11898691106330427,
+    "control": "edge_only",
+    "estimate": 0.42112797022616655,
+    "one_sided_upper_bound": 0.7213788509020655,
+    "rho": 0.5,
+    "role": "PRIMARY",
+    "samples": 10000,
+    "treatment": "hierarchical"
+  },
+  "protocol_version": "MG-EXP-V1",
+  "reproduction_status": "internal / automated; no independent external reproduction",
+  "result_state": {
+    "reasons": [
+      "one-sided upper bound +0.7214 is not below zero and the interval lower bound +0.1190 excludes the pre-specified relevant benefit -0.20"
+    ],
+    "safety_gate_state": "NEGATIVE_TRANSFER_NOT_EXCLUDED",
+    "state": "REFUTED"
+  },
+  "scientific_job_count": 485,
+  "sealed_artifact_sha256": {
+    "REPORT.md": "a000e49f91d262490530e0dd92001d88f4dfca399c127de957853ad4a3ef0a18",
+    "figures/recovery_by_rho.png": "9d6e696036f5278fb8a0c3fa70a8d89d9e51d42e35b4c511435a3d693b0b7346",
+    "figures/regret_by_rho.png": "d4fe035ddc0fd2278a2449b536dc5664583c033c9c6e73dc038797c02ee5ad9a",
+    "manifest.json": "242b58b39a5c000259c205aed9037bedf030d631b1cc3ab5466ab35736fba30a",
+    "processed/analysis.json": "cd25c72c530440a888b8f52129f353ab24fa5c1a0da0f6fa95a91dc85e4ce892"
+  },
+  "sealed_at_utc": "2026-09-15T03:02:03.455019Z",
+  "seeds_file_sha256": "8ef4c6b0dc481fea70054b6d7cbc9ecc2663f63b4523f3f55bb374a0339ee00c"
+}

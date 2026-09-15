@@ -6,9 +6,13 @@ Audit: `mycelial-graph claim-audit`.
 
 Passing the audit means **internal consistency of wording**, not empirical truth.
 
+The audit also verifies machine-checkable V1 readiness and result state (`v1_readiness_invariants`
+in the YAML): seed count and hash against the freeze, pool-prefix selection, population
+disjointness, config binding, and the sealed confirmatory result state.
+
 | ID | Claim | Allowed wording status |
 |---|---|---|
-| C01 | V1 confirmatory recovery advantage | CONFIRMATORY_LOCKED |
+| C01 | V1 confirmatory recovery advantage | CONFIRMATORY_REFUTED |
 | C02 | V2.0-alpha quality+token success | DEVELOPMENT_ONLY |
 | C03 | Real coding-agent token reduction | NOT_SUPPORTED |
 | C04 | Fungi prove the algorithm | NOT_SUPPORTED |

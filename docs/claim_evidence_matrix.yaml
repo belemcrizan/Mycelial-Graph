@@ -2,13 +2,13 @@ claims:
   - id: C01
     claim: "Mycelial Graph V1 confirmatory recovery advantage"
     mechanism: hierarchical node-edge state
-    synthetic_evidence: development_only
+    synthetic_evidence: confirmatory_executed
     real_evidence: false
     ablation_evidence: specified
-    statistical_status: confirmatory_locked
+    statistical_status: confirmatory_refuted
     external_validity: E1
-    allowed_wording: "V1 tests whether hierarchical state reduces recovery burden under controlled shared shocks. No confirmatory run is included."
-    allowed_wording_status: CONFIRMATORY_LOCKED
+    allowed_wording: "Refuted under MG-EXP-V1. On 97 pre-selected paired scenarios at rho=0.50, hierarchical pooling recovered 42.1% slower than edge-only (95% CI +11.9% to +79.1%), and the rho=0 non-inferiority safety gate failed at an upper bound of +16.3% against a +10% margin. The refutation is bounded by the tested graph, observation contract, shock construction, and parameter range."
+    allowed_wording_status: CONFIRMATORY_REFUTED
   - id: C02
     claim: "V2.0-alpha reduces tokens while preserving quality"
     mechanism: conductance, prune, transfer, MVC stop
@@ -119,3 +119,78 @@ claims:
     external_validity: E0
     allowed_wording: "The protocol is designed and not executed."
     allowed_wording_status: NOT_SUPPORTED
+
+# Machine-verifiable V1 confirmatory-readiness state. Checked by
+# `mycelial-graph claim-audit` and by `python scripts/audit_v1_readiness.py`.
+# These invariants assert repository state, never empirical truth.
+v1_readiness_invariants:
+  - id: I01
+    claim: confirmatory_seeds_exist
+    requires:
+      file: experiments/v1/seeds.confirmatory.txt
+      file_exists: true
+      count: 97
+      sha256: 8ef4c6b0dc481fea70054b6d7cbc9ecc2663f63b4523f3f55bb374a0339ee00c
+      hash_matches_freeze: true
+      freeze: experiments/v1/artifacts/CONFIRMATORY_FREEZE.json
+      freeze_hash_field: seeds_sha256
+      freeze_count_field: required_confirmatory_pairs
+      prefix_of: experiments/v1/seeds.confirmatory.pool.txt
+      disjoint_from:
+        - experiments/v1/seeds.pilot.txt
+        - experiments/v1/seeds.development.txt
+  - id: I02
+    claim: confirmatory_config_bound_to_freeze
+    requires:
+      config: experiments/v1/config.confirmatory.yaml
+      config_hash: 5d7e92d2ec2805418f2b07e641188814282d544de55eb8c1461f4400b025452a
+      hash_matches_freeze: true
+      freeze: experiments/v1/artifacts/CONFIRMATORY_FREEZE.json
+      freeze_hash_field: confirmatory_config_hash
+  - id: I03
+    claim: sample_size_recorded_before_confirmatory
+    requires:
+      file: experiments/v1/SAMPLE_SIZE_ADDENDUM.md
+      contains:
+        - "Required N: **97**"
+        - "one-sided alpha 0.05; target power 0.80"
+        - "Method hyperparameters after pilot: **unchanged** (no tuning)"
+  - id: I04
+    claim: pilot_complete_and_not_promoted
+    requires:
+      file: experiments/v1/artifacts/PILOT_EVIDENCE.json
+      json_fields:
+        run_kind: pilot
+        confirmatory_unlocked: false
+        scientific_status: PILOT_EVIDENCE_NOT_CONFIRMATORY
+  - id: I05
+    claim: multiplicity_policy_frozen
+    requires:
+      file: experiments/v1/ANALYSIS_PLAN.md
+      contains:
+        - "The only primary confirmatory contrast is hierarchical versus edge-only at `rho=0.50`"
+        - "No uncorrected exploratory result may be described as confirmatory."
+  - id: I06
+    claim: rho_crossover_established
+    allowed_by_v1_confirmatory: false
+  - id: I09
+    claim: confirmatory_result_state_is_as_documented
+    requires:
+      file: experiments/v1/artifacts/confirmatory/CONFIRMATORY_EVIDENCE.json
+      json_fields:
+        experiment_id: MG-EXP-V1-CONFIRMATORY
+        protocol_version: MG-EXP-V1
+        config_hash: 5d7e92d2ec2805418f2b07e641188814282d544de55eb8c1461f4400b025452a
+        seeds_file_sha256: 8ef4c6b0dc481fea70054b6d7cbc9ecc2663f63b4523f3f55bb374a0339ee00c
+        scientific_job_count: 485
+        result_state.state: REFUTED
+        frozen_contrast_integrity.primary_pairs: 97
+        frozen_contrast_integrity.non_administrative_censoring: 0
+        decision_gate.statistical_superiority: false
+        decision_gate.noninferiority_at_rho_0: false
+  - id: I07
+    claim: production_readiness
+    allowed_by_v1_confirmatory: false
+  - id: I08
+    claim: independent_external_reproduction
+    allowed_by_v1_confirmatory: false
