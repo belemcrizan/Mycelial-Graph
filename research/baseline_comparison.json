@@ -1,0 +1,13 @@
+{
+  "base": "4966daf3d0f09ba810f6855772145130359eb974",
+  "seed": 1103,
+  "rho": 0.5,
+  "methods": [
+    "edge_only",
+    "node_only",
+    "hierarchical",
+    "structured_sw_ucb"
+  ],
+  "canonical_scientific_payload": "identical",
+  "scope": "one development scenario; not universal equivalence"
+}

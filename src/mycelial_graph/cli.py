@@ -37,8 +37,17 @@ def _parser() -> argparse.ArgumentParser:
     power.add_argument("--output", required=True)
     power.add_argument("--power", type=float, default=0.80)
 
+    audit = sub.add_parser("validate-artifacts", help="Verify a complete V1 population and all manifest hashes.")
+    audit.add_argument("--config", required=True)
+    audit.add_argument("--output", required=True)
+    seal = sub.add_parser("seal-artifact", help="Seal raw data, statistics, report, figures, and provenance.")
+    seal.add_argument("--config", required=True)
+    seal.add_argument("--output", required=True)
+    verify = sub.add_parser("verify-seal", help="Read-only verification of every sealed artifact byte.")
+    verify.add_argument("--output", required=True)
+
     demo = sub.add_parser("demo", help="Run the non-confirmatory demonstrator end to end.")
-    demo.add_argument("--output", default="outputs/demo")
+    demo.add_argument("--output", default="outputs/v1-development")
     demo.add_argument("--workers", type=int, default=1)
 
     v2_validate = sub.add_parser("v2-validate", help="Validate a frozen V2 YAML configuration.")
@@ -84,6 +93,10 @@ def _default_v2_demo_config() -> Path:
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     try:
+        if args.command == "verify-seal":
+            from .artifacts import verify_seal
+            print(json.dumps(verify_seal(Path(args.output).resolve()), indent=2))
+            return 0
         if args.command == "validate":
             config = load_config(args.config)
             errors = validate_config(config)
@@ -221,6 +234,14 @@ def main(argv: list[str] | None = None) -> int:
             from .analysis.power import estimate_confirmatory_sample_size
 
             path = estimate_confirmatory_sample_size(config, args.output, args.power)
+        elif args.command == "validate-artifacts":
+            from .artifacts import load_validated_trials
+            _, provenance = load_validated_trials(config, Path(args.output))
+            print(json.dumps({"valid": True, **provenance}, indent=2))
+            return 0
+        elif args.command == "seal-artifact":
+            from .artifacts import seal_artifact
+            path = seal_artifact(config, Path(args.output).resolve())
         else:
             raise RuntimeError(f"Unhandled command: {args.command}")
         print(path)

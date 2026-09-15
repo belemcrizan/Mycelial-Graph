@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from itertools import product
+from types import MappingProxyType
+from typing import Mapping
 
 
 @dataclass(frozen=True)
@@ -15,8 +17,12 @@ class Edge:
 class LayeredDAG:
     layers: tuple[tuple[int, ...], ...]
     edges: tuple[Edge, ...]
-    outgoing: dict[int, tuple[int, ...]]
-    edge_lookup: dict[tuple[int, int], int]
+    outgoing: Mapping[int, tuple[int, ...]]
+    edge_lookup: Mapping[tuple[int, int], int]
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "outgoing", MappingProxyType(dict(self.outgoing)))
+        object.__setattr__(self, "edge_lookup", MappingProxyType(dict(self.edge_lookup)))
 
     @property
     def source(self) -> int:
@@ -71,4 +77,3 @@ class LayeredDAG:
         return tuple(
             edge.id for edge in self.edges if edge.source == node or edge.target == node
         )
-
