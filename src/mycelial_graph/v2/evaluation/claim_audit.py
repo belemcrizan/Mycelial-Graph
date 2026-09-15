@@ -11,6 +11,9 @@ ALLOWED = {
     "SYNTHETIC_ONLY",
     "PILOT_ONLY",
     "CONFIRMATORY_LOCKED",
+    # A frozen confirmatory experiment that ran and failed its primary hypothesis. Distinct from
+    # NOT_SUPPORTED, which means untested: a refutation is evidence, not an absence of evidence.
+    "CONFIRMATORY_REFUTED",
     "UNKNOWN",
 }
 

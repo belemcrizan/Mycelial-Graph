@@ -718,6 +718,66 @@ def provenance_audit(freeze: dict[str, Any]) -> dict[str, Any]:
     return result
 
 
+def execution_status_audit() -> dict[str, Any]:
+    """Report whether the frozen confirmatory experiment has already been executed and sealed."""
+    from mycelial_graph.analysis.result_state import RESULT_STATES
+    from mycelial_graph.science.claim_guard import find_claim_violations
+
+    sealed = ARTIFACTS / "confirmatory" / "CONFIRMATORY_EVIDENCE.json"
+    if not sealed.exists():
+        return {"executed": False, "note": "no sealed confirmatory evidence present"}
+    evidence = json.loads(sealed.read_text(encoding="utf-8"))
+    state = (evidence.get("result_state") or {}).get("state")
+    report_path = ARTIFACTS / "confirmatory" / "REPORT.md"
+    violations = (
+        find_claim_violations(report_path.read_text(encoding="utf-8")) if report_path.exists() else []
+    )
+    result = {
+        "executed": True,
+        "experiment_id": evidence.get("experiment_id"),
+        "code_revision_at_execution": evidence.get("code_revision_at_execution"),
+        "config_hash": evidence.get("config_hash"),
+        "seeds_file_sha256": evidence.get("seeds_file_sha256"),
+        "config_hash_matches_freeze": evidence.get("config_hash")
+        == json.loads(FREEZE_PATH.read_text(encoding="utf-8")).get("confirmatory_config_hash"),
+        "scientific_job_count": evidence.get("scientific_job_count"),
+        "result_state": state,
+        "state_is_terminal": state in RESULT_STATES,
+        "primary_pairs": (evidence.get("frozen_contrast_integrity") or {}).get("primary_pairs"),
+        "sealed_report_claim_violations": violations,
+        "reproduction_status": evidence.get("reproduction_status"),
+    }
+    if violations:
+        finding(
+            "F-EXEC-01",
+            "C",
+            "Sealed confirmatory report contains out-of-boundary claims",
+            json.dumps(violations[:3]),
+            "STOP: withdraw the report and regenerate it inside the claim boundary.",
+        )
+    if not result["config_hash_matches_freeze"]:
+        finding(
+            "F-EXEC-02",
+            "C",
+            "Sealed confirmatory evidence was not produced under the frozen configuration",
+            json.dumps({"evidence": evidence.get("config_hash")}),
+            "PROTOCOL_INVALID: the executed run does not match the execution contract.",
+        )
+    finding(
+        "F-EXEC-03",
+        "A",
+        f"V1 confirmatory executed and sealed with result state {state}",
+        (
+            f"The experiment ran at commit {evidence.get('code_revision_at_execution')} on "
+            f"{result['primary_pairs']} primary pairs under the frozen configuration hash, and the "
+            f"sealed report passes claim containment. Result state: {state}. All five result states "
+            "are legitimate terminal states; this one is reported without reframing."
+        ),
+        "DOCUMENT: the confirmatory question has reached a terminal state.",
+    )
+    return result
+
+
 def historical_artifact_audit() -> dict[str, Any]:
     demo = ROOT / "outputs" / "demo"
     manifest_path = demo / "manifest.json"
@@ -1026,6 +1086,10 @@ def render_markdown(report: dict[str, Any]) -> str:
             f"- Exploratory labelling present: "
             f"{report['reporting_audit']['figures_labelled_exploratory']}",
             "",
+            "## Confirmatory execution status",
+            "",
+            f"`{report['execution_status']}`",
+            "",
             "## Historical artifact integrity",
             "",
             f"`{report['historical_artifact_audit']}`",
@@ -1079,6 +1143,7 @@ def main() -> int:
         "reporting_audit": reporting_audit(),
         "reproducibility_audit": reproducibility_audit(),
         "provenance_audit": provenance_audit(freeze),
+        "execution_status": execution_status_audit(),
         "historical_artifact_audit": historical_artifact_audit(),
         "claim_audit": claim_audit(),
         "moratorium_audit": moratorium_audit(),
@@ -1090,11 +1155,21 @@ def main() -> int:
     }
     report["decision"] = decision
     report["justification"] = justification
-    report["next_permitted_action"] = (
-        "EXECUTE V1 CONFIRMATORY (see CONFIRMATORY_RUNBOOK.md)"
-        if decision == "GO"
-        else "Produce CONFIRMATORY_STOP_REPORT.md and stop. No V2 development."
-    )
+    execution = report["execution_status"]
+    if decision != "GO":
+        report["next_permitted_action"] = (
+            "Produce CONFIRMATORY_STOP_REPORT.md and stop. No V2 development."
+        )
+    elif execution.get("executed") and execution.get("state_is_terminal"):
+        report["next_permitted_action"] = (
+            f"V1 confirmatory has reached the terminal state {execution['result_state']}. Report it "
+            "only inside the claim boundary in experiments/v1/HYPOTHESIS_MATRIX.md. Selective "
+            "unfreezing may begin, but a new question requires its own protocol, power calculation, "
+            "rho grid, multiplicity strategy, freeze, and seeds. V1 may not be reused as a "
+            "crossover study."
+        )
+    else:
+        report["next_permitted_action"] = "EXECUTE V1 CONFIRMATORY (see CONFIRMATORY_RUNBOOK.md)"
     report["freeze_supplement"] = str(
         write_freeze_supplement(freeze, artifacts).relative_to(ROOT).as_posix()
     )

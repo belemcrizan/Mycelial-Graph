@@ -2,13 +2,13 @@ claims:
   - id: C01
     claim: "Mycelial Graph V1 confirmatory recovery advantage"
     mechanism: hierarchical node-edge state
-    synthetic_evidence: development_only
+    synthetic_evidence: confirmatory_executed
     real_evidence: false
     ablation_evidence: specified
-    statistical_status: confirmatory_locked
+    statistical_status: confirmatory_refuted
     external_validity: E1
-    allowed_wording: "V1 tests whether hierarchical state reduces recovery burden under controlled shared shocks. No confirmatory run is included."
-    allowed_wording_status: CONFIRMATORY_LOCKED
+    allowed_wording: "Refuted under MG-EXP-V1. On 97 pre-selected paired scenarios at rho=0.50, hierarchical pooling recovered 42.1% slower than edge-only (95% CI +11.9% to +79.1%), and the rho=0 non-inferiority safety gate failed at an upper bound of +16.3% against a +10% margin. The refutation is bounded by the tested graph, observation contract, shock construction, and parameter range."
+    allowed_wording_status: CONFIRMATORY_REFUTED
   - id: C02
     claim: "V2.0-alpha reduces tokens while preserving quality"
     mechanism: conductance, prune, transfer, MVC stop
@@ -173,6 +173,21 @@ v1_readiness_invariants:
   - id: I06
     claim: rho_crossover_established
     allowed_by_v1_confirmatory: false
+  - id: I09
+    claim: confirmatory_result_state_is_as_documented
+    requires:
+      file: experiments/v1/artifacts/confirmatory/CONFIRMATORY_EVIDENCE.json
+      json_fields:
+        experiment_id: MG-EXP-V1-CONFIRMATORY
+        protocol_version: MG-EXP-V1
+        config_hash: 5d7e92d2ec2805418f2b07e641188814282d544de55eb8c1461f4400b025452a
+        seeds_file_sha256: 8ef4c6b0dc481fea70054b6d7cbc9ecc2663f63b4523f3f55bb374a0339ee00c
+        scientific_job_count: 485
+        result_state.state: REFUTED
+        frozen_contrast_integrity.primary_pairs: 97
+        frozen_contrast_integrity.non_administrative_censoring: 0
+        decision_gate.statistical_superiority: false
+        decision_gate.noninferiority_at_rho_0: false
   - id: I07
     claim: production_readiness
     allowed_by_v1_confirmatory: false

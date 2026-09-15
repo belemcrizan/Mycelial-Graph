@@ -125,12 +125,14 @@ def _verify_invariant(
                 None,
             )
         for field, expected in (requires.get("json_fields") or {}).items():
-            payload = json.loads(target.read_text(encoding="utf-8"))
+            payload: Any = json.loads(target.read_text(encoding="utf-8"))
+            for key in field.split("."):
+                payload = payload.get(key) if isinstance(payload, dict) else None
             _check(
                 results,
                 f"{prefix}:json:{field}",
-                payload.get(field) == expected,
-                {"expected": expected, "observed": payload.get(field)},
+                payload == expected,
+                {"expected": expected, "observed": payload},
             )
 
     if "config" in requires:

@@ -13,8 +13,8 @@
     },
     "v1_readiness_invariants": {
       "failures": [],
-      "n_checks": 25,
-      "n_invariants": 8,
+      "n_checks": 36,
+      "n_invariants": 9,
       "ok": true
     },
     "wording_consistency": {
@@ -25,8 +25,22 @@
     }
   },
   "decision": "GO",
+  "execution_status": {
+    "code_revision_at_execution": "5f314d2dfb15f508dfd4e630e8c0e49031e60c6a",
+    "config_hash": "5d7e92d2ec2805418f2b07e641188814282d544de55eb8c1461f4400b025452a",
+    "config_hash_matches_freeze": true,
+    "executed": true,
+    "experiment_id": "MG-EXP-V1-CONFIRMATORY",
+    "primary_pairs": 97,
+    "reproduction_status": "internal / automated; no independent external reproduction",
+    "result_state": "REFUTED",
+    "scientific_job_count": 485,
+    "sealed_report_claim_violations": [],
+    "seeds_file_sha256": "8ef4c6b0dc481fea70054b6d7cbc9ecc2663f63b4523f3f55bb374a0339ee00c",
+    "state_is_terminal": true
+  },
   "finding_counts": {
-    "A": 5,
+    "A": 6,
     "B": 2,
     "C": 0
   },
@@ -72,6 +86,13 @@
       "detail": "The pilot manifest records {\"numpy\": {\"pilot\": \"2.5.3\", \"current\": \"2.2.6\"}, \"scipy\": {\"pilot\": \"1.18.1\", \"current\": \"1.15.3\"}, \"pyyaml\": {\"pilot\": \"6.0.3\", \"current\": \"6.0.2\"}}. All 5 sampled sealed pilot scenarios regenerate to identical scientific hashes in the current environment, so the frozen RNG streams, scenario construction, and potential-outcome tables are unaffected by the version difference. The confirmatory manifest records the actual versions used.",
       "id": "F-PROV-03",
       "title": "Software environment differs from the one recorded for the pilot"
+    },
+    {
+      "action": "DOCUMENT: the confirmatory question has reached a terminal state.",
+      "class": "A",
+      "detail": "The experiment ran at commit 5f314d2dfb15f508dfd4e630e8c0e49031e60c6a on 97 primary pairs under the frozen configuration hash, and the sealed report passes claim containment. Result state: REFUTED. All five result states are legitimate terminal states; this one is reported without reframing.",
+      "id": "F-EXEC-03",
+      "title": "V1 confirmatory executed and sealed with result state REFUTED"
     },
     {
       "action": "DOCUMENT: verified mechanically by invariant I01.",
@@ -271,7 +292,7 @@
     "missing_files": [],
     "regenerated": false
   },
-  "justification": "No Class C findings. 5 Class A finding(s) documented and 2 Class B finding(s) resolved transparently before confirmatory execution. The frozen seed selection, sample size, configuration binding, multiplicity policy, and reproducibility invariants all reproduce mechanically.",
+  "justification": "No Class C findings. 6 Class A finding(s) documented and 2 Class B finding(s) resolved transparently before confirmatory execution. The frozen seed selection, sample size, configuration binding, multiplicity policy, and reproducibility invariants all reproduce mechanically.",
   "moratorium_audit": {
     "declares_exit_condition": true,
     "document_present": true,
@@ -293,7 +314,7 @@
     "hypothesis_matrix": true,
     "multiplicity_policy_frozen": true
   },
-  "next_permitted_action": "EXECUTE V1 CONFIRMATORY (see CONFIRMATORY_RUNBOOK.md)",
+  "next_permitted_action": "V1 confirmatory has reached the terminal state REFUTED. Report it only inside the claim boundary in experiments/v1/HYPOTHESIS_MATRIX.md. Selective unfreezing may begin, but a new question requires its own protocol, power calculation, rho grid, multiplicity strategy, freeze, and seeds. V1 may not be reused as a crossover study.",
   "power_audit": {
     "absolute_design_effect": 8.24,
     "addendum_states_n_97": true,
@@ -354,7 +375,7 @@
         "pilot": "1.18.1"
       }
     },
-    "head_commit": "16534ed7fcefe9be71492bb1a2770c78b373bc48",
+    "head_commit": "5f314d2dfb15f508dfd4e630e8c0e49031e60c6a",
     "pilot_code_commit": "2c0a9630ae97e050a8ad31f5a06ce2a9b9ab2b22",
     "pilot_recorded_environment": {
       "numpy": "2.5.3",
@@ -397,11 +418,27 @@
     ]
   },
   "repository_state": {
-    "audited_at_utc": "2026-09-15T02:56:56.194226Z",
+    "audited_at_utc": "2026-09-15T03:06:24.143261Z",
     "branch": "feat/p0-v1-pilot-theory-external",
-    "commit": "16534ed7fcefe9be71492bb1a2770c78b373bc48",
-    "dirty": false,
-    "dirty_paths": [],
+    "commit": "5f314d2dfb15f508dfd4e630e8c0e49031e60c6a",
+    "dirty": true,
+    "dirty_paths": [
+      "HANGELOG.md",
+      "CONFIRMATORY_READINESS_REPORT.json",
+      "CONFIRMATORY_READINESS_REPORT.md",
+      "README.md",
+      "V1_CONFIRMATORY_MORATORIUM.md",
+      "docs/CLAIM_EVIDENCE_MATRIX.md",
+      "docs/claim_evidence_matrix.yaml",
+      "experiments/v1/artifacts/CONFIRMATORY_FREEZE_SUPPLEMENT.json",
+      "research/ledger/ledger.jsonl",
+      "scripts/audit_v1_readiness.py",
+      "src/mycelial_graph/science/claim_invariants.py",
+      "src/mycelial_graph/v2/evaluation/claim_audit.py",
+      "tests/test_v1_confirmatory_integrity.py",
+      "experiments/v1/artifacts/CONFIRMATORY_RUN_CONTRACT.json",
+      "experiments/v1/artifacts/confirmatory/"
+    ],
     "numpy": "2.2.6",
     "python": "3.13.3"
   },

@@ -1,5 +1,12 @@
 # Mycelial Graph V1 Research Edition
 
+> **Headline result (2026-09-15).** The frozen V1 confirmatory experiment has been run. Its
+> primary hypothesis is **`REFUTED`**: at ρ=0.50 hierarchical node-edge pooling recovered
+> **42.1% slower** than edge-only adaptation (95% CI +11.9% to +79.1%, n=97 paired scenarios), and
+> the ρ=0 negative-transfer safety gate also failed. Details and claim boundary in
+> [Honest status](#honest-status). A refutation is a legitimate scientific outcome and is reported
+> here without reframing.
+
 V2.0-alpha is an **additive** scientific layer. It does not replace V1. The V1 question, protocol, CLI, and confirmatory lock remain in force. See [V2 implementation plan](docs/V2_IMPLEMENTATION_PLAN.md) and `mycelial-graph v2-demo`.
 
 Mycelial Graph studies a practical question: **can an AI execution system recover from a local disruption without relearning everything?**
@@ -83,9 +90,9 @@ There is exactly one description of this state, and it is mechanically checked b
   `mycelial-graph validate --config experiments/v1/config.confirmatory.yaml` failed by design.
   That lock is now **released**; validation passes.
 
-Releasing the lock is not a result. **The V1 confirmatory experiment status is recorded in
-[`CONFIRMATORY_READINESS_REPORT.md`](CONFIRMATORY_READINESS_REPORT.md) and the experiment
-ledger.** Do not treat the pilot as confirmatory.
+The confirmatory experiment has since been executed on exactly these 97 seeds. Its outcome is
+`REFUTED`; see [Confirmatory evidence](#confirmatory-evidence-produced-by-the-frozen-v1-protocol)
+below. Do not treat the pilot as confirmatory.
 
 ## The V1 confirmatory question
 
@@ -213,10 +220,36 @@ Infrastructure is not evidence.
 
 ### Confirmatory evidence (produced by the frozen V1 protocol)
 
-- See [`CONFIRMATORY_READINESS_REPORT.md`](CONFIRMATORY_READINESS_REPORT.md) for the readiness
-  decision and `research/ledger/ledger.jsonl` for the execution record. A confirmatory result,
-  when present, is bounded by the claim boundary in
-  [`HYPOTHESIS_MATRIX.md`](experiments/v1/HYPOTHESIS_MATRIX.md).
+**The V1 confirmatory experiment was executed and the primary hypothesis was `REFUTED`.**
+
+Executed at commit `5f314d2` under
+[`CONFIRMATORY_FREEZE.json`](experiments/v1/artifacts/CONFIRMATORY_FREEZE.json), on the 97
+pre-selected paired scenarios, with no post-pilot tuning. Sealed evidence:
+[`experiments/v1/artifacts/confirmatory/`](experiments/v1/artifacts/confirmatory/).
+
+- **Primary contrast (ρ=0.50, hierarchical vs edge-only).** Mean restricted recovery time was
+  **+42.1% higher** for hierarchical pooling, i.e. recovery was *slower*, with a 95% bootstrap
+  interval of +11.9% to +79.1% and a one-sided upper bound of +72.1%. The pre-specified relevant
+  benefit of −20% lies outside the interval, so the frozen analysis plan classifies this as
+  `REFUTED` rather than inconclusive.
+- **Safety gate (ρ=0, margin +0.10).** One-sided upper bound +16.3% exceeds the margin, so
+  non-inferiority was **not** established: negative transfer at ρ=0 cannot be excluded.
+- **Integrity.** 97/97 primary pairs executed, censoring administrative only, zero method
+  failures inside the frozen contrasts.
+
+What this means, stated no more strongly than the design permits: in this synthetic layered-DAG
+semi-bandit, under this shock construction and this parameter range, hierarchical node-edge
+pooling did not accelerate recovery at ρ=0.50 and did not clear its own negative-transfer safety
+gate at ρ=0. That is a real negative result for the mechanism this repository was built around, and
+it is reported as such. It does not say hierarchical pooling is useless everywhere, and it does not
+establish anything about other ρ values, a crossover, or real systems — the design cannot support
+those statements in either direction.
+
+The full report, including the frozen decision gate and all exploratory rows, is
+[`experiments/v1/artifacts/confirmatory/REPORT.md`](experiments/v1/artifacts/confirmatory/REPORT.md).
+Readiness audit: [`CONFIRMATORY_READINESS_REPORT.md`](CONFIRMATORY_READINESS_REPORT.md). Execution
+record: `research/ledger/ledger.jsonl`. Claim boundary:
+[`HYPOTHESIS_MATRIX.md`](experiments/v1/HYPOTHESIS_MATRIX.md).
 
 ### External evidence
 

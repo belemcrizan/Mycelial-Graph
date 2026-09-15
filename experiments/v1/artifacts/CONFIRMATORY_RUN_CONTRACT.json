@@ -1,0 +1,23 @@
+{
+  "analysis_sha256": "cd25c72c530440a888b8f52129f353ab24fa5c1a0da0f6fa95a91dc85e4ce892",
+  "claim_boundary": "Bounded by experiments/v1/HYPOTHESIS_MATRIX.md: the rho=0.50 primary contrast and the rho=0 safety gate only. No crossover, all-rho, production, external-validity, or causal claim is authorised, and reproduction here is internal, not independent.",
+  "code_commit": "5f314d2dfb15f508dfd4e630e8c0e49031e60c6a",
+  "config_hash": "5d7e92d2ec2805418f2b07e641188814282d544de55eb8c1461f4400b025452a",
+  "config_path": "C:\\Users\\belem\\OneDrive\\\u00c1rea de Trabalho\\123\\Mycelial-Graph\\experiments\\v1\\config.confirmatory.yaml",
+  "confirmatory_unlocked": false,
+  "experiment_id": "MG-EXP-V1-CONFIRMATORY",
+  "manifest_sha256": "242b58b39a5c000259c205aed9037bedf030d631b1cc3ab5466ab35736fba30a",
+  "protocol_version": "MG-EXP-V1",
+  "result_state": {
+    "reasons": [
+      "one-sided upper bound +0.7214 is not below zero and the interval lower bound +0.1190 excludes the pre-specified relevant benefit -0.20"
+    ],
+    "safety_gate_state": "NEGATIVE_TRANSFER_NOT_EXCLUDED",
+    "state": "REFUTED"
+  },
+  "run_kind": "confirmatory",
+  "sample_size_sha256": null,
+  "scientific_status": "CONFIRMATORY_EXECUTED_UNDER_FROZEN_PROTOCOL",
+  "seeds_file": "C:\\Users\\belem\\OneDrive\\\u00c1rea de Trabalho\\123\\Mycelial-Graph\\experiments\\v1\\seeds.confirmatory.txt",
+  "seeds_sha256": "8ef4c6b0dc481fea70054b6d7cbc9ecc2663f63b4523f3f55bb374a0339ee00c"
+}

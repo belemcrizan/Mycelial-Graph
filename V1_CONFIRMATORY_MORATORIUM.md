@@ -3,7 +3,8 @@
 **Start date:** 2026-09-14 (UTC-3)
 **Start commit:** `acedef91559a81e2ff15606d3c13dd6a113be390`
 **Protocol under moratorium:** `MG-EXP-V1`
-**Status:** ACTIVE until the exit condition below is met.
+**Status:** **SATISFIED** — see [Exit record](#exit-record). The moratorium held for the whole
+cycle; nothing outside the V1 confirmatory path was developed.
 
 ## Scientific justification
 
@@ -77,6 +78,33 @@ The moratorium ends when **either**:
   `CONFIRMATORY_STOP_REPORT.md`.
 
 "Enough improvements were made" is explicitly **not** an exit condition.
+
+## Exit record
+
+**Met on 2026-09-15 (UTC) by the first branch of the exit condition.**
+
+The frozen V1 confirmatory experiment was executed at commit
+`5f314d2dfb15f508dfd4e630e8c0e49031e60c6a` on the 97 pre-selected paired scenarios, validated,
+reported inside its claim boundary, and published with result state **`REFUTED`**: at ρ=0.50
+hierarchical pooling recovered 42.1% slower than edge-only (95% CI +11.9% to +79.1%), and the ρ=0
+non-inferiority safety gate failed. Evidence is sealed in
+[`experiments/v1/artifacts/confirmatory/`](experiments/v1/artifacts/confirmatory/) and recorded in
+`research/ledger/ledger.jsonl`.
+
+The confirmatory question therefore reached a legitimate terminal state, and the broader research
+programme may resume — selectively, and with the V1 refutation as its starting fact rather than as
+a problem to route around. Concretely, the next question is no longer *does structural sharing
+help?* but *when, if ever, does it help*, which requires its own protocol, power calculation, ρ
+grid, multiplicity strategy, freeze, and seeds. Reusing V1 as a crossover study is not permitted.
+
+Unfreezing any track requires stating, in that track's own protocol, what the V1 refutation implies
+for it. In particular:
+
+- V2.1-A evidence still may not be used to support any V1-style claim about hierarchical
+  non-stationary routing.
+- `theory/` statements about ρ* and hierarchical regret remain CONJECTURE / OPEN_PROBLEM; the
+  refutation is one empirical data point in one environment, not a proof either way.
+- `external/` still contains no external evidence.
 
 ## Related artifacts
 

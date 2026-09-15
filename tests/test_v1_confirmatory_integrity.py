@@ -207,6 +207,35 @@ class ClaimContainmentTests(unittest.TestCase):
         with self.assertRaises(ClaimContainmentError):
             assert_claim_containment("We establish the crossover rho* = 0.5.", "test")
 
+    def test_sealed_confirmatory_report_stays_inside_the_claim_boundary(self) -> None:
+        report = V1 / "artifacts" / "confirmatory" / "REPORT.md"
+        if not report.exists():
+            self.skipTest("no sealed confirmatory report yet")
+        assert_claim_containment(report.read_text(encoding="utf-8"), str(report))
+
+
+class SealedConfirmatoryEvidenceTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.path = V1 / "artifacts" / "confirmatory" / "CONFIRMATORY_EVIDENCE.json"
+        if not self.path.exists():
+            self.skipTest("no sealed confirmatory evidence yet")
+        self.evidence = json.loads(self.path.read_text(encoding="utf-8"))
+
+    def test_executed_under_the_frozen_contract(self) -> None:
+        self.assertEqual(self.evidence["config_hash"], FREEZE["confirmatory_config_hash"])
+        self.assertEqual(self.evidence["seeds_file_sha256"], FREEZE["seeds_sha256"])
+        self.assertEqual(self.evidence["protocol_version"], FREEZE["protocol_version"])
+
+    def test_full_frozen_sample_was_executed(self) -> None:
+        self.assertEqual(self.evidence["frozen_contrast_integrity"]["primary_pairs"], 97)
+        self.assertEqual(self.evidence["frozen_contrast_integrity"]["non_administrative_censoring"], 0)
+
+    def test_result_state_is_terminal(self) -> None:
+        self.assertIn(self.evidence["result_state"]["state"], RESULT_STATES)
+
+    def test_reproduction_is_not_labelled_independent(self) -> None:
+        self.assertIn("internal", self.evidence["reproduction_status"])
+
 
 if __name__ == "__main__":
     unittest.main()
