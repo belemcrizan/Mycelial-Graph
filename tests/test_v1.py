@@ -88,6 +88,7 @@ class CheckpointTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory)
             first_manifest = run_experiment(one_rho, output, workers=1)
+            first_manifest_bytes = first_manifest.read_bytes()
             first_raw = next((output / "raw").rglob("*.json"))
             first_payload = json.loads(first_raw.read_text(encoding="utf-8"))
             second_manifest = run_experiment(one_rho, output, workers=1)
@@ -97,7 +98,8 @@ class CheckpointTests(unittest.TestCase):
                 canonical_scientific_payload(second_payload),
             )
             manifest = json.loads(second_manifest.read_text(encoding="utf-8"))
-            self.assertEqual(manifest["executed_job_count_this_invocation"], 0)
+            self.assertEqual(second_manifest.read_bytes(), first_manifest_bytes)
+            self.assertEqual(manifest["executed_job_count_this_invocation"], 5)
             self.assertTrue(first_manifest.exists())
 
     def test_serial_and_parallel_payloads_match(self) -> None:

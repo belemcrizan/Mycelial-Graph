@@ -27,17 +27,20 @@ def paired_relative_effect(
         raise ValueError("Paired samples must be one-dimensional and have equal shape.")
     if len(treatment) < 2:
         raise ValueError("At least two paired trials are required.")
+    if not np.all(np.isfinite(treatment)) or not np.all(np.isfinite(control)):
+        raise ValueError("Paired values must be finite.")
+    if np.any(treatment < 0) or np.any(control <= 0):
+        raise ValueError("Treatment must be non-negative and every control value positive.")
+    if type(bootstrap_samples) is not int or bootstrap_samples < 1:
+        raise ValueError("bootstrap_samples must be a positive integer.")
+    if not 0 < confidence_level < 1 or not np.isfinite(null_margin):
+        raise ValueError("Invalid confidence level or null margin.")
     estimate = float((np.mean(treatment) - np.mean(control)) / np.mean(control))
     rng = np.random.default_rng(seed)
     indices = rng.integers(0, len(treatment), size=(bootstrap_samples, len(treatment)))
     treatment_means = np.mean(treatment[indices], axis=1)
     control_means = np.mean(control[indices], axis=1)
-    effects = np.divide(
-        treatment_means - control_means,
-        control_means,
-        out=np.zeros_like(treatment_means),
-        where=control_means != 0,
-    )
+    effects = (treatment_means - control_means) / control_means
     alpha = 1.0 - confidence_level
     low, high = np.quantile(effects, [alpha / 2.0, 1.0 - alpha / 2.0])
     upper = float(np.quantile(effects, confidence_level))

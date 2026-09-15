@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 
 from ..science.claim_guard import assert_claim_containment
 from ..types import ExperimentConfig
+from ..artifacts import ArtifactError, ensure_unsealed, load_validated_trials
 
 
 METHOD_LABELS = {
@@ -65,8 +66,12 @@ def _make_figures(analysis: dict, output: Path) -> list[Path]:
 
 def generate_report(config: ExperimentConfig, output_directory: str | Path) -> Path:
     output = Path(output_directory).resolve()
+    ensure_unsealed(output)
+    _, provenance = load_validated_trials(config, output)
     analysis_path = output / "processed" / "analysis.json"
     analysis = json.loads(analysis_path.read_text(encoding="utf-8"))
+    if analysis.get("provenance") != provenance or analysis.get("run_kind") != config.run_kind:
+        raise ArtifactError("Analysis does not belong to this verified experiment; analyze the original artifact first.")
     figures = _make_figures(analysis, output)
     primary = analysis["primary_contrast"]
     gate = analysis["decision_gate"]
@@ -85,6 +90,8 @@ def generate_report(config: ExperimentConfig, output_directory: str | Path) -> P
         f"**Experiment:** `{config.experiment_id}`  ",
         f"**Run kind:** `{config.run_kind}`  ",
         f"**Result state:** `{state.get('state', 'UNKNOWN')}`",
+        f"**Run kind:** `{config.run_kind}`",
+        f"**Decision state:** `{analysis['decision_state']}`",
         "",
         f"> {status_warning}",
         "",
@@ -146,6 +153,15 @@ def generate_report(config: ExperimentConfig, output_directory: str | Path) -> P
         f"- Censoring administrative only: {integrity.get('censoring_is_administrative_only')}",
         f"- Trials censored without reaching tau: {integrity.get('non_administrative_censoring')}",
         f"- Method failures inside a frozen contrast: {integrity.get('method_failures_in_frozen_contrasts')}",
+        "| Requirement | Result |",
+        "|---|---:|",
+        f"| Statistical superiority | {gate['statistical_superiority']} |",
+        f"| Estimated engineering gain | {gate['engineering_gain']} |",
+        f"| Non-inferiority at rho=0 | {gate['noninferiority_at_rho_0']} |",
+        f"| Scientific criteria met (descriptive outside confirmatory) | {gate['scientific_criteria_met']} |",
+        f"| Confirmatory population | {gate['confirmatory_population']} |",
+        "| Operational budget validated | False; not yet specified |",
+        f"| Promote hierarchical state | {gate['promote_to_v1']} |",
         "",
         "## Group metrics",
         "",

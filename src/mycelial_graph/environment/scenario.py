@@ -29,6 +29,14 @@ class Scenario:
     pre_shock_steps: int
     post_shock_steps: int
 
+    def __post_init__(self) -> None:
+        # A frozen dataclass alone does not prevent mutation of NumPy buffers.
+        # Immutable bytes backing also prevents re-enabling the WRITEABLE flag.
+        for name in ("base_edge_means", "post_edge_means", "potential_rewards", "shock_vector"):
+            array = getattr(self, name)
+            frozen = np.frombuffer(array.tobytes(), dtype=array.dtype).reshape(array.shape)
+            object.__setattr__(self, name, frozen)
+
     def expected_edge_rewards(self, step: int) -> np.ndarray:
         return self.base_edge_means if step < self.pre_shock_steps else self.post_edge_means
 

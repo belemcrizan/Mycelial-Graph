@@ -1,0 +1,14 @@
+{
+  "baseline_commit": "4966daf3d0f09ba810f6855772145130359eb974",
+  "files": {
+    "experiments/v1/EXPERIMENT_PROTOCOL_V1.md": "7d66e0c2abe1aa1b41e310d2f06ddb3dfed329f2a6267a567e3c02e62c6ed9fe",
+    "experiments/v1/ANALYSIS_PLAN.md": "354cfa2e7c1ed5dd45af06ee1589acfe265528a7198a5cfc7e20793336c23550",
+    "experiments/v1/experiment.schema.json": "8d2cc75d4cda5c0bb86ac4469cac1903439eac507a9a1400803ce7ab0c24437d",
+    "experiments/v1/config.development.yaml": "8d8f688e5e1cc615ff1d5237985184452946874197c83309869385f47571a29a",
+    "experiments/v1/config.pilot.yaml": "8885f7ae9a183745f8cebf1e793f472029cead24cb73f68e7898e192f63eb87e",
+    "experiments/v1/config.confirmatory.yaml": "9b6ae883a249437516723a850fea1e6c56b1746c7b08f31a125a869622889f23",
+    "experiments/v1/seeds.development.txt": "37ce6467f59a8d70b5e4615beaae566ba87fec6f4b8f41774d63a57a74a69d2a",
+    "experiments/v1/seeds.pilot.txt": "90365e2cf0094495f16d5eb180b0ba5aa69014592240308cc6a93c7ba85c8cc4",
+    "experiments/v1/seeds.confirmatory.pool.txt": "951ff04fdaeed5ff2cb16e91781672f21587bf0075aab19c6caf4ef4c4cb26d7"
+  }
+}

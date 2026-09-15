@@ -8,19 +8,14 @@ from typing import Any
 import numpy as np
 
 from ..runner.checkpoint import atomic_write_json
+from ..artifacts import ensure_unsealed, load_validated_trials
 from ..types import ExperimentConfig
 from .bootstrap import paired_relative_effect
 from .result_state import classify_result_state
 
 
-def _read_trials(output_directory: Path) -> list[dict[str, Any]]:
-    trials: list[dict[str, Any]] = []
-    for path in sorted((output_directory / "raw").rglob("*.json")):
-        payload = json.loads(path.read_text(encoding="utf-8"))["scientific_payload"]
-        trials.extend(payload["results"])
-    if not trials:
-        raise ValueError(f"No raw trial results found under {output_directory / 'raw'}")
-    return trials
+def _read_trials(output_directory: Path, config: ExperimentConfig) -> list[dict[str, Any]]:
+    return load_validated_trials(config, output_directory)[0]
 
 
 def _group_metrics(trials: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -72,10 +67,14 @@ def _paired_arrays(
     by_scenario: dict[str, dict[str, float]] = defaultdict(dict)
     for trial in trials:
         if np.isclose(float(trial["rho"]), rho):
+            if trial["method"] in by_scenario[trial["scenario_id"]]:
+                raise ValueError("Duplicate method within a paired scenario.")
             by_scenario[trial["scenario_id"]][trial["method"]] = float(
                 trial["restricted_recovery_time"]
             )
-    pairs = [values for values in by_scenario.values() if treatment in values and control in values]
+    if any(treatment not in values or control not in values for values in by_scenario.values()):
+        raise ValueError("Incomplete pair; scenarios must never be silently dropped.")
+    pairs = list(by_scenario.values())
     if len(pairs) < 2:
         raise ValueError(f"Not enough paired results for rho={rho}.")
     return (
@@ -126,7 +125,8 @@ def _frozen_contrast_integrity(
 
 def analyze_results(config: ExperimentConfig, output_directory: str | Path) -> Path:
     output = Path(output_directory).resolve()
-    trials = _read_trials(output)
+    ensure_unsealed(output)
+    trials, provenance = load_validated_trials(config, output)
     primary_treatment, primary_control = _paired_arrays(
         trials,
         config.analysis.primary_rho,
@@ -159,7 +159,7 @@ def analyze_results(config: ExperimentConfig, output_directory: str | Path) -> P
             else None
         ),
     }
-    gate["promote_to_v1"] = bool(
+    gate["scientific_criteria_met"] = bool(
         gate["statistical_superiority"]
         and gate["engineering_gain"]
         and gate["noninferiority_at_rho_0"] is True
@@ -180,12 +180,25 @@ def analyze_results(config: ExperimentConfig, output_directory: str | Path) -> P
         config.analysis.noninferiority_margin,
         _frozen_sample_size(config),
     )
+    gate["confirmatory_population"] = config.run_kind == "confirmatory"
+    gate["operational_budget_validated"] = False
+    gate["promote_to_v1"] = False  # Protocol section 8.2 requires a separately justified operational budget.
+    decision_state = "inconclusive"
+    if config.run_kind == "confirmatory":
+        if gate["scientific_criteria_met"]:
+            decision_state = "supported"
+        elif gate["statistical_superiority"]:
+            decision_state = "conditionally_supported"
+        elif primary.confidence_low > 0:
+            decision_state = "refuted"
     analysis = {
+        "provenance": provenance,
+        "decision_state": decision_state,
         "run_kind": config.run_kind,
         "status": (
             "confirmatory"
             if config.run_kind == "confirmatory"
-            else "development-only; no confirmatory claim"
+            else f"{config.run_kind}-only; no confirmatory claim"
         ),
         "estimand": "relative difference in mean restricted recovery time",
         "primary_contrast": {
