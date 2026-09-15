@@ -27,3 +27,5 @@ jobs:
       - run: python scripts/audit_v1_readiness.py
       - run: mycelial-graph real-smoke
 
+      - run: python scripts/reproduce_v1.py --output outputs/ci-v1 --workers 2
+      - run: python -m mycelial_graph verify-seal --output outputs/ci-v1

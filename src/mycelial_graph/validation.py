@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import math
+import re
+from numbers import Real
 from pathlib import Path
 from typing import Any
 
@@ -16,6 +19,18 @@ SUPPORTED_METHODS = {
 
 def validate_config(config: ExperimentConfig) -> list[str]:
     errors: list[str] = []
+    def numeric_fields(value: Any, name: str = "config") -> None:
+        if isinstance(value, dict):
+            for key, item in value.items():
+                numeric_fields(item, f"{name}.{key}")
+        elif isinstance(value, (list, tuple)):
+            for item in value:
+                numeric_fields(item, name)
+        elif isinstance(value, Real) and (isinstance(value, bool) or not math.isfinite(value)):
+            errors.append(f"{name} must contain finite numeric values, not booleans.")
+    numeric_fields(config.to_dict())
+    if errors:
+        return errors
     g, h, e, m, a = (
         config.graph,
         config.horizon,
@@ -23,6 +38,36 @@ def validate_config(config: ExperimentConfig) -> list[str]:
         config.mycelial,
         config.analysis,
     )
+    for name, value in {
+        "internal_layers": g.internal_layers, "alternatives_per_layer": g.alternatives_per_layer,
+        "pre_shock_steps": h.pre_shock_steps, "post_shock_steps": h.post_shock_steps,
+        "recovery_trailing_window": h.recovery_trailing_window,
+        "recovery_confirmation_window": h.recovery_confirmation_window,
+        "max_generation_attempts": e.max_generation_attempts,
+        "bootstrap_samples": a.bootstrap_samples,
+        "window_size": config.structured_sw_ucb.window_size,
+    }.items():
+        if type(value) is not int or value < 1:
+            errors.append(f"{name} must be a positive integer.")
+    if errors:
+        return errors
+    if config.protocol_version != "MG-EXP-V1":
+        errors.append("V1 configuration requires protocol_version MG-EXP-V1.")
+    if not re.fullmatch(r"[A-Za-z0-9_-]+", config.experiment_id):
+        errors.append("experiment_id must be a safe path component.")
+    if e.optimum_margin <= 0:
+        errors.append("optimum_margin must be positive.")
+    if config.structured_sw_ucb.ridge <= 0 or config.structured_sw_ucb.uncertainty_bonus < 0:
+        errors.append("UCB ridge must be positive and uncertainty_bonus non-negative.")
+    if m.minimum_conductance <= 0:
+        errors.append("minimum_conductance must be positive.")
+    for name in ("learning_rate", "node_learning_rate", "interaction_learning_rate", "exploration_reinforcement", "shrinkage"):
+        if getattr(m, name) < 0:
+            errors.append(f"mycelial.{name} must be non-negative.")
+    if not 0 <= m.temporal_decay <= 1:
+        errors.append("temporal_decay must be in [0, 1].")
+    if not math.isclose(a.confidence_level, 1 - a.superiority_alpha, abs_tol=1e-12):
+        errors.append("confidence_level must equal 1 - superiority_alpha for the one-sided gate.")
     if g.internal_layers < 2:
         errors.append("graph.internal_layers must be at least 2.")
     if config.run_kind not in {"development", "pilot", "confirmatory"}:
@@ -41,6 +86,8 @@ def validate_config(config: ExperimentConfig) -> list[str]:
         errors.append("Every rho value must be in [0, 1].")
     if len(set(e.rho_values)) != len(e.rho_values):
         errors.append("rho_values must not contain duplicates.")
+    if len({f"{rho:.2f}" for rho in e.rho_values}) != len(e.rho_values):
+        errors.append("rho_values collide in V1's two-decimal scenario identifiers.")
     if a.primary_rho not in e.rho_values:
         errors.append("analysis.primary_rho must be present in environment.rho_values.")
     if e.shock_magnitude <= 0 or e.reward_noise_std < 0:
@@ -73,6 +120,10 @@ def validate_config(config: ExperimentConfig) -> list[str]:
                 errors.append("Seeds file is empty.")
         except ValueError as exc:
             errors.append(str(exc))
+    from .protocol import validate_phase_seeds, validate_confirmatory_freeze
+    errors.extend(validate_phase_seeds(config))
+    if config.run_kind == "confirmatory":
+        errors.extend(validate_confirmatory_freeze(config))
     return errors
 
 
@@ -120,20 +171,48 @@ def validate_result_payload(payload: dict[str, Any], config: ExperimentConfig) -
     missing = required - set(scientific)
     if missing:
         raise ValueError(f"Scientific payload is missing fields: {sorted(missing)}")
-    if len(scientific["scenario_hash"]) != 64:
+    if not re.fullmatch(r"[a-f0-9]{64}", scientific["scenario_hash"]):
         raise ValueError("scenario_hash must be a SHA-256 hex digest.")
     if not 0 <= float(scientific["rho"]) <= 1:
         raise ValueError("Result rho must be in [0, 1].")
     results = scientific["results"]
-    if {result["method"] for result in results} != set(config.methods):
+    if len(results) != len(config.methods) or {result["method"] for result in results} != set(config.methods):
         raise ValueError("Paired result does not contain exactly the configured methods.")
     if {result["scenario_id"] for result in results} != {scientific["scenario_id"]}:
         raise ValueError("All methods must share the enclosing scenario_id.")
+    from .artifacts import config_digest
+    if not math.isclose(scientific["shock_l2_norm"], config.environment.shock_magnitude, rel_tol=0, abs_tol=1e-10):
+        raise ValueError("Shock magnitude differs from the frozen configuration.")
+    if scientific["optimal_pre_path"] == scientific["optimal_post_path"]:
+        raise ValueError("Pre/post optimal paths must differ.")
     for result in results:
-        recovered = bool(result["recovered"])
-        censored = bool(result["censored"])
+        for key, expected in {
+            "config_hash": config_digest(config), "protocol_version": config.protocol_version,
+            "seed": scientific["seed"], "rho": scientific["rho"],
+            "pre_shock_steps": config.horizon.pre_shock_steps,
+            "post_shock_steps": config.horizon.post_shock_steps,
+            "trial_id": f"{scientific['scenario_id']}-{result['method']}",
+        }.items():
+            if result[key] != expected:
+                raise ValueError(f"Paired result {key} mismatch.")
+        if result["method_status"] not in {"completed", "method_failure", "timeout"}:
+            raise ValueError("Unknown method_status.")
+        for key in ("dynamic_regret", "final_expected_utility", "decision_cpu_seconds"):
+            value = result[key]
+            if isinstance(value, bool) or not isinstance(value, Real) or not math.isfinite(value) or value < 0:
+                raise ValueError(f"{key} must be finite and non-negative.")
+        if result["final_expected_utility"] > 1:
+            raise ValueError("final_expected_utility must not exceed one.")
+        recovered = result["recovered"]
+        censored = result["censored"]
+        if type(recovered) is not bool or type(censored) is not bool:
+            raise ValueError("Censoring indicators must be booleans.")
         recovery_time = result["recovery_time"]
-        restricted = int(result["restricted_recovery_time"])
+        restricted = result["restricted_recovery_time"]
+        if type(restricted) is not int or not 1 <= restricted <= config.horizon.post_shock_steps:
+            raise ValueError("RRT must be an integer inside the post-shock horizon.")
+        if recovery_time is not None and (type(recovery_time) is not int or not 1 <= recovery_time <= config.horizon.post_shock_steps):
+            raise ValueError("Recovery time must be null or an integer inside the horizon.")
         if recovered == censored:
             raise ValueError("recovered and censored must be logical opposites.")
         if recovered and recovery_time is None:

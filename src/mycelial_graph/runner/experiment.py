@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import platform
 import sys
 from concurrent.futures import ProcessPoolExecutor, as_completed
@@ -14,6 +15,8 @@ import scipy
 import yaml
 
 from ..environment.scenario import generate_scenario
+from ..artifacts import ArtifactError, ensure_unsealed, file_hash, load_validated_trials, source_digest
+from ..protocol import protocol_files
 from ..types import ExperimentConfig
 from ..validation import load_seeds, require_valid_config, validate_result_payload
 from .checkpoint import atomic_write_json
@@ -63,6 +66,19 @@ def _completed_checkpoint_matches(
         return False
     payload = json.loads(path.read_text(encoding="utf-8"))
     validate_result_payload(payload, config)
+    output = path.parents[2]
+    checksum_path = output / "checkpoints" / path.parent.name / path.name
+    if not checksum_path.exists():
+        raise ArtifactError("Partial checkpoint lacks its integrity record; preserve it and use a new directory.")
+    checksums = json.loads(checksum_path.read_text(encoding="utf-8"))
+    from ..artifacts import safe_artifact_path
+    expected_paths = {path.relative_to(output).as_posix(), *(r["trace_ref"] for r in payload["scientific_payload"]["results"])}
+    if set(checksums) != expected_paths:
+        raise ArtifactError("Checkpoint integrity record has an incomplete inventory.")
+    for name, digest in checksums.items():
+        artifact = safe_artifact_path(output, name)
+        if not artifact.is_file() or file_hash(artifact) != digest:
+            raise ArtifactError(f"Checkpoint artifact missing or modified: {name}")
     scientific = payload["scientific_payload"]
     revisions = {result["code_commit"] for result in scientific["results"]}
     hashes = {result["config_hash"] for result in scientific["results"]}
@@ -95,11 +111,60 @@ def run_experiment(
 ) -> Path:
     require_valid_config(config)
     output = Path(output_directory).resolve()
+    ensure_unsealed(output)
+    if type(workers) is not int or workers < 1:
+        raise ValueError("workers must be a positive integer.")
     output.mkdir(parents=True, exist_ok=True)
+    lock = output / ".execution.lock"
+    try:
+        handle = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+    except FileExistsError as exc:
+        raise ArtifactError("Output directory is already locked by an execution; inspect before recovery.") from exc
+    try:
+        os.close(handle)
+        return _run_experiment(config, output, workers)
+    finally:
+        lock.unlink()
+
+
+def _run_experiment(config: ExperimentConfig, output: Path, workers: int) -> Path:
     project_root = config.source_path.parents[2]
     seeds_path = (config.source_path.parent / config.seeds_file).resolve()
     seeds = load_seeds(seeds_path)
+    source_hash = source_digest(project_root)
+    if (output / "manifest.json").exists():
+        _, provenance = load_validated_trials(config, output)
+        if provenance["source_tree_sha256"] != source_hash or provenance["code_revision"] != code_commit(project_root):
+            raise ArtifactError("Completed experiment belongs to another source revision; use a new output directory.")
+        return output / "manifest.json"
+    if list((output / "failures").glob("*.json")):
+        raise ArtifactError("Previous failures are retained. Review and log a rerun; never silently retry them.")
+    protocol_names = protocol_files(config.source_path.parent)
+    protocol_hashes = {name: file_hash(config.source_path.parent / name) for name in protocol_names}
+    execution = {
+        "experiment_id": config.experiment_id, "run_kind": config.run_kind,
+        "config_hash": config_hash(config), "source_tree_sha256": source_hash,
+        "code_revision": code_commit(project_root), "seeds_file_sha256": file_hash(seeds_path),
+        "protocol_files": protocol_hashes,
+    }
+    execution_path = output / "execution.json"
+    if execution_path.exists():
+        if json.loads(execution_path.read_text(encoding="utf-8")) != execution:
+            raise ArtifactError("Partial experiment code, protocol, or configuration changed.")
+    else:
+        if any(output.iterdir()):
+            # The exclusive execution lock is the only file allowed on first use.
+            if list(output.iterdir()) != [output / ".execution.lock"]:
+                raise ArtifactError("Output is not empty and has no execution identity; use a new directory.")
+        atomic_write_json(execution_path, execution)
+        atomic_write_json(output / "provenance" / "config.json", config.to_dict())
+        (output / "provenance" / "seeds.txt").write_bytes(seeds_path.read_bytes())
+        for name in protocol_names:
+            (output / "provenance" / name).write_bytes((config.source_path.parent / name).read_bytes())
     requested_jobs = [(seed, rho) for rho in config.environment.rho_values for seed in seeds]
+    expected_raw = {output / "raw" / f"rho-{rho:.2f}" / f"seed-{seed}.json" for seed, rho in requested_jobs}
+    if not set((output / "raw").rglob("*.json")).issubset(expected_raw):
+        raise ArtifactError("Partial experiment contains unplanned raw records.")
     jobs = []
     for seed, rho in requested_jobs:
         destination = output / "raw" / f"rho-{rho:.2f}" / f"seed-{seed}.json"
@@ -112,6 +177,7 @@ def run_experiment(
             validate_result_payload(payload, config)
             destination = output / "raw" / f"rho-{rho:.2f}" / f"seed-{seed}.json"
             atomic_write_json(destination, payload)
+            _write_checkpoint_integrity(output, destination, payload)
     else:
         with ProcessPoolExecutor(max_workers=workers) as pool:
             futures = {
@@ -131,11 +197,18 @@ def run_experiment(
                 validate_result_payload(payload, config)
                 destination = output / "raw" / f"rho-{rho:.2f}" / f"seed-{seed}.json"
                 atomic_write_json(destination, payload)
+                _write_checkpoint_integrity(output, destination, payload)
 
     artifact_files = sorted((output / "raw").rglob("*.json")) + sorted(
         (output / "traces").rglob("*.jsonl.gz")
     )
+    artifact_files += sorted((output / "checkpoints").rglob("*.json"))
+    artifact_files += sorted((output / "provenance").iterdir()) + [execution_path]
     manifest = {
+        "schema_version": 2,
+        "run_kind": config.run_kind,
+        "source_tree_sha256": source_hash,
+        "protocol_files": protocol_hashes,
         "experiment_id": config.experiment_id,
         "protocol_version": config.protocol_version,
         "config_hash": config_hash(config),
@@ -151,9 +224,21 @@ def run_experiment(
             "numpy": np.__version__,
             "scipy": scipy.__version__,
             "pyyaml": yaml.__version__,
+            "platform": platform.platform(),
+            "machine": platform.machine(),
+            "processor": platform.processor(),
+            "workers": workers,
+            "completed_at_utc": datetime.now(timezone.utc).isoformat(),
         },
-        "files": {str(path.relative_to(output)): _file_sha256(path) for path in artifact_files},
+        "files": {path.relative_to(output).as_posix(): _file_sha256(path) for path in artifact_files},
     }
     manifest_path = output / "manifest.json"
     atomic_write_json(manifest_path, manifest)
+    load_validated_trials(config, output)
     return manifest_path
+
+
+def _write_checkpoint_integrity(output: Path, path: Path, payload: dict[str, Any]) -> None:
+    paths = [path, *(output / r["trace_ref"] for r in payload["scientific_payload"]["results"])]
+    atomic_write_json(output / "checkpoints" / path.parent.name / path.name,
+                      {p.relative_to(output).as_posix(): file_hash(p) for p in paths})

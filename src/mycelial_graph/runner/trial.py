@@ -7,7 +7,6 @@ import os
 import subprocess
 import tempfile
 import time
-from functools import lru_cache
 from pathlib import Path
 
 import numpy as np
@@ -48,7 +47,6 @@ def code_commit(project_root: Path) -> str:
         return f"tree:{source_tree_hash(project_root)}"
 
 
-@lru_cache(maxsize=8)
 def source_tree_hash(project_root: Path) -> str:
     digest = hashlib.sha256()
     for path in sorted((project_root / "src").rglob("*.py")):
@@ -64,7 +62,8 @@ def _write_trace(path: Path, records: list[DecisionRecord]) -> None:
     )
     os.close(handle)
     try:
-        with gzip.open(temporary, "wt", encoding="utf-8") as stream:
+        import io
+        with open(temporary, "wb") as raw, gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as compressed, io.TextIOWrapper(compressed, encoding="utf-8", newline="\n") as stream:
             for record in records:
                 stream.write(json.dumps(record.__dict__, sort_keys=True) + "\n")
         os.replace(temporary, path)
@@ -143,10 +142,21 @@ def run_paired_scenario(
     output_directory: Path,
     project_root: Path,
 ) -> list[TrialResult]:
-    results = [
-        run_method(scenario, method, config, output_directory, project_root)
-        for method in config.methods
-    ]
+    results = []
+    for method in config.methods:
+        try:
+            results.append(run_method(scenario, method, config, output_directory, project_root))
+        except Exception as exc:
+            from .checkpoint import atomic_write_json
+            atomic_write_json(output_directory / "failures" / f"{scenario.scenario_id}-{method}.json", {
+                "status": "execution_failure; inference suspended",
+                "scenario_id": scenario.scenario_id, "seed": scenario.seed, "rho": scenario.rho,
+                "method": method, "exception_type": type(exc).__name__, "message": str(exc),
+                "completed_methods": [result.to_dict() for result in results],
+                "config_hash": config_hash(config), "code_revision": code_commit(project_root),
+                "interpretation": "Unclassified method/infrastructure failure; no invented recovery or utility. Review required by ANALYSIS_PLAN section 6.",
+            })
+            raise
     scenario_ids = {result.scenario_id for result in results}
     config_hashes = {result.config_hash for result in results}
     if scenario_ids != {scenario.scenario_id} or len(config_hashes) != 1:
