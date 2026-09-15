@@ -40,6 +40,7 @@ from scipy.stats import norm  # noqa: E402
 from mycelial_graph.analysis.aggregate import _paired_arrays, _read_trials  # noqa: E402
 from mycelial_graph.environment.scenario import generate_scenario_family  # noqa: E402
 from mycelial_graph.runner.trial import config_hash  # noqa: E402
+from mycelial_graph.science.canonical_bytes import frozen_text_input_sha256, historical_text_identity_matches  # noqa: E402
 from mycelial_graph.science.claim_invariants import audit_v1_invariants  # noqa: E402
 from mycelial_graph.types import load_config  # noqa: E402
 from mycelial_graph.v2.evaluation.claim_audit import audit_claims  # noqa: E402
@@ -142,7 +143,7 @@ def seed_audit(freeze: dict[str, Any]) -> dict[str, Any]:
     pool = load_seeds(pool_path)
     pilot = load_seeds(V1 / "seeds.pilot.txt")
     development = load_seeds(V1 / "seeds.development.txt")
-    observed_hash = sha256_file(confirmatory_path)
+    observed_hash = frozen_text_input_sha256(confirmatory_path)
     raw_bytes = confirmatory_path.read_bytes()
     expected_n = int(freeze["required_confirmatory_pairs"])
     result = {
@@ -161,7 +162,7 @@ def seed_audit(freeze: dict[str, Any]) -> dict[str, Any]:
         "pool_overlap_with_development": sorted(set(pool) & set(development)),
         "sha256": observed_hash,
         "freeze_sha256": freeze.get("seeds_sha256"),
-        "hash_matches_freeze": observed_hash == freeze.get("seeds_sha256"),
+        "hash_matches_freeze": historical_text_identity_matches(raw_bytes, freeze.get("seeds_sha256") or ""),
         "line_ending": "CRLF" if b"\r\n" in raw_bytes else "LF",
         "byte_length": len(raw_bytes),
         "seed_file_referenced_by_config": load_config(V1 / "config.confirmatory.yaml").seeds_file,
@@ -264,7 +265,7 @@ def power_audit(freeze: dict[str, Any]) -> dict[str, Any]:
     # Recompute the pilot variance from raw pilot data when it is available locally.
     pilot_output = ROOT / "outputs" / "pilot"
     if (pilot_output / "raw").exists():
-        trials = _read_trials(pilot_output)
+        trials = _read_trials(pilot_output, pilot_config)
         treatment, control = _paired_arrays(trials, 0.5, "hierarchical", "edge_only")
         observed_sd = float(np.std(treatment - control, ddof=1))
         observed_control = float(np.mean(control))
@@ -814,8 +815,11 @@ def historical_artifact_audit() -> dict[str, Any]:
 
 
 def claim_audit() -> dict[str, Any]:
+    from mycelial_graph.science.scientific_state import audit_scientific_state
+
     wording = audit_claims(MATRIX_PATH)
     invariants = audit_v1_invariants(MATRIX_PATH, ROOT)
+    scientific_state = audit_scientific_state(ROOT)
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     seed_hash = sha256_file(V1 / "seeds.confirmatory.txt") or ""
     readme_state = {
@@ -842,14 +846,26 @@ def claim_audit() -> dict[str, Any]:
             "failures": invariants["failures"],
         },
         "readme_machine_verifiable_state": readme_state,
-        "ok": wording["ok"] and invariants["ok"] and not stale_docs,
+        "scientific_state": {
+            "ok": scientific_state["ok"],
+            "n_checks": scientific_state["n_checks"],
+            "failures": scientific_state["failures"],
+            "state": scientific_state["state"],
+        },
+        "ok": wording["ok"] and invariants["ok"] and scientific_state["ok"] and not stale_docs,
     }
-    if not wording["ok"] or not invariants["ok"]:
+    if not wording["ok"] or not invariants["ok"] or not scientific_state["ok"]:
         finding(
             "F-CLAIM-01",
             "C",
             "Claim audit fails against repository state",
-            json.dumps({"wording": wording["errors"], "invariants": invariants["failures"]}),
+            json.dumps(
+                {
+                    "wording": wording["errors"],
+                    "invariants": invariants["failures"],
+                    "scientific_state": scientific_state["failures"],
+                }
+            ),
             "STOP: documentation asserts machine-checkable state that is false.",
         )
     if stale_docs:
@@ -897,6 +913,10 @@ def moratorium_audit() -> dict[str, Any]:
 
 
 def write_freeze_supplement(freeze: dict[str, Any], artifacts: dict[str, Any]) -> Path:
+    destination = ARTIFACTS / "CONFIRMATORY_FREEZE_SUPPLEMENT.json"
+    if destination.exists():
+        # Historical additive provenance. Do not regenerate after the pre-execution audit.
+        return destination
     payload = {
         "supplement_to": "experiments/v1/artifacts/CONFIRMATORY_FREEZE.json",
         "purpose": (

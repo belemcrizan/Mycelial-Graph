@@ -20,5 +20,6 @@ Evidence levels are never auto-promoted.
 | C12 | independent reproduction / DOI | none | NOT_SUPPORTED |
 | C13 | production / global-scale readiness | none | NOT_SUPPORTED |
 | C14 | MG-EXP-REAL-001 completed | none | NOT_SUPPORTED |
+| C15 | Attribution of the V1 performance difference to hierarchical representation alone | EQ-B diagnostic | NOT_SUPPORTED |
 
 Pilot execution, if present, does **not** promote C01.

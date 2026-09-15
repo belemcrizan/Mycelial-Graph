@@ -4,7 +4,7 @@ This register concerns inferential limits, not software aesthetics. The complete
 
 | ID | Priority | Gap / risk | What closes it | Status |
 |---|---|---|---|---|
-| R01 | P0 | No V1 confirmatory evidence | Independent pilot, justified N, committed addendum/seeds/freeze, complete confirmatory artifact and sign-independent report | OPEN |
+| R01 | P0 | V1 confirmatory evidence | Independent pilot, justified N, committed addendum/seeds/freeze, complete confirmatory artifact and sign-independent report | CLOSED — confirmatory executed; result `REFUTED`. Independent external reproduction remains open (R12). |
 | R02 | P0 | Normal paired-mean approximation may not describe the bounded/censored RRT bootstrap test; zero paired variance cannot justify N=2 | Pilot variance review and pre-outcome simulation-based power; if unestimable, a numbered measurement/design amendment and fresh planning population | OPEN |
 | R03 | P0 | Frozen text mentions method failures but does not supply a complete utility/regret/timeout imputation contract | Retain failure diagnostics and suspend inference now; pre-outcome amendment must specify treatment of failures before general failure-inclusive confirmatory claims | OPEN; fail-closed containment implemented |
 | R04 | P0 | Operational promotion budget has no numerical definition | Specify an independent engineering budget and evaluation; never infer promotion from scientific gates alone | OPEN; automatic promotion disabled |
@@ -17,4 +17,4 @@ This register concerns inferential limits, not software aesthetics. The complete
 | R11 | P5 | No calibrated uncertainty, inferred causal structure, adaptive transfer proof or regret/sample-complexity theorem | Separate identifiability/calibration/abstention tests and formal assumptions/proofs | PLANNED |
 | R12 | P3 | No independent reproduction, DOI or external benchmark user | Frozen release and independently executed evaluation | PLANNED |
 
-No developer/pilot run may close R01. Lack of a significant effect alone does not prove equivalence. Failures and null results stay in the evidence history.
+No developer/pilot run may close R01. R01 is closed by the executed confirmatory record (`REFUTED`), not by a favourable result. Lack of a significant effect alone does not prove equivalence. Failures and null results stay in the evidence history.

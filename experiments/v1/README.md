@@ -12,8 +12,11 @@
 - `seeds.confirmatory.txt`: the frozen confirmatory population, first `N=97` unfiltered pool entries.
 - `SAMPLE_SIZE_ADDENDUM.md`: post-pilot sample-size record (N=97 from the pre-specified formula).
 - `HYPOTHESIS_MATRIX.md`: every contrast that can appear in a report, its role, and the claim it permits.
-- `AMENDMENT_001.md`, `AMENDMENT_002.md`: dated amendments; 002 is a pre-confirmatory-outcome
-  reporting and integrity clarification that changes no hypothesis, estimand, N, seed, or method.
+- `AMENDMENT_001.md`, `AMENDMENT_002.md`, `AMENDMENT_003.md`: dated amendments.
+  002 is a pre-confirmatory-outcome reporting clarification. 003 is a
+  reproducibility/provenance correction after execution (EOL seals, freeze-gate
+  separation). Neither changes hypothesis, estimand, N, seed, method, primary
+  estimate, or `REFUTED`.
 - `artifacts/`: sealed pilot analysis/sample-size copies, the freeze contract, its additive
   hash supplement, and (after execution) the sealed confirmatory evidence.
 

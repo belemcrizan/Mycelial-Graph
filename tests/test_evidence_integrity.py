@@ -20,6 +20,7 @@ from mycelial_graph.environment import generate_scenario_family
 from mycelial_graph.reporting import generate_report
 from mycelial_graph.runner.experiment import run_experiment
 from mycelial_graph.types import load_config
+from mycelial_graph.protocol import validate_confirmatory_execution_authorization
 from mycelial_graph.validation import validate_config
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -46,13 +47,13 @@ class EvidenceTests(unittest.TestCase):
 
     def alter_raw(self, edit) -> None:
         path = next((self.output / "raw").rglob("*.json"))
-        payload = json.loads(path.read_text())
+        payload = json.loads(path.read_text(encoding="utf-8"))
         edit(payload["scientific_payload"])
-        path.write_text(json.dumps(payload))
+        path.write_text(json.dumps(payload), encoding="utf-8")
         # An internally consistent checksum is not sufficient: semantics matter.
-        manifest = json.loads((self.output / "manifest.json").read_text())
+        manifest = json.loads((self.output / "manifest.json").read_text(encoding="utf-8"))
         manifest["files"][path.relative_to(self.output).as_posix()] = file_hash(path)
-        (self.output / "manifest.json").write_text(json.dumps(manifest))
+        (self.output / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
 
     def test_complete_four_method_population_passes(self) -> None:
         trials, provenance = load_validated_trials(self.config, self.output)
@@ -114,16 +115,16 @@ class EvidenceTests(unittest.TestCase):
         result = BootstrapResult(-0.3, -0.4, -0.2, -0.2, 0.001, 1000)
         with patch("mycelial_graph.analysis.aggregate.paired_relative_effect", return_value=result):
             path = analyze_results(self.config, self.output)
-        analysis = json.loads(path.read_text())
+        analysis = json.loads(path.read_text(encoding="utf-8"))
         self.assertTrue(analysis["decision_gate"]["scientific_criteria_met"])
         self.assertFalse(analysis["decision_gate"]["promote_to_v1"])
         self.assertEqual(analysis["decision_state"], "inconclusive")
 
     def test_report_rejects_foreign_analysis(self) -> None:
         path = analyze_results(self.config, self.output)
-        analysis = json.loads(path.read_text())
+        analysis = json.loads(path.read_text(encoding="utf-8"))
         analysis["provenance"]["input_manifest_sha256"] = "0" * 64
-        path.write_text(json.dumps(analysis))
+        path.write_text(json.dumps(analysis), encoding="utf-8")
         with self.assertRaisesRegex(ArtifactError, "does not belong"):
             generate_report(self.config, self.output)
 
@@ -149,7 +150,7 @@ class EvidenceTests(unittest.TestCase):
         with patch("mycelial_graph.runner.trial.create_agent", side_effect=RuntimeError("injected failure")):
             with self.assertRaisesRegex(RuntimeError, "injected"):
                 run_experiment(self.config, other)
-        failure = json.loads(next((other / "failures").glob("*.json")).read_text())
+        failure = json.loads(next((other / "failures").glob("*.json")).read_text(encoding="utf-8"))
         self.assertEqual(failure["method"], "edge_only")
         self.assertEqual(failure["exception_type"], "RuntimeError")
         self.assertFalse((other / "manifest.json").exists())
@@ -168,10 +169,16 @@ class ProtocolTests(unittest.TestCase):
             for path in (ROOT / "experiments/v1").iterdir():
                 if path.is_file():
                     shutil.copy(path, target / path.name)
-            pool = (target / "seeds.confirmatory.pool.txt").read_text().splitlines()
+            pool = (target / "seeds.confirmatory.pool.txt").read_text(encoding="utf-8").splitlines()
             seeds = [line for line in pool if line and not line.startswith("#")][:2]
             (target / "seeds.confirmatory.txt").write_text("\n".join(seeds))
-            errors = validate_config(load_config(target / "config.confirmatory.yaml"))
+            config = load_config(target / "config.confirmatory.yaml")
+            semantic_errors = validate_config(config)
+            self.assertFalse(
+                any("CONFIRMATORY_FREEZE" in error for error in semantic_errors),
+                "semantic validation must not be the execution-authorization gate",
+            )
+            errors = validate_confirmatory_execution_authorization(config)
             self.assertTrue(any("CONFIRMATORY_FREEZE" in error for error in errors))
 
     def test_nonfinite_and_invalid_numeric_configs_fail(self) -> None:
@@ -215,7 +222,7 @@ class ProtocolTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory, patch(
             "mycelial_graph.analysis.power.load_validated_trials", return_value=(rows, {"fixture": "synthetic"})
         ):
-            result = json.loads(estimate_confirmatory_sample_size(config, directory).read_text())
+            result = json.loads(estimate_confirmatory_sample_size(config, directory).read_text(encoding="utf-8"))
         self.assertEqual(result["status"], "unestimable")
         self.assertIsNone(result["required_confirmatory_pairs"])
         self.assertFalse(result["confirmatory_ready"])

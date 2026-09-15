@@ -14,6 +14,7 @@ class ArtifactError(ValueError):
 
 
 def file_hash(path: Path) -> str:
+    """A. Raw byte identity. Never EOL-normalizes. Use for PNG/binary and raw seals."""
     digest = hashlib.sha256()
     with path.open("rb") as stream:
         for chunk in iter(lambda: stream.read(1024 * 1024), b""):
@@ -22,11 +23,20 @@ def file_hash(path: Path) -> str:
 
 
 def config_digest(config: ExperimentConfig) -> str:
+    """F. Parsed semantic identity of a configuration. Independent of YAML newlines."""
     encoded = json.dumps(config.to_dict(), sort_keys=True, separators=(",", ":")).encode()
     return hashlib.sha256(encoded).hexdigest()
 
 
 def source_digest(root: Path) -> str:
+    """C. Current source-tree identity of ``src/**/*.py`` (paths + raw bytes).
+
+    This is the implementation tree *now*. It is not the historical confirmatory
+    execution tree. A later maintenance revision will naturally differ from the
+    code hashed at execution/seal; that difference is not by itself scientific
+    retuning. Historical reproduction must not treat a source-digest mismatch
+    against a pre-execution freeze as a reason to rewrite the REFUTED result.
+    """
     digest = hashlib.sha256()
     paths = sorted((root / "src").rglob("*.py"))
     if not paths:
@@ -79,7 +89,10 @@ def load_validated_trials(config: ExperimentConfig, output: Path) -> tuple[list[
     if "run_kind" in manifest and manifest["run_kind"] != config.run_kind:
         raise ArtifactError("Manifest run_kind mismatch.")
     seed_path = config.source_path.parent / config.seeds_file
-    if manifest.get("seeds_file_sha256") != file_hash(seed_path):
+    from .science.canonical_bytes import historical_text_identity_matches
+
+    seed_hash = manifest.get("seeds_file_sha256")
+    if not isinstance(seed_hash, str) or not historical_text_identity_matches(seed_path.read_bytes(), seed_hash):
         raise ArtifactError("Seed file differs from the completed experiment.")
     seeds = load_seeds(seed_path)
     expected_raw = {
@@ -154,7 +167,9 @@ def load_validated_trials(config: ExperimentConfig, output: Path) -> tuple[list[
             raise ArtifactError("Required provenance snapshot missing from manifest.")
         if json.loads((output / snapshots["config"]).read_text(encoding="utf-8")) != json.loads(json.dumps(config.to_dict())):
             raise ArtifactError("Frozen configuration snapshot mismatch.")
-        if file_hash(output / snapshots["seeds"]) != manifest["seeds_file_sha256"]:
+        from .science.canonical_bytes import historical_text_identity_matches as _seed_match
+
+        if not _seed_match((output / snapshots["seeds"]).read_bytes(), manifest["seeds_file_sha256"]):
             raise ArtifactError("Frozen seed snapshot mismatch.")
         for name, digest in manifest["protocol_files"].items():
             if files.get(f"provenance/{name}") != digest:

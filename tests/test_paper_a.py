@@ -64,6 +64,8 @@ class PaperAArtifactTests(unittest.TestCase):
             "REFUTED",
             "EQ-B",
             "1.72",
+            "UNSUPPORTED",
+            "hierarchical representation alone",
         ):
             self.assertIn(needle, text)
 
@@ -90,7 +92,14 @@ class PaperAArtifactTests(unittest.TestCase):
 
     def test_cpu_hours_are_measured(self) -> None:
         runtime = json.loads((V1 / "artifacts" / "diagnostics" / "runtime.json").read_text(encoding="utf-8"))
+        canonical = json.loads((ROOT / "research" / "runtime.json").read_text(encoding="utf-8"))
         self.assertAlmostEqual(runtime["cpu_hours"], 0.12155381944444445, places=9)
+        self.assertAlmostEqual(
+            canonical["sealed_confirmatory"]["decision_cpu_hours"],
+            runtime["cpu_hours"],
+            places=12,
+        )
+        self.assertEqual(canonical["sealed_confirmatory"]["decision_cpu_hours_rounded_3dp"], 0.122)
 
     def test_sealed_result_remains_refuted(self) -> None:
         evidence = json.loads(

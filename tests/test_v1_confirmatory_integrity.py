@@ -7,7 +7,6 @@ future change cannot quietly move the goalposts of the confirmatory experiment.
 
 from __future__ import annotations
 
-import hashlib
 import json
 import unittest
 from pathlib import Path
@@ -54,8 +53,10 @@ class FrozenSeedPopulationTests(unittest.TestCase):
         self.assertEqual(len(set(seeds)), len(seeds))
 
     def test_confirmatory_seed_hash_matches_the_freeze(self) -> None:
-        digest = hashlib.sha256((V1 / "seeds.confirmatory.txt").read_bytes()).hexdigest()
-        self.assertEqual(digest, FREEZE["seeds_sha256"])
+        from mycelial_graph.science.canonical_bytes import verify_frozen_seed_identity
+
+        check = verify_frozen_seed_identity(V1 / "seeds.confirmatory.txt", FREEZE["seeds_sha256"])
+        self.assertTrue(check.ok, check.message)
 
     def test_confirmatory_seeds_are_disjoint_from_protected_populations(self) -> None:
         seeds = set(load_seeds(V1 / "seeds.confirmatory.txt"))

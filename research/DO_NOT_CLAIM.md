@@ -15,6 +15,7 @@ Delete a row only when evidence actually supports the claim.
 - provider superiority
 - global-scale readiness
 - V1 confirmatory recovery advantage
+- Attribution of the V1 performance difference to hierarchical representation alone; effective policy scale was not equalized in the frozen comparison.
 - NeurIPS/ICML acceptance implied by an internal score
 - one-command paper reproduction until `make reproduce-paper` exists and works
 - live collector measurements (dry-run only)

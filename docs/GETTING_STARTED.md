@@ -47,6 +47,8 @@ mycelial-graph demo
 
 PowerShell does not use `source .venv/bin/activate`; that command is for Bash on Linux and macOS.
 
+`python reproduce_confirmatory.py` is verification/reanalysis. Recreate all 1,940 frozen trials with `python reproduce_confirmatory.py --full`. Raw confirmatory records are not in git.
+
 ## Understanding the output
 
 ```text
@@ -90,15 +92,17 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
 & .\.venv\Scripts\Activate.ps1
 ```
 
-### Confirmatory configuration fails validation
+### Confirmatory configuration: semantic validation versus execution lock
 
 Before the pilot this was intentional: `experiments/v1/seeds.confirmatory.txt` was deliberately
 absent so `config.confirmatory.yaml` could not run.
 
-That lock has been released. The pilot completed, `SAMPLE_SIZE_ADDENDUM.md` fixed `N=97`, and the
-seed file was created mechanically from the first 97 pool entries, so
-`mycelial-graph validate --config experiments/v1/config.confirmatory.yaml` now passes. If it fails
-today, the seed file is missing or modified relative to the hash bound in
-`experiments/v1/artifacts/CONFIRMATORY_FREEZE.json`; run `python scripts/audit_v1_readiness.py`
-to see which invariant broke. Do not regenerate the seed file to make validation pass.
+- `mycelial-graph validate --config experiments/v1/config.confirmatory.yaml` now passes
+  **semantic** validation (seeds exist, N=97, config hash bound). That is not execution
+  authorization. A new confirmatory run still requires a modern
+  `experiments/v1/CONFIRMATORY_FREEZE.json` with `schema_version=1` and `status=frozen`,
+  which is intentionally absent. Historical reproduction is
+  `python reproduce_confirmatory.py`. If semantic validation fails today, the seed file is
+  missing or modified; run `python scripts/audit_v1_readiness.py`. Do not regenerate the
+  seed file to make validation pass.
 

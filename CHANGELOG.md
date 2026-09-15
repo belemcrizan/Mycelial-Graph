@@ -5,7 +5,9 @@
 ### Paper A submission package
 
 - Wrote the V1 TMLR manuscript (`paper/tmlr/paper.tex`) reporting the frozen `REFUTED` result without narrative rescue.
-- Ran submission-safety diagnostics: equalization triage **EQ-B**, confirmatory/pilot paired-difference SD ratio **1.72×** (not 4.54×), administrative-only censoring, no detectable ρ=1 sharing advantage on the frozen one-sided RRT rule, measured confirmatory CPU **0.122 hours**.
+- Canonical scientific state is `research/state.json`; runtime metrics are `research/runtime.json`. Sealed-run decision CPU is **0.122 CPU-hours** (437.59375 CPU-s), not a second conflicting figure.
+- Headline and Honest Status now name the frozen hierarchical routing update, record EQ-B, and list representation-only attribution as unsupported.
+- Moratorium exit condition is Paper A submission, not confirmatory completion.
 - Added `python reproduce_confirmatory.py`, dependency pins, Linux-first quickstart, reserved disjoint seed namespaces, anonymized supplementary builder, and TMLR policy notes. OpenReview submission remains a human boundary.
 
 ### V1 confirmatory result — REFUTED

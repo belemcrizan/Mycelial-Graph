@@ -7,7 +7,7 @@ claims:
     ablation_evidence: specified
     statistical_status: confirmatory_refuted
     external_validity: E1
-    allowed_wording: "Refuted under MG-EXP-V1. On 97 pre-selected paired scenarios at rho=0.50, hierarchical pooling recovered 42.1% slower than edge-only (95% CI +11.9% to +79.1%), and the rho=0 non-inferiority safety gate failed at an upper bound of +16.3% against a +10% margin. The refutation is bounded by the tested graph, observation contract, shock construction, and parameter range."
+    allowed_wording: "Refuted under MG-EXP-V1. On 97 pre-selected paired scenarios at rho=0.50, the fixed hierarchical routing update recovered 42.1% slower than the edge-only comparator under the frozen V1 configuration (95% CI +11.9% to +79.1%), and the rho=0 non-inferiority safety gate failed at an upper bound of +16.3% against a +10% margin. The refutation is of the complete frozen policy mechanism. EQ-B limits attribution to hierarchical representation alone."
     allowed_wording_status: CONFIRMATORY_REFUTED
   - id: C02
     claim: "V2.0-alpha reduces tokens while preserving quality"
@@ -118,6 +118,16 @@ claims:
     statistical_status: not_tested
     external_validity: E0
     allowed_wording: "The protocol is designed and not executed."
+    allowed_wording_status: NOT_SUPPORTED
+  - id: C15
+    claim: "Attribution of the V1 performance difference to hierarchical representation alone"
+    mechanism: hierarchical representation in isolation
+    synthetic_evidence: equalization_eq_b
+    real_evidence: false
+    ablation_evidence: false
+    statistical_status: not_identified
+    external_validity: E0
+    allowed_wording: "Unsupported. Attribution of the V1 performance difference to hierarchical representation alone; effective policy scale was not equalized in the frozen comparison. The confirmatory result remains REFUTED for the complete frozen policy mechanism."
     allowed_wording_status: NOT_SUPPORTED
 
 # Machine-verifiable V1 confirmatory-readiness state. Checked by

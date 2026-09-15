@@ -24,5 +24,6 @@ disjointness, config binding, and the sealed confirmatory result state.
 | C10 | Causal fault localization | NOT_SUPPORTED |
 | C11 | Real-provider generalization | NOT_SUPPORTED |
 | C14 | MG-EXP-REAL-001 completed | NOT_SUPPORTED |
+| C15 | Attribution of the V1 performance difference to hierarchical representation alone | NOT_SUPPORTED |
 
 Any paper-like sentence of the form “Mycelial makes agents X% more efficient” is forbidden until a frozen confirmatory real-workload protocol exists.

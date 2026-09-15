@@ -2,17 +2,17 @@
 
 **Decision:** `GO`
 
-**Generated:** 2026-09-15T03:06:24.143261Z  
+**Generated:** 2026-09-15T05:37:57.825668Z  
 **Command:** `python scripts/audit_v1_readiness.py`
 
 This report is generated. Do not edit it by hand; rerun the audit.
 
 ## Repository state
 
-- Commit: `5f314d2dfb15f508dfd4e630e8c0e49031e60c6a`
-- Branch: `feat/p0-v1-pilot-theory-external`
+- Commit: `8d27332c9b0ea07a982b335ce5be069180770c09`
+- Branch: `paper-a-v1-submission`
 - Working tree dirty: True
-- Python 3.13.3, numpy 2.2.6
+- Python 3.13.3, numpy 2.5.3
 
 ## Frozen artifacts
 
@@ -20,7 +20,7 @@ This report is generated. Do not edit it by hand; rerun the audit.
 |---|:-:|---|
 | `experiments/v1/EXPERIMENT_PROTOCOL_V1.md` | True | `6137bd649870d317…` |
 | `experiments/v1/ANALYSIS_PLAN.md` | True | `9e28c7b4a6a2a735…` |
-| `experiments/v1/SAMPLE_SIZE_ADDENDUM.md` | True | `2031e4238f7d5480…` |
+| `experiments/v1/SAMPLE_SIZE_ADDENDUM.md` | True | `ba2aa2f8b06cae9a…` |
 | `experiments/v1/AMENDMENT_001.md` | True | `6b9f431db2121d27…` |
 | `experiments/v1/AMENDMENT_002.md` | True | `28ac77a90752c05f…` |
 | `experiments/v1/HYPOTHESIS_MATRIX.md` | True | `7b684952f4828e78…` |
@@ -101,14 +101,14 @@ Enumerated in [`experiments/v1/HYPOTHESIS_MATRIX.md`](experiments/v1/HYPOTHESIS_
 ## Provenance and environment drift
 
 - Pilot environment: `{'numpy': '2.5.3', 'python': '3.13.3 (tags/v3.13.3:6280bb5, Apr  8 2025, 14:47:33) [MSC v.1943 64 bit (AMD64)]', 'pyyaml': '6.0.3', 'scipy': '1.18.1'}`
-- Current environment: numpy 2.2.6, scipy 1.15.3, pyyaml 6.0.2
-- Drift: `{'numpy': {'pilot': '2.5.3', 'current': '2.2.6'}, 'scipy': {'pilot': '1.18.1', 'current': '1.15.3'}, 'pyyaml': {'pilot': '6.0.3', 'current': '6.0.2'}}`
+- Current environment: numpy 2.5.3, scipy 1.18.1, pyyaml 6.0.3
+- Drift: `{}`
 - Sealed pilot scenarios regenerated identically: **5/5**
 - V1 simulator source unchanged since the pilot commit `2c0a9630ae97`: **True**
 
 ## Claim audit
 
-- Wording consistency: ok=True, 12 claims
+- Wording consistency: ok=True, 13 claims
 - V1 readiness invariants: ok=True, 36 checks across 9 invariants
 - README machine-verifiable state: `{'states_seed_count_97': True, 'states_seed_hash': True, 'states_primary_rho': True, 'states_ni_margin': True, 'declares_cannot_establish_crossover': True, 'declares_no_independent_reproduction': True, 'single_seed_file_description': True, 'stale_missing_seed_file_statements': []}`
 
@@ -136,7 +136,6 @@ Enumerated in [`experiments/v1/HYPOTHESIS_MATRIX.md`](experiments/v1/HYPOTHESIS_
 | `F-FREEZE-02` | **B** | The freeze binds configuration and seeds but not protocol text or analysis code | AMEND/DOCUMENT: record the additional hashes in CONFIRMATORY_FREEZE_SUPPLEMENT.json before execution, leaving the original freeze contract untouched. |
 | `F-MULT-02` | **A** | Multiplicity control was already frozen and is left unchanged | DOCUMENT: no amendment to the multiplicity policy is required. |
 | `F-REPORT-02` | **B** | Report generator required claim containment, role labels, and a result-state taxonomy | AMEND/DOCUMENT: recorded in AMENDMENT_002.md before confirmatory execution. |
-| `F-PROV-03` | **A** | Software environment differs from the one recorded for the pilot | DOCUMENT: record the executing environment in the confirmatory manifest. |
 | `F-EXEC-03` | **A** | V1 confirmatory executed and sealed with result state REFUTED | DOCUMENT: the confirmatory question has reached a terminal state. |
 | `F-CLAIM-03` | **A** | README seed-file contradiction resolved | DOCUMENT: verified mechanically by invariant I01. |
 
@@ -162,10 +161,6 @@ ANALYSIS_PLAN.md section 5 already designates one primary contrast, one safety g
 
 Before this cycle the report emitted a binary promotion verdict, unlabelled rho curves, and no containment check, so exploratory rho evidence could read as confirmatory and the frozen interpretation matrix had no machine-readable outcome. The added result states, role labels, and claim guard are deterministic functions of already-frozen quantities and change no hypothesis, estimand, threshold, or sample.
 
-**`F-PROV-03` (Class A) — Software environment differs from the one recorded for the pilot**
-
-The pilot manifest records {"numpy": {"pilot": "2.5.3", "current": "2.2.6"}, "scipy": {"pilot": "1.18.1", "current": "1.15.3"}, "pyyaml": {"pilot": "6.0.3", "current": "6.0.2"}}. All 5 sampled sealed pilot scenarios regenerate to identical scientific hashes in the current environment, so the frozen RNG streams, scenario construction, and potential-outcome tables are unaffected by the version difference. The confirmatory manifest records the actual versions used.
-
 **`F-EXEC-03` (Class A) — V1 confirmatory executed and sealed with result state REFUTED**
 
 The experiment ran at commit 5f314d2dfb15f508dfd4e630e8c0e49031e60c6a on 97 primary pairs under the frozen configuration hash, and the sealed report passes claim containment. Result state: REFUTED. All five result states are legitimate terminal states; this one is reported without reframing.
@@ -178,6 +173,6 @@ The README previously asserted that seeds.confirmatory.txt exists with the first
 
 ### `GO`
 
-No Class C findings. 6 Class A finding(s) documented and 2 Class B finding(s) resolved transparently before confirmatory execution. The frozen seed selection, sample size, configuration binding, multiplicity policy, and reproducibility invariants all reproduce mechanically.
+No Class C findings. 5 Class A finding(s) documented and 2 Class B finding(s) resolved transparently before confirmatory execution. The frozen seed selection, sample size, configuration binding, multiplicity policy, and reproducibility invariants all reproduce mechanically.
 
 **Next permitted action:** V1 confirmatory has reached the terminal state REFUTED. Report it only inside the claim boundary in experiments/v1/HYPOTHESIS_MATRIX.md. Selective unfreezing may begin, but a new question requires its own protocol, power calculation, rho grid, multiplicity strategy, freeze, and seeds. V1 may not be reused as a crossover study.

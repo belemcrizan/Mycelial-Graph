@@ -28,6 +28,8 @@ INCLUDE_PREFIXES = (
     "paper/tmlr/",
     "paper/CLAIM_MAP.yaml",
     "docs/claim_evidence_matrix.yaml",
+    "research/state.json",
+    "research/runtime.json",
     "reproduce_confirmatory.py",
     "pyproject.toml",
     "requirements.lock.txt",
@@ -61,6 +63,8 @@ def keep(relative: str) -> bool:
         "CONFIRMATORY_RUNBOOK.md",
         "paper/CLAIM_MAP.yaml",
         "docs/claim_evidence_matrix.yaml",
+        "research/state.json",
+        "research/runtime.json",
     }
 
 
@@ -103,6 +107,8 @@ def main() -> int:
         ROOT / "CONFIRMATORY_RUNBOOK.md",
         ROOT / "paper" / "CLAIM_MAP.yaml",
         ROOT / "docs" / "claim_evidence_matrix.yaml",
+        ROOT / "research" / "state.json",
+        ROOT / "research" / "runtime.json",
         ROOT / "paper" / "submission" / "README_ANONYMOUS.md",
     ):
         if extra.exists():

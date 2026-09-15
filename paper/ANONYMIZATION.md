@@ -22,7 +22,7 @@ Do not anonymize scientific provenance that reviewers need:
 - CPU-hour measurement;
 - claim-boundary language.
 
-Anonymous mirror: https://anonymous.4open.science/ is the preferred reviewer-accessible git mirror **if** an account can be created without putting an identified GitHub URL in the PDF. This step requires a human login. Until then, upload the anonymized ZIP as TMLR supplementary material.
+Anonymous mirror: https://anonymous.4open.science/ is the preferred reviewer-accessible git mirror **if** an account can be created without putting an identified GitHub URL in the PDF. This step requires a human login. Until then, upload the anonymized ZIP as TMLR supplementary material. Record the mirror URL and commit only in the non-blinded receipt after it exists; do not put an identified GitHub URL in the PDF.
 
 Public DOI: prepare a Zenodo deposition after the TMLR PDF is accepted **or** use an embargoed/anonymous deposition that is not linked from the blinded PDF. Do not violate double-blind review merely to satisfy a literal URL.
 

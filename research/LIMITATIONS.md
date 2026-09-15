@@ -11,6 +11,6 @@ First-class, not a footnote.
 - Model-alias and cost drift for any future live work.
 - Judge bias for quality proxies.
 - No external reproduction.
-- Theoretical rate and $\rho^*$ are conjectural.
+- EQ-B effective-policy mismatch: Attribution of the V1 performance difference to hierarchical representation alone; effective policy scale was not equalized in the frozen comparison.
 - Collector clock and path confounders.
 - Execution DAG is not a causal DAG.

@@ -1,0 +1,11 @@
+{
+  "submitted": false,
+  "venue": "TMLR",
+  "timestamp": null,
+  "submission_id": null,
+  "submitted_artifact_hash": null,
+  "anonymized_artifact_hash": null,
+  "paper_commit": null,
+  "supplementary_version": null,
+  "note": "Do not set submitted=true until OpenReview confirms a submission ID. A compiled PDF or draft is not a submission."
+}

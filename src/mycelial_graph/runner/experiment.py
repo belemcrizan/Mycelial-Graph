@@ -16,7 +16,8 @@ import yaml
 
 from ..environment.scenario import generate_scenario
 from ..artifacts import ArtifactError, ensure_unsealed, file_hash, load_validated_trials, source_digest
-from ..protocol import protocol_files
+from ..protocol import protocol_files, validate_confirmatory_execution_authorization
+from ..science.canonical_bytes import canonicalize_text_bytes, sha256_bytes
 from ..types import ExperimentConfig
 from ..validation import load_seeds, require_valid_config, validate_result_payload
 from .checkpoint import atomic_write_json
@@ -104,13 +105,46 @@ def _file_sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def _authorize_confirmatory(config: ExperimentConfig, *, confirmatory_replay: bool) -> None:
+    if config.run_kind != "confirmatory":
+        return
+    if confirmatory_replay:
+        from ..science.reproduction import verify_historical_confirmatory_replay_authorization
+
+        errors = verify_historical_confirmatory_replay_authorization(config)
+        label = "Historical confirmatory replay is not authorized"
+    else:
+        errors = validate_confirmatory_execution_authorization(config)
+        label = "Confirmatory execution is not authorized"
+    if errors:
+        joined = "\n - ".join(errors)
+        raise ValueError(f"{label}:\n - {joined}")
+
+
+def _refuse_sealed_confirmatory_output(config: ExperimentConfig, output: Path) -> None:
+    root = config.source_path.parents[2].resolve()
+    sealed = (root / "experiments" / "v1" / "artifacts" / "confirmatory").resolve()
+    resolved = output.resolve()
+    if resolved == sealed or sealed in resolved.parents:
+        raise ArtifactError("Refusing to write into sealed confirmatory artifacts.")
+
+
+def _seed_identity_bytes(seeds_path: Path) -> bytes:
+    """Canonical LF bytes of a frozen seed file. Independent of working-tree EOL."""
+    return canonicalize_text_bytes(seeds_path.read_bytes())
+
+
 def run_experiment(
     config: ExperimentConfig,
     output_directory: str | Path,
     workers: int = 1,
+    *,
+    confirmatory_replay: bool = False,
 ) -> Path:
     require_valid_config(config)
+    _authorize_confirmatory(config, confirmatory_replay=confirmatory_replay)
     output = Path(output_directory).resolve()
+    _refuse_sealed_confirmatory_output(config, output)
     ensure_unsealed(output)
     if type(workers) is not int or workers < 1:
         raise ValueError("workers must be a positive integer.")
@@ -144,7 +178,8 @@ def _run_experiment(config: ExperimentConfig, output: Path, workers: int) -> Pat
     execution = {
         "experiment_id": config.experiment_id, "run_kind": config.run_kind,
         "config_hash": config_hash(config), "source_tree_sha256": source_hash,
-        "code_revision": code_commit(project_root), "seeds_file_sha256": file_hash(seeds_path),
+        "code_revision": code_commit(project_root),
+        "seeds_file_sha256": sha256_bytes(_seed_identity_bytes(seeds_path)),
         "protocol_files": protocol_hashes,
     }
     execution_path = output / "execution.json"
@@ -158,7 +193,7 @@ def _run_experiment(config: ExperimentConfig, output: Path, workers: int) -> Pat
                 raise ArtifactError("Output is not empty and has no execution identity; use a new directory.")
         atomic_write_json(execution_path, execution)
         atomic_write_json(output / "provenance" / "config.json", config.to_dict())
-        (output / "provenance" / "seeds.txt").write_bytes(seeds_path.read_bytes())
+        (output / "provenance" / "seeds.txt").write_bytes(_seed_identity_bytes(seeds_path))
         for name in protocol_names:
             (output / "provenance" / name).write_bytes((config.source_path.parent / name).read_bytes())
     requested_jobs = [(seed, rho) for rho in config.environment.rho_values for seed in seeds]
@@ -214,7 +249,7 @@ def _run_experiment(config: ExperimentConfig, output: Path, workers: int) -> Pat
         "config_hash": config_hash(config),
         "config_file": str(config.source_path),
         "seeds_file": str(seeds_path),
-        "seeds_file_sha256": _file_sha256(seeds_path),
+        "seeds_file_sha256": sha256_bytes(_seed_identity_bytes(seeds_path)),
         "code_revision": code_commit(project_root),
         "scientific_job_count": len(requested_jobs),
         "executed_job_count_this_invocation": len(jobs),

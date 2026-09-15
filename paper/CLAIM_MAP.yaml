@@ -8,11 +8,11 @@ INDEPENDENT_REPRODUCTION.
 claims:
   - id: A-ABS
     section: Abstract
-    claim: "Hierarchical pooling recovered 42.1% slower than edge-only at rho=0.50; primary hypothesis REFUTED; safety gate failed."
+    claim: "The fixed hierarchical routing update recovered 42.1% slower than the edge-only comparator under the frozen V1 configuration; primary hypothesis REFUTED; safety gate failed. EQ-B limits representation-only attribution."
     evidence: experiments/v1/artifacts/confirmatory/CONFIRMATORY_EVIDENCE.json
     hypothesis: H1, H2
     evidence_level: FROZEN_CONFIRMATORY
-    strongest_wording: "the tested hierarchical node-edge credit-sharing mechanism did not improve disruption recovery relative to edge-only adaptation under the primary V1 regime"
+    strongest_wording: "the tested hierarchical routing update did not improve disruption recovery relative to the edge-only comparator under the frozen V1 configuration"
     forbidden: "hierarchical pooling is universally inferior"
   - id: A-INTRO
     section: Introduction
@@ -110,6 +110,14 @@ claims:
     evidence_level: POST_CONFIRMATORY_DIAGNOSTIC
     strongest_wording: "bounded negative result"
     forbidden: "threats are negligible"
+  - id: A-ATTR
+    section: Threats to Validity
+    claim: "Attribution of the V1 performance difference to hierarchical representation alone; effective policy scale was not equalized in the frozen comparison."
+    evidence: experiments/v1/artifacts/diagnostics/equalization.json
+    hypothesis: none
+    evidence_level: UNSUPPORTED
+    strongest_wording: "EQ-B limits representation-only attribution; REFUTED still applies to the complete frozen mechanism"
+    forbidden: "hierarchical representation caused the loss"
   - id: A-REL
     section: Related Work
     claim: "Positioning against non-stationary, structured, hierarchical, and master-algorithm literature; adaptive pooling not tested."
@@ -128,8 +136,8 @@ claims:
     forbidden: "post-hoc rescue as confirmatory"
   - id: A-REPRO
     section: Reproducibility
-    claim: "0.122 CPU-hours measured from raw decision_cpu_seconds; internal reproduction only."
-    evidence: experiments/v1/artifacts/diagnostics/runtime.json
+    claim: "Sealed decision CPU 0.122 CPU-hours (437.59375 s) from raw decision_cpu_seconds over 1940 trials. Full replay wall-clock 403.8 s / decision CPU 0.269 CPU-hours is a different metric. Internal reproduction only."
+    evidence: research/runtime.json
     hypothesis: none
     evidence_level: INTERNAL_REPRODUCTION
     strongest_wording: "internal / automated"
