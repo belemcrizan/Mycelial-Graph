@@ -1,0 +1,42 @@
+{
+  "amendments": [
+    "AMENDMENT_001.md",
+    "AMENDMENT_002.md"
+  ],
+  "audit_commit": "acedef91559a81e2ff15606d3c13dd6a113be390",
+  "bound_hashes": {
+    "experiments/v1/AMENDMENT_001.md": "6b9f431db2121d278c02ddc2882a1e2c4554e6e7d9c113d84fcf9160ba22091f",
+    "experiments/v1/AMENDMENT_002.md": "28ac77a90752c05fc8757dd94db930c9db6d2fbbaf00d3b93fe82de936de47fc",
+    "experiments/v1/ANALYSIS_PLAN.md": "9e28c7b4a6a2a735b6cff360b6271601084d4422468ef4546d305b886320e61c",
+    "experiments/v1/EXPERIMENT_PROTOCOL_V1.md": "6137bd649870d3177bcf9be568d902f8feb15aad98f13c956986fa6dfec46425",
+    "experiments/v1/HYPOTHESIS_MATRIX.md": "7b684952f4828e78d959dc29fdf5d4cfaefce8274aa042d2d73e5be4c6dca37a",
+    "experiments/v1/SAMPLE_SIZE_ADDENDUM.md": "2031e4238f7d5480082f6d417bd705fa92dba659c09960a5e5e43fe998c25ade",
+    "experiments/v1/artifacts/CONFIRMATORY_FREEZE.json": "7a176e64e004f2440db62921f0517de73af60d577e29d63bc51d1aafbb318414",
+    "experiments/v1/artifacts/PILOT_EVIDENCE.json": "94455ca327803d0e3f4503ac0226da8a005a2b13e1342711496fa5cf1048a7dc",
+    "experiments/v1/artifacts/analysis.json": "bdd4e85d256a59124e16400a8f499340349cbfa18c1f5fe8a80bb21930e05135",
+    "experiments/v1/artifacts/sample_size.json": "87ddf13e8f4531e035fd6bbf6a18d33ee19b904d6e1301225988e444ef09d2fe",
+    "experiments/v1/config.confirmatory.yaml": "3b2ce024eb2f76894f117a8264d46c5e1ea42f957071cf16e1bf09636e14b72f",
+    "experiments/v1/config.pilot.yaml": "0623dcf8fc0a7a59d1ecbfbda4c0eb2a0a47668e92bef3e1d79b234c0cbb4ed2",
+    "experiments/v1/seeds.confirmatory.pool.txt": "a47e95c0c042843bb6f9cc61cd8c523510aa8381de64a97f793d45aa5a23b173",
+    "experiments/v1/seeds.confirmatory.txt": "8ef4c6b0dc481fea70054b6d7cbc9ecc2663f63b4523f3f55bb374a0339ee00c",
+    "experiments/v1/seeds.development.txt": "64e087317ce70f2d56438a159c2934190917d4b201131a39ff8d2db52ba26482",
+    "experiments/v1/seeds.pilot.txt": "3068ffef39ea5670e6ccd0ec380bfdbb70bb342602dc9f820486c9b5f9261339",
+    "src/mycelial_graph/analysis/aggregate.py": "2f4e38b7e10b7bfa2cba151d27fb8d964e13546e737a5419788776d7e675c816",
+    "src/mycelial_graph/analysis/bootstrap.py": "044eb79fc4c98a63389d3fa83b50123f198a36b55f3303ee96a98104b9e454b8",
+    "src/mycelial_graph/analysis/result_state.py": "bc089ba8391d785796190f55ccc7a50e2802705651deb2316a1b1587a52fcaed",
+    "src/mycelial_graph/reporting/report.py": "1399ccce0a204e43fc1d9f7eaf2ed085bf7b0109d79bc95afa49904aab085701",
+    "src/mycelial_graph/science/claim_guard.py": "a95c81d242beae49148059ba457d3f1685391e91f45c8f100410e6cf9794c361"
+  },
+  "confirmatory_config_hash": "5d7e92d2ec2805418f2b07e641188814282d544de55eb8c1461f4400b025452a",
+  "created_at_utc": "2026-09-15T02:54:49.593456Z",
+  "frozen_bootstrap_seeds": {
+    "noninferiority_contrast": 20260825,
+    "primary_contrast": 20260824,
+    "source": "src/mycelial_graph/analysis/bootstrap.py, src/mycelial_graph/analysis/aggregate.py"
+  },
+  "protocol_version": "MG-EXP-V1",
+  "purpose": "Additive integrity binding recorded before confirmatory execution. It adds hashes only. It does not alter, reinterpret, or relax any term of the original freeze.",
+  "required_confirmatory_pairs": 97,
+  "seeds_sha256": "8ef4c6b0dc481fea70054b6d7cbc9ecc2663f63b4523f3f55bb374a0339ee00c",
+  "supplement_to": "experiments/v1/artifacts/CONFIRMATORY_FREEZE.json"
+}

@@ -7,10 +7,18 @@
 - `experiment.schema.json`: raw paired-result contract.
 - `config.development.yaml`: short executable demonstrator.
 - `config.pilot.yaml`: independent 20-seed pilot.
-- `config.confirmatory.yaml`: confirmatory YAML; seeds recorded, run not executed.
-- `seeds.confirmatory.pool.txt`: precommitted ordered seed pool.
-- `SAMPLE_SIZE_ADDENDUM.md`: post-pilot sample-size record (N=97 recorded; confirmatory not executed).
-- `artifacts/`: sealed pilot analysis/sample-size copies and freeze contract.
+- `config.confirmatory.yaml`: confirmatory YAML, bound by hash to the freeze contract.
+- `seeds.confirmatory.pool.txt`: precommitted ordered seed pool (500 entries).
+- `seeds.confirmatory.txt`: the frozen confirmatory population, first `N=97` unfiltered pool entries.
+- `SAMPLE_SIZE_ADDENDUM.md`: post-pilot sample-size record (N=97 from the pre-specified formula).
+- `HYPOTHESIS_MATRIX.md`: every contrast that can appear in a report, its role, and the claim it permits.
+- `AMENDMENT_001.md`, `AMENDMENT_002.md`: dated amendments; 002 is a pre-confirmatory-outcome
+  reporting and integrity clarification that changes no hypothesis, estimand, N, seed, or method.
+- `artifacts/`: sealed pilot analysis/sample-size copies, the freeze contract, its additive
+  hash supplement, and (after execution) the sealed confirmatory evidence.
+
+Execution status lives in `../../CONFIRMATORY_READINESS_REPORT.md` and
+`research/ledger/ledger.jsonl`, not in this file.
 
 ## Required order
 
@@ -20,9 +28,9 @@
 4. Calculate N and complete the addendum.
 5. Create `seeds.confirmatory.txt` from the first N pool entries.
 6. Commit the addendum and seed list.
-7. Run validation on `config.confirmatory.yaml`.
-8. Execute confirmatory scenarios with no tuning.
-9. Generate and archive the report.
+7. Run validation on `config.confirmatory.yaml` and `python scripts/audit_v1_readiness.py`.
+8. Execute confirmatory scenarios with no tuning, following `../../CONFIRMATORY_RUNBOOK.md`.
+9. Generate, seal, and archive the report.
 
 Do not modify the original protocol after confirmatory data collection begins. Use a numbered amendment instead.
 

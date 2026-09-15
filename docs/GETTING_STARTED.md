@@ -87,5 +87,13 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
 
 ### Confirmatory configuration fails validation
 
-This is intentional before the pilot. The missing `seeds.confirmatory.txt` is created only after sample size is frozen in the addendum.
+Before the pilot this was intentional: `experiments/v1/seeds.confirmatory.txt` was deliberately
+absent so `config.confirmatory.yaml` could not run.
+
+That lock has been released. The pilot completed, `SAMPLE_SIZE_ADDENDUM.md` fixed `N=97`, and the
+seed file was created mechanically from the first 97 pool entries, so
+`mycelial-graph validate --config experiments/v1/config.confirmatory.yaml` now passes. If it fails
+today, the seed file is missing or modified relative to the hash bound in
+`experiments/v1/artifacts/CONFIRMATORY_FREEZE.json`; run `python scripts/audit_v1_readiness.py`
+to see which invariant broke. Do not regenerate the seed file to make validation pass.
 

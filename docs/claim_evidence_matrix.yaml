@@ -119,3 +119,63 @@ claims:
     external_validity: E0
     allowed_wording: "The protocol is designed and not executed."
     allowed_wording_status: NOT_SUPPORTED
+
+# Machine-verifiable V1 confirmatory-readiness state. Checked by
+# `mycelial-graph claim-audit` and by `python scripts/audit_v1_readiness.py`.
+# These invariants assert repository state, never empirical truth.
+v1_readiness_invariants:
+  - id: I01
+    claim: confirmatory_seeds_exist
+    requires:
+      file: experiments/v1/seeds.confirmatory.txt
+      file_exists: true
+      count: 97
+      sha256: 8ef4c6b0dc481fea70054b6d7cbc9ecc2663f63b4523f3f55bb374a0339ee00c
+      hash_matches_freeze: true
+      freeze: experiments/v1/artifacts/CONFIRMATORY_FREEZE.json
+      freeze_hash_field: seeds_sha256
+      freeze_count_field: required_confirmatory_pairs
+      prefix_of: experiments/v1/seeds.confirmatory.pool.txt
+      disjoint_from:
+        - experiments/v1/seeds.pilot.txt
+        - experiments/v1/seeds.development.txt
+  - id: I02
+    claim: confirmatory_config_bound_to_freeze
+    requires:
+      config: experiments/v1/config.confirmatory.yaml
+      config_hash: 5d7e92d2ec2805418f2b07e641188814282d544de55eb8c1461f4400b025452a
+      hash_matches_freeze: true
+      freeze: experiments/v1/artifacts/CONFIRMATORY_FREEZE.json
+      freeze_hash_field: confirmatory_config_hash
+  - id: I03
+    claim: sample_size_recorded_before_confirmatory
+    requires:
+      file: experiments/v1/SAMPLE_SIZE_ADDENDUM.md
+      contains:
+        - "Required N: **97**"
+        - "one-sided alpha 0.05; target power 0.80"
+        - "Method hyperparameters after pilot: **unchanged** (no tuning)"
+  - id: I04
+    claim: pilot_complete_and_not_promoted
+    requires:
+      file: experiments/v1/artifacts/PILOT_EVIDENCE.json
+      json_fields:
+        run_kind: pilot
+        confirmatory_unlocked: false
+        scientific_status: PILOT_EVIDENCE_NOT_CONFIRMATORY
+  - id: I05
+    claim: multiplicity_policy_frozen
+    requires:
+      file: experiments/v1/ANALYSIS_PLAN.md
+      contains:
+        - "The only primary confirmatory contrast is hierarchical versus edge-only at `rho=0.50`"
+        - "No uncorrected exploratory result may be described as confirmatory."
+  - id: I06
+    claim: rho_crossover_established
+    allowed_by_v1_confirmatory: false
+  - id: I07
+    claim: production_readiness
+    allowed_by_v1_confirmatory: false
+  - id: I08
+    claim: independent_external_reproduction
+    allowed_by_v1_confirmatory: false

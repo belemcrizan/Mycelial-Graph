@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+### V1 confirmatory convergence cycle
+
+- Declared a repository-wide [V1 confirmatory moratorium](V1_CONFIRMATORY_MORATORIUM.md): V2.0-alpha, V2.1, V2.1-A, `theory/`, `external/`, and the pooling/real tracks are frozen (preserved, not deleted) until V1 reaches a legitimate terminal state.
+- Resolved the `seeds.confirmatory.txt` contradiction. The file exists with 97 unique seeds equal to the unfiltered pool prefix and the hash bound in the freeze; `docs/GETTING_STARTED.md` and `docs/V2_IMPLEMENTATION_PLAN.md` no longer describe it as intentionally missing.
+- Rewrote the README to expose the primary contrast (`rho=0.50`, hierarchical vs edge-only) and the `+0.10` non-inferiority safety gate at `rho=0`, and to separate completed infrastructure, verified evidence, confirmatory evidence, external evidence, theory, and explicitly unsupported claims.
+- Added `experiments/v1/HYPOTHESIS_MATRIX.md`: every contrast that can appear in a report, its role, its error control, and the claim it permits.
+- Added `scripts/audit_v1_readiness.py` and the generated `CONFIRMATORY_READINESS_REPORT.md`/`.json`, which mechanically verify seed selection, the N=97 chain, freeze bindings, multiplicity, reproducibility, environment drift, and claim invariants, then emit GO / STOP / PROTOCOL_INVALID.
+- Added `AMENDMENT_002.md`, a pre-confirmatory-outcome clarification: a result-state taxonomy (`SUPPORTED` / `CONDITIONAL` / `INCONCLUSIVE` / `REFUTED` / `PROTOCOL_INVALID`) derived from the frozen interpretation matrix, disclosure that the automated gate covers protocol §8.2 requirements 1-3 only, role labels, integrity counters, and an additive freeze hash supplement. No hypothesis, estimand, threshold, sample size, seed, or method changed.
+- Added report-level claim containment (`science/claim_guard.py`): V1 report generation now fails on assertive crossover, all-rho, production-readiness, external-validity, causal, theoretical, or independent-reproduction language, while documented limitations stay sayable.
+- Extended `mycelial-graph claim-audit` with machine-verifiable V1 readiness invariants declared in `docs/claim_evidence_matrix.yaml`.
+- Added `CONFIRMATORY_RUNBOOK.md` as the single canonical execution path, plus `scripts/seal_v1_confirmatory.py` for evidence sealing.
+
+### Earlier in this cycle
+
 - Added isolated theory, external-validation, and adaptive-pooling tracks without changing MG-EXP-V1 methods, configs, or confirmatory meaning.
 - Added license-gated adapters, dry-run collector, IPS support diagnostics, scientific ledger helpers, and MG-EXP-REAL-001 / MG-EXP-POOLING-001 protocols.
 - Did not add a V1 confirmatory result.

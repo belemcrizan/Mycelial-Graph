@@ -50,6 +50,15 @@ def bind_run_contract(
             else f"RUN_KIND_{config.run_kind.upper()}_NOT_PROMOTED"
         ),
     }
+    if config.run_kind == "confirmatory":
+        payload["scientific_status"] = "CONFIRMATORY_EXECUTED_UNDER_FROZEN_PROTOCOL"
+        payload["claim_boundary"] = (
+            "Bounded by experiments/v1/HYPOTHESIS_MATRIX.md: the rho=0.50 primary contrast and "
+            "the rho=0 safety gate only. No crossover, all-rho, production, external-validity, "
+            "or causal claim is authorised, and reproduction here is internal, not independent."
+        )
+    if analysis.exists():
+        payload["result_state"] = json.loads(analysis.read_text(encoding="utf-8")).get("result_state")
     return payload
 
 

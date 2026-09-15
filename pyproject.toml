@@ -23,3 +23,8 @@ mycelial-graph = "mycelial_graph.cli:main"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.pytest.ini_options]
+# `experiments/v2_1/real_smoke/` holds deliberately broken fixtures for the V2.1-A repair loop.
+# They are inputs to an experiment, not tests, and must not be collected.
+testpaths = ["tests"]
+
