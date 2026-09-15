@@ -74,19 +74,22 @@ def _verify_invariant(
         if not exists:
             return
         if "sha256" in requires:
-            observed = _sha256_file(target)
+            from .canonical_bytes import historical_text_identity_matches
+
+            observed_ok = historical_text_identity_matches(target.read_bytes(), requires["sha256"])
             _check(
                 results,
                 f"{prefix}:sha256",
-                observed == requires["sha256"],
-                {"expected": requires["sha256"], "observed": observed},
+                observed_ok,
+                {"expected": requires["sha256"], "observed_raw": _sha256_file(target)},
             )
             if requires.get("hash_matches_freeze") and freeze:
+                freeze_hash = freeze.get(requires.get("freeze_hash_field", "seeds_sha256"))
                 _check(
                     results,
                     f"{prefix}:hash_matches_freeze",
-                    observed == freeze.get(requires.get("freeze_hash_field", "seeds_sha256")),
-                    {"freeze": freeze.get(requires.get("freeze_hash_field", "seeds_sha256"))},
+                    historical_text_identity_matches(target.read_bytes(), str(freeze_hash or "")),
+                    {"freeze": freeze_hash},
                 )
         if "count" in requires:
             seeds = _read_seeds(target)

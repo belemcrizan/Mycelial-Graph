@@ -17,7 +17,8 @@ SUPPORTED_METHODS = {
 }
 
 
-def validate_config(config: ExperimentConfig) -> list[str]:
+def validate_config_semantics(config: ExperimentConfig) -> list[str]:
+    """Finite numbers, protocol fields, and seed-file parseability. No freeze gate."""
     errors: list[str] = []
     def numeric_fields(value: Any, name: str = "config") -> None:
         if isinstance(value, dict):
@@ -120,10 +121,23 @@ def validate_config(config: ExperimentConfig) -> list[str]:
                 errors.append("Seeds file is empty.")
         except ValueError as exc:
             errors.append(str(exc))
-    from .protocol import validate_phase_seeds, validate_confirmatory_freeze
+    return errors
+
+
+def validate_config(config: ExperimentConfig) -> list[str]:
+    """Semantic configuration plus seed-population isolation.
+
+    This does **not** authorize confirmatory execution. A confirmatory YAML that
+    passes ``validate_config`` is scientifically well-formed, not unlocked.
+    New confirmatory runs must call ``validate_confirmatory_execution_authorization``.
+    Historical reproduction must call ``verify_historical_confirmatory_evidence``.
+    """
+    from .protocol import validate_phase_seeds
+
+    errors = validate_config_semantics(config)
+    if errors:
+        return errors
     errors.extend(validate_phase_seeds(config))
-    if config.run_kind == "confirmatory":
-        errors.extend(validate_confirmatory_freeze(config))
     return errors
 
 

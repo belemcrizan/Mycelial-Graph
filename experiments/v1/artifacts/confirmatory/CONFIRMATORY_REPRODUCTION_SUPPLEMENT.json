@@ -1,0 +1,81 @@
+{
+  "affected_artifacts": [
+    {
+      "artifact": "REPORT.md",
+      "canonical_text_sha256": "4abc16738989edcde6ce2777dcf762ad11bd136427f2069e11c8901a8a53edef",
+      "exact_historical_crlf_reconstruction": true,
+      "historical_crlf_sha256": "a000e49f91d262490530e0dd92001d88f4dfca399c127de957853ad4a3ef0a18",
+      "normalization_method": "CRLF_or_CR -> LF; historical reconstruction canonical LF -> CRLF",
+      "reconstructed_crlf_sha256": "a000e49f91d262490530e0dd92001d88f4dfca399c127de957853ad4a3ef0a18",
+      "repository_lf_sha256": "a000e49f91d262490530e0dd92001d88f4dfca399c127de957853ad4a3ef0a18",
+      "seal_identity": "EXACT"
+    },
+    {
+      "artifact": "manifest.json",
+      "canonical_text_sha256": "4997333fb760bc87b7bd2953e1e646d6778715228f0717bd37356dc4c6f7c44c",
+      "exact_historical_crlf_reconstruction": true,
+      "historical_crlf_sha256": "242b58b39a5c000259c205aed9037bedf030d631b1cc3ab5466ab35736fba30a",
+      "normalization_method": "CRLF_or_CR -> LF; historical reconstruction canonical LF -> CRLF",
+      "reconstructed_crlf_sha256": "242b58b39a5c000259c205aed9037bedf030d631b1cc3ab5466ab35736fba30a",
+      "repository_lf_sha256": "242b58b39a5c000259c205aed9037bedf030d631b1cc3ab5466ab35736fba30a",
+      "seal_identity": "EXACT"
+    },
+    {
+      "artifact": "processed/analysis.json",
+      "canonical_text_sha256": "3084ddef3207f6a760515392e3223f22e28fce5e566e2db8178812938dba1022",
+      "exact_historical_crlf_reconstruction": true,
+      "historical_crlf_sha256": "cd25c72c530440a888b8f52129f353ab24fa5c1a0da0f6fa95a91dc85e4ce892",
+      "normalization_method": "CRLF_or_CR -> LF; historical reconstruction canonical LF -> CRLF",
+      "reconstructed_crlf_sha256": "cd25c72c530440a888b8f52129f353ab24fa5c1a0da0f6fa95a91dc85e4ce892",
+      "repository_lf_sha256": "cd25c72c530440a888b8f52129f353ab24fa5c1a0da0f6fa95a91dc85e4ce892",
+      "seal_identity": "EXACT"
+    }
+  ],
+  "audit_base_revision": "0af6c0b9dc15378b31de4d6b47dae01ea263785b",
+  "classification": "reproducibility/provenance correction with no change to scientific result or claim boundary",
+  "confirmatory_config_hash": "5d7e92d2ec2805418f2b07e641188814282d544de55eb8c1461f4400b025452a",
+  "created_at_utc": "2026-09-15T13:41:04.287850Z",
+  "document_type": "CONFIRMATORY_REPRODUCTION_SUPPLEMENT",
+  "historical_execution_commit": "5f314d2dfb15f508dfd4e630e8c0e49031e60c6a",
+  "historical_freeze": "experiments/v1/artifacts/CONFIRMATORY_FREEZE.json",
+  "historical_freeze_supplement": "experiments/v1/artifacts/CONFIRMATORY_FREEZE_SUPPLEMENT.json",
+  "original_evidence_immutable": true,
+  "png_artifacts": [
+    {
+      "artifact": "figures/recovery_by_rho.png",
+      "identity": "EXACT",
+      "sha256": "9d6e696036f5278fb8a0c3fa70a8d89d9e51d42e35b4c511435a3d693b0b7346"
+    },
+    {
+      "artifact": "figures/regret_by_rho.png",
+      "identity": "EXACT",
+      "sha256": "d4fe035ddc0fd2278a2449b536dc5664583c033c9c6e73dc038797c02ee5ad9a"
+    }
+  ],
+  "png_artifacts_exact_byte_match": true,
+  "primary_estimate": 0.42112797022616655,
+  "protocol_version": "MG-EXP-V1",
+  "reason": "Record the CRLF/LF byte-representation discrepancy for historically sealed text artifacts and make cross-platform reproduction auditable. The historical hashes were valid for the CRLF byte representation that was sealed. The repository stores LF. Byte representation changed; scientific textual content did not.",
+  "repairs_provenance_interpretation_only": true,
+  "required_confirmatory_pairs": 97,
+  "result_state": "REFUTED",
+  "schema_version": 1,
+  "scientific_content_changed": false,
+  "seeds_eol": {
+    "exact_crlf_reconstruction_from_git_blob": true,
+    "frozen_sha256": "8ef4c6b0dc481fea70054b6d7cbc9ecc2663f63b4523f3f55bb374a0339ee00c",
+    "git_blob_lf_sha256": "2198ac5f8f2bf323ed409adf1f97c0f16b0f023a3dffd56f308856c9943fb67e",
+    "note": "The frozen seed SHA-256 is the CRLF-sealed identity recorded at freeze. Git stores the same seed list as LF. LF to CRLF reconstructs the frozen digest exactly. Seed values are identical.",
+    "scientific_seed_values_changed": false
+  },
+  "seeds_sha256": "8ef4c6b0dc481fea70054b6d7cbc9ecc2663f63b4523f3f55bb374a0339ee00c",
+  "statements": [
+    "The original CONFIRMATORY_EVIDENCE.json remains immutable.",
+    "This supplement repairs provenance/reproduction interpretation only.",
+    "The historical hashes were valid for the CRLF byte representation that was sealed.",
+    "Byte representation changed; scientific textual content did not.",
+    "The V1 confirmatory result remains REFUTED.",
+    "Frozen N, seeds, and confirmatory config hash are unchanged."
+  ],
+  "supplement_to": "experiments/v1/artifacts/confirmatory/CONFIRMATORY_EVIDENCE.json"
+}

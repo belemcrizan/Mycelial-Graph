@@ -53,11 +53,15 @@ def validate_phase_seeds(config: ExperimentConfig) -> list[str]:
     return errors
 
 
-def validate_confirmatory_freeze(config: ExperimentConfig) -> list[str]:
-    """An arbitrary seed file must not unlock confirmatory inference.
+def validate_confirmatory_execution_authorization(config: ExperimentConfig) -> list[str]:
+    """Pre-execution gate: may a *new* confirmatory execution start?
 
-    The review record is a commit before outcomes, not an interactive approval.
-    See experiments/v1/FREEZE_CONTRACT.md for the complete contract.
+    This is not historical reproduction. The historical freeze lives at
+    ``experiments/v1/artifacts/CONFIRMATORY_FREEZE.json`` and uses a different
+    schema. A new execution still requires a committed modern freeze next to
+    the confirmatory config: ``schema_version=1`` and ``status=frozen``.
+
+    See experiments/v1/FREEZE_CONTRACT.md.
     """
     from .validation import load_seeds
 
@@ -65,7 +69,12 @@ def validate_confirmatory_freeze(config: ExperimentConfig) -> list[str]:
     root = config.source_path.parents[2]
     freeze_path = directory / "CONFIRMATORY_FREEZE.json"
     if not freeze_path.is_file():
-        return ["Confirmatory execution locked: missing committed CONFIRMATORY_FREEZE.json and reviewed sample-size evidence."]
+        return [
+            "Confirmatory execution locked: missing committed CONFIRMATORY_FREEZE.json "
+            "and reviewed sample-size evidence. The historical freeze in "
+            "experiments/v1/artifacts/CONFIRMATORY_FREEZE.json is a pre-execution "
+            "record, not this authorization schema."
+        ]
     try:
         freeze = json.loads(freeze_path.read_text(encoding="utf-8"))
         if freeze.get("schema_version") != 1 or freeze.get("status") != "frozen":
@@ -121,3 +130,8 @@ def validate_confirmatory_freeze(config: ExperimentConfig) -> list[str]:
     except (KeyError, TypeError, ValueError, OSError, subprocess.CalledProcessError) as exc:
         return [f"Confirmatory freeze invalid: {exc}"]
     return []
+
+
+def validate_confirmatory_freeze(config: ExperimentConfig) -> list[str]:
+    """Compatibility alias for the pre-execution authorization gate."""
+    return validate_confirmatory_execution_authorization(config)

@@ -19,7 +19,23 @@ A pilot uses the same command with `--kind pilot` and a new output directory, af
 
 For a verified run, `sample-size` requires a complete pilot and reports an explicitly approximate planning estimate. Zero paired variance yields `unestimable`, with no chosen N. A point estimate is not a reviewed sample-size addendum.
 
-## Identity and immutability
+## V1 confirmatory text seals and frozen seeds (EOL)
+
+Historically sealed V1 text artifacts (`REPORT.md`, `manifest.json`, `processed/analysis.json`)
+were hashed as CRLF bytes. Git stores LF. The historical SHA-256 values reconstruct exactly
+from repository LF bytes by the deterministic map LF → CRLF. PNG hashes are raw bytes.
+
+The frozen confirmatory seed SHA-256 `8ef4c6b0…` is likewise the CRLF-sealed identity of
+`seeds.confirmatory.txt`. Git stores LF (`2198ac5f…` of the blob bytes). Seed values are
+identical. Do not change the frozen hash.
+
+`python reproduce_confirmatory.py` reports `EXACT` or `HISTORICAL_EOL_EQUIVALENT` for those
+text identities and fails on any other mutation. That command verifies sealed evidence; it is
+not independent external reproduction. Full re-execution is `python reproduce_confirmatory.py --full`
+(97 pairs × 5 ρ = 485 jobs × 4 methods = 1940 method-level trials) into a fresh directory.
+
+See `experiments/v1/AMENDMENT_003.md` and
+`experiments/v1/artifacts/confirmatory/CONFIRMATORY_REPRODUCTION_SUPPLEMENT.json`.
 
 Each artifact stores code revision and SHA-256 of source bytes, canonical config hash, seed-file hash, protocol snapshots and hashes, Python/NumPy/SciPy/PyYAML versions, OS/CPU descriptors and execution mode. Source digest is freshly computed, including uncommitted source bytes; a commit SHA alone is not claimed to identify a dirty tree.
 

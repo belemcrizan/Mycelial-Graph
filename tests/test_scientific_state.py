@@ -123,13 +123,20 @@ class CRLFCanonicalizationTests(unittest.TestCase):
         self.assertEqual(sha256_lf_text(lf), sha256_lf_text(crlf))
         self.assertEqual(normalize_newlines(crlf), lf)
 
-    def test_frozen_seed_hash_is_of_stored_bytes(self) -> None:
+    def test_frozen_seed_identity_is_canonical_lf(self) -> None:
+        from mycelial_graph.science.canonical_bytes import lf_to_crlf, verify_frozen_seed_identity
+
         path = ROOT / "experiments" / "v1" / "seeds.confirmatory.txt"
         freeze = json.loads((ROOT / "experiments" / "v1" / "artifacts" / "CONFIRMATORY_FREEZE.json").read_text(encoding="utf-8"))
         stored = path.read_bytes()
-        self.assertEqual(sha256_raw(stored), freeze["seeds_sha256"])
-        if b"\r\n" in stored:
-            self.assertNotEqual(sha256_lf_text(stored), freeze["seeds_sha256"])
+        check = verify_frozen_seed_identity(path, freeze["seeds_sha256"])
+        self.assertTrue(check.ok, check.message)
+        canonical = normalize_newlines(stored)
+        self.assertEqual(sha256_raw(lf_to_crlf(canonical)), freeze["seeds_sha256"])
+        crlf = stored.replace(b"\n", b"\r\n") if b"\r\n" not in stored else stored
+        if stored != crlf:
+            self.assertNotEqual(sha256_raw(stored), sha256_raw(crlf) if b"\r\n" not in stored else sha256_raw(canonical))
+            self.assertEqual(sha256_lf_text(crlf), sha256_lf_text(stored))
 
 
 if __name__ == "__main__":

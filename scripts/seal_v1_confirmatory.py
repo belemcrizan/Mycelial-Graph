@@ -53,6 +53,17 @@ def main() -> int:
         return 2
 
     SEALED.mkdir(parents=True, exist_ok=True)
+    evidence_path = SEALED / "CONFIRMATORY_EVIDENCE.json"
+    if evidence_path.exists():
+        print(
+            "ERROR: refusing to overwrite historical CONFIRMATORY_EVIDENCE.json. "
+            "Seal new runs into a different directory; the V1 confirmatory evidence is immutable.",
+            file=sys.stderr,
+        )
+        return 2
+
+    from mycelial_graph.science.canonical_bytes import canonicalize_text_bytes, sha256_bytes
+
     hashes: dict[str, str] = {}
     for relative in COPIED:
         source = output / relative
@@ -60,8 +71,11 @@ def main() -> int:
             print(f"ERROR: missing artifact {source}", file=sys.stderr)
             return 2
         destination = SEALED / Path(relative).name
-        shutil.copy2(source, destination)
-        hashes[relative] = sha256_file(destination)
+        # Future seals store canonical LF text. Historical V1 seals captured CRLF
+        # bytes; they are not rewritten here.
+        text = canonicalize_text_bytes(source.read_bytes())
+        destination.write_bytes(text)
+        hashes[relative] = sha256_bytes(text)
 
     figures_source = output / "figures"
     if figures_source.exists():

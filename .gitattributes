@@ -1,6 +1,19 @@
 * text=auto eol=lf
+*.py text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.txt text eol=lf
+*.tex text eol=lf
+*.toml text eol=lf
+*.cfg text eol=lf
 *.png binary
 *.jpg binary
 *.pdf binary
 *.gz binary
 *.zip binary
+experiments/v1/seeds*.txt text eol=lf
+experiments/v1/**/*.json text eol=lf
+experiments/v1/**/*.md text eol=lf
+experiments/v1/**/*.yaml text eol=lf

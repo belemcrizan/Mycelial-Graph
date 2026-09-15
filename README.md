@@ -137,7 +137,10 @@ There is exactly one description of this state, and it is mechanically checked b
   variability, recorded in [`SAMPLE_SIZE_ADDENDUM.md`](experiments/v1/SAMPLE_SIZE_ADDENDUM.md).
 - Before the addendum existed, this file was deliberately absent and
   `mycelial-graph validate --config experiments/v1/config.confirmatory.yaml` failed by design.
-  That lock is now **released**; validation passes.
+  Semantic validation of that YAML now passes. Starting a **new** confirmatory execution
+  still requires the modern authorization freeze next to the YAML (`schema_version=1`,
+  `status=frozen`), which is intentionally absent. Historical reproduction uses
+  `python reproduce_confirmatory.py` and the freeze in `artifacts/`.
 
 The confirmatory experiment has since been executed on exactly these 97 seeds. Its outcome is
 `REFUTED`; see [Confirmatory evidence](#confirmatory-evidence-produced-by-the-frozen-v1-protocol)
