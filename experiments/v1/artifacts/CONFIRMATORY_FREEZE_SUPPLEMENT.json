@@ -3,7 +3,7 @@
     "AMENDMENT_001.md",
     "AMENDMENT_002.md"
   ],
-  "audit_commit": "acedef91559a81e2ff15606d3c13dd6a113be390",
+  "audit_commit": "16534ed7fcefe9be71492bb1a2770c78b373bc48",
   "bound_hashes": {
     "experiments/v1/AMENDMENT_001.md": "6b9f431db2121d278c02ddc2882a1e2c4554e6e7d9c113d84fcf9160ba22091f",
     "experiments/v1/AMENDMENT_002.md": "28ac77a90752c05fc8757dd94db930c9db6d2fbbaf00d3b93fe82de936de47fc",
@@ -28,7 +28,7 @@
     "src/mycelial_graph/science/claim_guard.py": "a95c81d242beae49148059ba457d3f1685391e91f45c8f100410e6cf9794c361"
   },
   "confirmatory_config_hash": "5d7e92d2ec2805418f2b07e641188814282d544de55eb8c1461f4400b025452a",
-  "created_at_utc": "2026-09-15T02:54:49.593456Z",
+  "created_at_utc": "2026-09-15T02:56:56.762277Z",
   "frozen_bootstrap_seeds": {
     "noninferiority_contrast": 20260825,
     "primary_contrast": 20260824,

@@ -2,16 +2,16 @@
 
 **Decision:** `GO`
 
-**Generated:** 2026-09-15T02:54:49.113616Z  
+**Generated:** 2026-09-15T02:56:56.194226Z  
 **Command:** `python scripts/audit_v1_readiness.py`
 
 This report is generated. Do not edit it by hand; rerun the audit.
 
 ## Repository state
 
-- Commit: `acedef91559a81e2ff15606d3c13dd6a113be390`
+- Commit: `16534ed7fcefe9be71492bb1a2770c78b373bc48`
 - Branch: `feat/p0-v1-pilot-theory-external`
-- Working tree dirty: True
+- Working tree dirty: False
 - Python 3.13.3, numpy 2.2.6
 
 ## Frozen artifacts

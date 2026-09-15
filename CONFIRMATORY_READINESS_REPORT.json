@@ -354,7 +354,7 @@
         "pilot": "1.18.1"
       }
     },
-    "head_commit": "acedef91559a81e2ff15606d3c13dd6a113be390",
+    "head_commit": "16534ed7fcefe9be71492bb1a2770c78b373bc48",
     "pilot_code_commit": "2c0a9630ae97e050a8ad31f5a06ce2a9b9ab2b22",
     "pilot_recorded_environment": {
       "numpy": "2.5.3",
@@ -397,35 +397,11 @@
     ]
   },
   "repository_state": {
-    "audited_at_utc": "2026-09-15T02:54:49.113616Z",
+    "audited_at_utc": "2026-09-15T02:56:56.194226Z",
     "branch": "feat/p0-v1-pilot-theory-external",
-    "commit": "acedef91559a81e2ff15606d3c13dd6a113be390",
-    "dirty": true,
-    "dirty_paths": [
-      "github/workflows/ci.yml",
-      "README.md",
-      "docs/GETTING_STARTED.md",
-      "docs/V2_IMPLEMENTATION_PLAN.md",
-      "docs/claim_evidence_matrix.yaml",
-      "pyproject.toml",
-      "src/mycelial_graph/analysis/aggregate.py",
-      "src/mycelial_graph/cli.py",
-      "src/mycelial_graph/reporting/report.py",
-      "src/mycelial_graph/science/freeze.py",
-      "CONFIRMATORY_READINESS_REPORT.json",
-      "CONFIRMATORY_READINESS_REPORT.md",
-      "CONFIRMATORY_RUNBOOK.md",
-      "V1_CONFIRMATORY_MORATORIUM.md",
-      "experiments/v1/AMENDMENT_002.md",
-      "experiments/v1/HYPOTHESIS_MATRIX.md",
-      "experiments/v1/artifacts/CONFIRMATORY_FREEZE_SUPPLEMENT.json",
-      "scripts/audit_v1_readiness.py",
-      "scripts/seal_v1_confirmatory.py",
-      "src/mycelial_graph/analysis/result_state.py",
-      "src/mycelial_graph/science/claim_guard.py",
-      "src/mycelial_graph/science/claim_invariants.py",
-      "tests/test_v1_confirmatory_integrity.py"
-    ],
+    "commit": "16534ed7fcefe9be71492bb1a2770c78b373bc48",
+    "dirty": false,
+    "dirty_paths": [],
     "numpy": "2.2.6",
     "python": "3.13.3"
   },
