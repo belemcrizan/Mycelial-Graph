@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+title: Mycelial Graph
+message: If you use this software, please cite it as below. No DOI has been deposited.
+type: software
+authors:
+  - family-names: Ribeiro
+    given-names: Crizan Belem
+license: Apache-2.0
+repository-code: https://github.com/belemcrizan/Mycelial-Graph

@@ -66,7 +66,7 @@ confirmatory run  -> frozen execution with no tuning
 report            -> pass, conditional result, inconclusive, or refuted
 ```
 
-The confirmatory configuration deliberately points to a missing `seeds.confirmatory.txt`. This is an execution lock, not a packaging error. Follow [`experiments/v1/SAMPLE_SIZE_ADDENDUM.md`](experiments/v1/SAMPLE_SIZE_ADDENDUM.md) after the pilot.
+The confirmatory configuration now has `seeds.confirmatory.txt` (first 97 pool entries after the pilot addendum). **Confirmatory execution has not been run.** Do not treat the pilot as confirmatory.
 
 ## V2.0-alpha (additive)
 
@@ -108,11 +108,12 @@ mycelial-graph claim-audit --matrix docs/claim_evidence_matrix.yaml
 ## Honest status
 
 - The development demonstrator is executable.
-- The pilot and confirmatory machinery are present.
-- No confirmatory run is included.
+- The V1 pilot machinery is present; confirmatory execution stays locked until the sample-size addendum and freeze contract are satisfied. **No V1 confirmatory result exists.**
+- Theory (`theory/`) is a separate track: conjectures and a Gaussian toy, not theorems about V1.
+- External adapters (`external/`) do not include third-party raw data and do not authorize paid calls.
 - No cloud-provider superiority, convergence theorem, or production-readiness claim is made.
-- A positive development result is not evidence for publication.
-- V2.0-alpha is a simulated resource-allocation layer with its own locked confirmatory protocol.
+- A positive development or pilot result is not evidence for publication.
+- V2.0-alpha is a simulated resource-allocation layer with its own locked confirmatory protocol. Major V2 expansion is deferred while V1 P0 evidence is open.
 - MG-EXP-V2.1 (Evidence Bridge) is additive instrumentation: iso-model, VOC bench, strong baselines, local executable smoke. It is not confirmatory and is not SWE-bench.
 - MG-EXP-V2.1-A replaces known-fix injection with a local autonomous repair loop on isolated fixtures. It still does not support a real coding-agent token-reduction claim.
 

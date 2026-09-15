@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Added isolated theory, external-validation, and adaptive-pooling tracks without changing MG-EXP-V1 methods, configs, or confirmatory meaning.
+- Added license-gated adapters, dry-run collector, IPS support diagnostics, scientific ledger helpers, and MG-EXP-REAL-001 / MG-EXP-POOLING-001 protocols.
+- Did not add a V1 confirmatory result.
+
 ## 0.2.2 - 2026-08-31
 
 - Replaced the V2.1 coding smoke known-fix shortcut (`apply_fix=True`) with an autonomous local agent loop: read, search, retrieve, reason, test, inspect, edit, verify, escalate, stop.

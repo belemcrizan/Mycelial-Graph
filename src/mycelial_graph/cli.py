@@ -88,6 +88,24 @@ def _parser() -> argparse.ArgumentParser:
     claim = sub.add_parser("claim-audit", help="Audit the machine-readable claim matrix.")
     claim.add_argument("--matrix", default="docs/claim_evidence_matrix.yaml")
 
+    collect = sub.add_parser("collect", help="Conservative trace collector (dry-run by default).")
+    collect.add_argument("--dry-run", action="store_true", default=True)
+    collect.add_argument("--max-cost", type=float, default=0.0)
+    collect.add_argument("--max-requests", type=int, default=1)
+    collect.add_argument("--max-duration", type=float, default=1.0)
+    collect.add_argument("--authorize-spend", action="store_true", default=False)
+
+    ope = sub.add_parser("ope-check", help="IPS diagnostics on a JSONL logged-bandit file.")
+    ope.add_argument("--input", required=True)
+
+    freeze_run = sub.add_parser("bind-run", help="Bind hashes for a completed run without unlocking confirmatory.")
+    freeze_run.add_argument("--config", required=True)
+    freeze_run.add_argument("--output", required=True)
+    freeze_run.add_argument("--destination", required=True)
+
+    pooling_toy = sub.add_parser("pooling-toy", help="Run the isolated MG-EXP-POOLING-001 toy model.")
+    pooling_toy.add_argument("--seed", type=int, default=0)
+
     sub.add_parser("evidence-audit", help="Print the next-stage audit document path.")
     return parser
 
@@ -276,6 +294,45 @@ def main(argv: list[str] | None = None) -> int:
             result = audit_claims(args.matrix)
             print(json.dumps(result, indent=2))
             return 0 if result["ok"] else 3
+
+        if args.command == "collect":
+            from .external.collector import CollectorLimits, collect_workload
+
+            result = collect_workload(
+                [{"prompt_id": "dry-run-fixture", "task_type": "healthcheck"}],
+                [{"provider": "none", "model": "none", "estimated_cost": 0.0, "endpoint": "dry-run"}],
+                CollectorLimits(
+                    dry_run=True if args.dry_run else False,
+                    max_cost=args.max_cost,
+                    max_requests=args.max_requests,
+                    max_duration_seconds=args.max_duration,
+                    authorize_spend=args.authorize_spend,
+                ),
+            )
+            print(json.dumps(result, indent=2))
+            return 0
+
+        if args.command == "ope-check":
+            from .external.ope import ips_estimate
+
+            rows = [json.loads(line) for line in Path(args.input).read_text(encoding="utf-8").splitlines() if line.strip()]
+            print(json.dumps(ips_estimate(rows).to_dict(), indent=2))
+            return 0
+
+        if args.command == "bind-run":
+            from .science.freeze import bind_run_contract, write_contract
+
+            payload = bind_run_contract(args.config, args.output, Path(__file__).resolve().parents[2])
+            print(write_contract(args.destination, payload))
+            return 0
+
+        if args.command == "pooling-toy":
+            from dataclasses import asdict
+
+            from .pooling.toy_model import rho_grid
+
+            print(json.dumps([asdict(row) for row in rho_grid(args.seed)], indent=2))
+            return 0
 
         if args.command == "evidence-audit":
             path = Path(__file__).resolve().parents[2] / "docs" / "NEXT_STAGE_AUDIT.md"

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "incident_record",
+  "type": "object",
+  "required": [
+    "incident_id",
+    "provider",
+    "service",
+    "incident_start_utc",
+    "status",
+    "source",
+    "retrieved_at_utc",
+    "source_version"
+  ]
+}

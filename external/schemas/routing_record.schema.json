@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "routing_record",
+  "type": "object",
+  "required": [
+    "record_id",
+    "timestamp_utc",
+    "prompt_id",
+    "model_a",
+    "model_b",
+    "winner",
+    "source_id",
+    "source_version",
+    "license_state"
+  ],
+  "properties": {
+    "winner": {
+      "enum": ["model_a", "model_b", "tie", "tie_both_bad", "unknown"]
+    }
+  }
+}
