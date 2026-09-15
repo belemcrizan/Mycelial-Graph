@@ -1,0 +1,142 @@
+{
+  "confirmatory": {
+    "available": true,
+    "bootstrap_sd_of_paired_difference": {
+      "mean": 55.08678305942036,
+      "quantiles": {
+        "q05": 43.790761395798604,
+        "q50": 54.94470135588851,
+        "q95": 66.5047792787006
+      },
+      "sd": 7.003906141668407
+    },
+    "censoring_in_pairs": {
+      "control_at_tau": 0,
+      "treatment_at_tau": 1
+    },
+    "control_mean_rrt": 36.01030927835052,
+    "frozen_bootstrap": {
+      "bootstrap_tail_probability": 0.9977002299770023,
+      "confidence_high": 0.7908796754419934,
+      "confidence_low": 0.11898691106330427,
+      "estimate": 0.42112797022616655,
+      "one_sided_upper_bound": 0.7213788509020655,
+      "samples": 10000
+    },
+    "n": 97,
+    "outlier_sensitivity": {
+      "n_flagged": 6,
+      "rule": "absolute deviation from median > 3 * MAD",
+      "sd_all": 55.94522626573602,
+      "sd_without_flagged": 37.49436099238266
+    },
+    "paired_difference": {
+      "fraction_negative": 0.44329896907216493,
+      "fraction_positive": 0.5463917525773195,
+      "iqr": 54.0,
+      "mad": 27.0,
+      "max": 250.0,
+      "mean": 15.164948453608247,
+      "min": -78.0,
+      "quantiles": {
+        "q05": -56.8,
+        "q10": -38.4,
+        "q25": -19.0,
+        "q50": 6.0,
+        "q75": 35.0,
+        "q90": 73.60000000000005,
+        "q95": 112.99999999999989
+      },
+      "sd": 55.94522626573602,
+      "skewness": 1.6304053695859786
+    },
+    "relative_effect_point": 0.42112797022616655,
+    "relative_paired_difference": {
+      "mean": 1.5484138551356001,
+      "quantiles": {
+        "q05": -0.7891836734693878,
+        "q10": -0.7265290806754221,
+        "q25": -0.4339622641509434,
+        "q50": 0.2,
+        "q75": 2.3,
+        "q90": 4.94,
+        "q95": 7.17999999999999
+      },
+      "sd": 3.4005423931629513
+    },
+    "status": "POST_CONFIRMATORY_DIAGNOSTIC",
+    "treatment_mean_rrt": 51.175257731958766
+  },
+  "estimand_note": "Frozen confirmatory estimand is unchanged. This block diagnoses variance estimation only.",
+  "pilot": {
+    "available": true,
+    "bootstrap_sd_of_paired_difference": {
+      "mean": 31.36567318823106,
+      "quantiles": {
+        "q05": 23.398695153834673,
+        "q50": 31.590700639766222,
+        "q95": 38.50659546599657
+      },
+      "sd": 4.552580670626639
+    },
+    "censoring_in_pairs": {
+      "control_at_tau": 0,
+      "treatment_at_tau": 0
+    },
+    "control_mean_rrt": 41.2,
+    "frozen_bootstrap": {
+      "bootstrap_tail_probability": 0.28477152284771523,
+      "confidence_high": 0.2966263764419863,
+      "confidence_low": -0.35942824061033807,
+      "estimate": -0.1019417475728156,
+      "one_sided_upper_bound": 0.2185231686634935,
+      "samples": 10000
+    },
+    "n": 20,
+    "outlier_sensitivity": {
+      "n_flagged": 0,
+      "rule": "absolute deviation from median > 3 * MAD",
+      "sd_all": 32.52140995195561,
+      "sd_without_flagged": 32.52140995195561
+    },
+    "paired_difference": {
+      "fraction_negative": 0.5,
+      "fraction_positive": 0.5,
+      "iqr": 49.0,
+      "mad": 20.5,
+      "max": 43.0,
+      "mean": -4.2,
+      "min": -73.0,
+      "quantiles": {
+        "q05": -61.6,
+        "q10": -46.599999999999994,
+        "q25": -29.0,
+        "q50": 0.0,
+        "q75": 20.0,
+        "q90": 35.50000000000001,
+        "q95": 40.150000000000006
+      },
+      "sd": 32.52140995195561,
+      "skewness": -0.476873184234933
+    },
+    "relative_effect_point": -0.1019417475728156,
+    "relative_paired_difference": {
+      "mean": 0.35325358687640385,
+      "quantiles": {
+        "q05": -0.6948717948717948,
+        "q10": -0.6906593406593406,
+        "q25": -0.52125,
+        "q50": 0.03837209302325582,
+        "q75": 1.094639468690702,
+        "q90": 1.7300000000000004,
+        "q95": 2.005
+      },
+      "sd": 0.9667273662267706
+    },
+    "status": "PILOT_EVIDENCE_NOT_CONFIRMATORY",
+    "treatment_mean_rrt": 37.0
+  },
+  "sample_size_lesson": "A 20-pair pilot produced an unstable variance estimate relative to the confirmatory paired-difference dispersion. Future protocols should not rely on a normal approximation from a small pilot unless a bootstrap or simulation-based procedure confirms stability. This lesson is local to this environment and is not a general theorem.",
+  "status": "POST_CONFIRMATORY_DIAGNOSTIC",
+  "variance_ratio_confirmatory_over_pilot": 1.7202583266956992
+}

@@ -1,0 +1,252 @@
+{
+  "frozen_contrasts": [
+    {
+      "administrative": 0,
+      "method": "edge_only",
+      "n": 97,
+      "n_censored": 0,
+      "non_administrative": 0,
+      "proportion_censored": 0.0,
+      "rho": 0.0,
+      "role": "CONFIRMATORY INPUT"
+    },
+    {
+      "administrative": 0,
+      "method": "hierarchical",
+      "n": 97,
+      "n_censored": 0,
+      "non_administrative": 0,
+      "proportion_censored": 0.0,
+      "rho": 0.0,
+      "role": "CONFIRMATORY INPUT"
+    },
+    {
+      "administrative": 0,
+      "method": "edge_only",
+      "n": 97,
+      "n_censored": 0,
+      "non_administrative": 0,
+      "proportion_censored": 0.0,
+      "rho": 0.5,
+      "role": "CONFIRMATORY INPUT"
+    },
+    {
+      "administrative": 1,
+      "method": "hierarchical",
+      "n": 97,
+      "n_censored": 1,
+      "non_administrative": 0,
+      "proportion_censored": 0.010309278350515464,
+      "rho": 0.5,
+      "role": "CONFIRMATORY INPUT"
+    }
+  ],
+  "limitation": "Restricted recovery time is a thresholded, right-censored functional. It is the frozen primary outcome and is not replaced here. Sensitivity statements about tau are diagnostic only.",
+  "non_administrative_total": 0,
+  "primary_censoring_gap_hierarchical_minus_edge": 0.010309278350515464,
+  "rows": [
+    {
+      "administrative": 0,
+      "method": "edge_only",
+      "n": 97,
+      "n_censored": 0,
+      "non_administrative": 0,
+      "proportion_censored": 0.0,
+      "rho": 0.0,
+      "role": "CONFIRMATORY INPUT"
+    },
+    {
+      "administrative": 0,
+      "method": "hierarchical",
+      "n": 97,
+      "n_censored": 0,
+      "non_administrative": 0,
+      "proportion_censored": 0.0,
+      "rho": 0.0,
+      "role": "CONFIRMATORY INPUT"
+    },
+    {
+      "administrative": 0,
+      "method": "node_only",
+      "n": 97,
+      "n_censored": 0,
+      "non_administrative": 0,
+      "proportion_censored": 0.0,
+      "rho": 0.0,
+      "role": "DIAGNOSTIC"
+    },
+    {
+      "administrative": 3,
+      "method": "structured_sw_ucb",
+      "n": 97,
+      "n_censored": 3,
+      "non_administrative": 0,
+      "proportion_censored": 0.030927835051546393,
+      "rho": 0.0,
+      "role": "DIAGNOSTIC"
+    },
+    {
+      "administrative": 0,
+      "method": "edge_only",
+      "n": 97,
+      "n_censored": 0,
+      "non_administrative": 0,
+      "proportion_censored": 0.0,
+      "rho": 0.25,
+      "role": "DIAGNOSTIC"
+    },
+    {
+      "administrative": 0,
+      "method": "hierarchical",
+      "n": 97,
+      "n_censored": 0,
+      "non_administrative": 0,
+      "proportion_censored": 0.0,
+      "rho": 0.25,
+      "role": "DIAGNOSTIC"
+    },
+    {
+      "administrative": 2,
+      "method": "node_only",
+      "n": 97,
+      "n_censored": 2,
+      "non_administrative": 0,
+      "proportion_censored": 0.020618556701030927,
+      "rho": 0.25,
+      "role": "DIAGNOSTIC"
+    },
+    {
+      "administrative": 22,
+      "method": "structured_sw_ucb",
+      "n": 97,
+      "n_censored": 22,
+      "non_administrative": 0,
+      "proportion_censored": 0.2268041237113402,
+      "rho": 0.25,
+      "role": "DIAGNOSTIC"
+    },
+    {
+      "administrative": 0,
+      "method": "edge_only",
+      "n": 97,
+      "n_censored": 0,
+      "non_administrative": 0,
+      "proportion_censored": 0.0,
+      "rho": 0.5,
+      "role": "CONFIRMATORY INPUT"
+    },
+    {
+      "administrative": 1,
+      "method": "hierarchical",
+      "n": 97,
+      "n_censored": 1,
+      "non_administrative": 0,
+      "proportion_censored": 0.010309278350515464,
+      "rho": 0.5,
+      "role": "CONFIRMATORY INPUT"
+    },
+    {
+      "administrative": 3,
+      "method": "node_only",
+      "n": 97,
+      "n_censored": 3,
+      "non_administrative": 0,
+      "proportion_censored": 0.030927835051546393,
+      "rho": 0.5,
+      "role": "DIAGNOSTIC"
+    },
+    {
+      "administrative": 17,
+      "method": "structured_sw_ucb",
+      "n": 97,
+      "n_censored": 17,
+      "non_administrative": 0,
+      "proportion_censored": 0.17525773195876287,
+      "rho": 0.5,
+      "role": "DIAGNOSTIC"
+    },
+    {
+      "administrative": 0,
+      "method": "edge_only",
+      "n": 97,
+      "n_censored": 0,
+      "non_administrative": 0,
+      "proportion_censored": 0.0,
+      "rho": 0.75,
+      "role": "DIAGNOSTIC"
+    },
+    {
+      "administrative": 3,
+      "method": "hierarchical",
+      "n": 97,
+      "n_censored": 3,
+      "non_administrative": 0,
+      "proportion_censored": 0.030927835051546393,
+      "rho": 0.75,
+      "role": "DIAGNOSTIC"
+    },
+    {
+      "administrative": 7,
+      "method": "node_only",
+      "n": 97,
+      "n_censored": 7,
+      "non_administrative": 0,
+      "proportion_censored": 0.07216494845360824,
+      "rho": 0.75,
+      "role": "DIAGNOSTIC"
+    },
+    {
+      "administrative": 7,
+      "method": "structured_sw_ucb",
+      "n": 97,
+      "n_censored": 7,
+      "non_administrative": 0,
+      "proportion_censored": 0.07216494845360824,
+      "rho": 0.75,
+      "role": "DIAGNOSTIC"
+    },
+    {
+      "administrative": 0,
+      "method": "edge_only",
+      "n": 97,
+      "n_censored": 0,
+      "non_administrative": 0,
+      "proportion_censored": 0.0,
+      "rho": 1.0,
+      "role": "DIAGNOSTIC"
+    },
+    {
+      "administrative": 0,
+      "method": "hierarchical",
+      "n": 97,
+      "n_censored": 0,
+      "non_administrative": 0,
+      "proportion_censored": 0.0,
+      "rho": 1.0,
+      "role": "DIAGNOSTIC"
+    },
+    {
+      "administrative": 0,
+      "method": "node_only",
+      "n": 97,
+      "n_censored": 0,
+      "non_administrative": 0,
+      "proportion_censored": 0.0,
+      "rho": 1.0,
+      "role": "DIAGNOSTIC"
+    },
+    {
+      "administrative": 7,
+      "method": "structured_sw_ucb",
+      "n": 97,
+      "n_censored": 7,
+      "non_administrative": 0,
+      "proportion_censored": 0.07216494845360824,
+      "rho": 1.0,
+      "role": "DIAGNOSTIC"
+    }
+  ],
+  "rule": "Administrative censoring is restriction at tau. Any other censoring is non-administrative.",
+  "status": "POST_CONFIRMATORY_DIAGNOSTIC",
+  "tau": 300
+}

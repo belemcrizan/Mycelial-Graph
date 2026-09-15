@@ -1,9 +1,9 @@
-# Research debt (priority over engineering debt)
+# Research debt
 
 ## P0
 
-- **V1 confirmatory evidence still does not exist.** Pilot completed 2026-09-15; N=97 recorded; confirmatory not run.
-- Optional simulation-based power was not added.
+- **Paper A is prepared but not submitted.** OpenReview login is a human boundary.
+- Optional simulation-based power was not added to V1 (historical; do not rewrite N).
 
 ## P1
 
@@ -11,6 +11,7 @@
 - $\rho^*$ not predicted for the RRT estimand.
 - Adaptive pooling not yet run against Mycelial on a frozen shared protocol with the V1 observation contract.
 - Strong non-stationary bandit baselines not in V1 (correctly; they need MG-EXP-POOLING / V1.5).
+- Equalization audit exists only as a Paper A triage (EQ-B), not as a freeze-gate product.
 
 ## P2
 

@@ -1,0 +1,134 @@
+{
+  "any_rho_where_hierarchical_mean_rrt_is_better": true,
+  "grid": "frozen confirmatory rho grid; no new protected population was used",
+  "interpretation": "A mean RRT advantage at rho=1, if present, is a construct/dynamic-range check, not a confirmatory finding. Failure to see a clear sharing advantage even at rho=1 is compatible with implementation weakness, sharing-mechanism weakness, or insufficient environmental dynamic range; this diagnostic cannot separate those three explanations.",
+  "not_done": [
+    "factorial variation of K_edge/K_node",
+    "shared vs idiosyncratic shock magnitude factorization beyond rho",
+    "noise-scale sweep",
+    "structural-compression sweep",
+    "equalized effective-policy-scale controls"
+  ],
+  "reason_not_done": "Those sweeps would start a V1.5-scale programme. Paper A uses the already-frozen rho grid, including the pre-specified rho=1 diagnostic cell.",
+  "rho1_detectable_sharing_advantage_on_frozen_one_sided_rule": false,
+  "rows": [
+    {
+      "hierarchical_faster_on_rrt": false,
+      "hierarchical_lower_regret": false,
+      "regret_relative": {
+        "bootstrap_tail_probability": 1.0,
+        "confidence_high": 1.1478987546747679,
+        "confidence_low": 0.7985861469040756,
+        "estimate": 0.958838425206882,
+        "one_sided_upper_bound": 1.1150538882024519,
+        "samples": 10000
+      },
+      "rho": 0.0,
+      "role": "SAFETY GATE",
+      "rrt_regret_agree_on_sign": true,
+      "rrt_relative": {
+        "bootstrap_tail_probability": 0.5734426557344265,
+        "confidence_high": 0.19528174263329856,
+        "confidence_low": -0.13821151194578982,
+        "estimate": 0.015186915887850412,
+        "one_sided_upper_bound": 0.16307231714628298,
+        "samples": 10000
+      }
+    },
+    {
+      "hierarchical_faster_on_rrt": false,
+      "hierarchical_lower_regret": false,
+      "regret_relative": {
+        "bootstrap_tail_probability": 1.0,
+        "confidence_high": 1.2838197342822855,
+        "confidence_low": 0.8827235297495655,
+        "estimate": 1.064406315050529,
+        "one_sided_upper_bound": 1.24526697003589,
+        "samples": 10000
+      },
+      "rho": 0.25,
+      "role": "EXPLORATORY",
+      "rrt_regret_agree_on_sign": true,
+      "rrt_relative": {
+        "bootstrap_tail_probability": 1.0,
+        "confidence_high": 1.0666811003565968,
+        "confidence_low": 0.37504918519537017,
+        "estimate": 0.68272921108742,
+        "one_sided_upper_bound": 0.9944152884014826,
+        "samples": 10000
+      }
+    },
+    {
+      "hierarchical_faster_on_rrt": false,
+      "hierarchical_lower_regret": false,
+      "regret_relative": {
+        "bootstrap_tail_probability": 1.0,
+        "confidence_high": 1.067905328419675,
+        "confidence_low": 0.7660059213134771,
+        "estimate": 0.906646213019272,
+        "one_sided_upper_bound": 1.039594150990187,
+        "samples": 10000
+      },
+      "rho": 0.5,
+      "role": "PRIMARY",
+      "rrt_regret_agree_on_sign": true,
+      "rrt_relative": {
+        "bootstrap_tail_probability": 0.9977002299770023,
+        "confidence_high": 0.7908796754419934,
+        "confidence_low": 0.11898691106330427,
+        "estimate": 0.42112797022616655,
+        "one_sided_upper_bound": 0.7213788509020655,
+        "samples": 10000
+      }
+    },
+    {
+      "hierarchical_faster_on_rrt": false,
+      "hierarchical_lower_regret": false,
+      "regret_relative": {
+        "bootstrap_tail_probability": 1.0,
+        "confidence_high": 0.8893581373872461,
+        "confidence_low": 0.6010110238163899,
+        "estimate": 0.734815207224918,
+        "one_sided_upper_bound": 0.8630383228739026,
+        "samples": 10000
+      },
+      "rho": 0.75,
+      "role": "EXPLORATORY",
+      "rrt_regret_agree_on_sign": true,
+      "rrt_relative": {
+        "bootstrap_tail_probability": 0.9998000199980002,
+        "confidence_high": 0.839055919285235,
+        "confidence_low": 0.2183000795488445,
+        "estimate": 0.5100430416068867,
+        "one_sided_upper_bound": 0.7857514292531612,
+        "samples": 10000
+      }
+    },
+    {
+      "hierarchical_faster_on_rrt": true,
+      "hierarchical_lower_regret": false,
+      "regret_relative": {
+        "bootstrap_tail_probability": 1.0,
+        "confidence_high": 0.9877646579960464,
+        "confidence_low": 0.6420288880806247,
+        "estimate": 0.7988038979267692,
+        "one_sided_upper_bound": 0.9544913675999871,
+        "samples": 10000
+      },
+      "rho": 1.0,
+      "role": "DIAGNOSTIC",
+      "rrt_regret_agree_on_sign": false,
+      "rrt_relative": {
+        "bootstrap_tail_probability": 0.2086791320867913,
+        "confidence_high": 0.14624007653859783,
+        "confidence_low": -0.27047322249090544,
+        "estimate": -0.08878787878787879,
+        "one_sided_upper_bound": 0.10245568492729393,
+        "samples": 10000
+      }
+    }
+  ],
+  "rrt_regret_sign_disagreement_count": 1,
+  "rule": "diagnostic may explain REFUTED; it may never overwrite REFUTED",
+  "status": "POST_CONFIRMATORY_DIAGNOSTIC"
+}

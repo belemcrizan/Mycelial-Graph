@@ -1,8 +1,9 @@
 # Engineering debt
 
-Do not burn cycles here while P0 confirmatory evidence is missing.
+Do not burn cycles here while Paper A remains unsubmitted.
 
 - CLI unification of leftover V0 `docs/QUICKSTART.md` freeze language versus V1 CLI.
-- `__version__` mismatch between `src/mycelial_graph/__init__.py` (0.2.0) and `pyproject.toml` (0.2.2).
 - Packaging, dashboards, Kubernetes, extra databases: **not justified**.
 - Live HTTP collector client: intentionally unimplemented.
+- Original confirmatory wall-clock was not stored in `manifest.json`; CPU-hours were measured from per-trial `decision_cpu_seconds` (0.122).
+- `__version__` is aligned to `pyproject.toml` (0.2.2). Line endings are normalized with `.gitattributes` (`eol=lf`).
