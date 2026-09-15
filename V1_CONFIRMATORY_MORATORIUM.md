@@ -106,6 +106,14 @@ for it. In particular:
   refutation is one empirical data point in one environment, not a proof either way.
 - `external/` still contains no external evidence.
 
+## Paper A submission gate
+
+The V1 confirmatory terminal state is satisfied. A separate gate now applies to
+research expansion: **Paper A submitted**. Until an OpenReview receipt exists, do not
+start V1.5 implementation, equalization productization, Paper B packaging, or
+harness/benchmark work. Manuscript, diagnostics, reproduction, and anonymization
+work remain in scope. See `paper/SUBMISSION.md`.
+
 ## Related artifacts
 
 - [`CONFIRMATORY_READINESS_REPORT.md`](CONFIRMATORY_READINESS_REPORT.md) — audit and decision.

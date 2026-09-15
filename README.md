@@ -7,6 +7,15 @@
 > [Honest status](#honest-status). A refutation is a legitimate scientific outcome and is reported
 > here without reframing.
 
+**Paper A.** A TMLR-formatted manuscript of this frozen result is in
+[`paper/tmlr/paper.tex`](paper/tmlr/paper.tex). Current TMLR policy was verified 2026-09-15
+(double-blind, mandatory stylefile, anonymized supplementary ZIP, preprints allowed if not
+linked from the submission). The paper is **not yet submitted**; OpenReview login is a human
+boundary. See [`paper/SUBMISSION.md`](paper/SUBMISSION.md). A post-confirmatory equalization
+triage classified the comparison as **EQ-B** (material effective-policy mismatch, result still
+interpretable): disclose prominently, do not overwrite `REFUTED`. Until Paper A is submitted,
+V1.5 / routing-product work remains out of scope.
+
 V2.0-alpha is an **additive** scientific layer. It does not replace V1. The V1 question, protocol, CLI, and confirmatory lock remain in force. See [V2 implementation plan](docs/V2_IMPLEMENTATION_PLAN.md) and `mycelial-graph v2-demo`.
 
 Mycelial Graph studies a practical question: **can an AI execution system recover from a local disruption without relearning everything?**
@@ -43,25 +52,34 @@ Local observations -> adaptive state -> next route
 
 The critical comparison is not “adaptive versus nothing.” It asks whether sharing state through nodes accelerates recovery when a disruption is genuinely shared, without causing unacceptable negative transfer when it is edge-specific.
 
-## Quick start - Windows PowerShell
+## Quick start (Linux / macOS first)
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.lock.txt
+python -m pip install -e .
+python reproduce_confirmatory.py
+```
+
+Windows PowerShell:
 
 ```powershell
 python -m venv .venv
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
 & .\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.lock.txt
 python -m pip install -e .
-mycelial-graph validate --config experiments/v1/config.development.yaml
+python reproduce_confirmatory.py
+```
+
+`python reproduce_confirmatory.py` verifies sealed hashes and, if local raw trials exist, recomputes the frozen primary contrast. Full re-execution: `python reproduce_confirmatory.py --full`. Measured decision CPU of the sealed confirmatory run: **0.122 CPU-hours**.
+
+The demo remains a development-only path:
+
+```bash
 mycelial-graph demo
 ```
-
-If you prefer not to activate the environment:
-
-```powershell
-.\.venv\Scripts\python.exe -m pip install -e .
-.\.venv\Scripts\mycelial-graph.exe demo
-```
-
-The demo writes raw paired trials, processed statistics, figures, a manifest, and `REPORT.md` under `outputs/demo/`. It is explicitly development-only evidence.
 
 ## Scientific workflow
 
@@ -180,6 +198,7 @@ python scripts/audit_v1_readiness.py
 
 ## Read next
 
+- [Paper A manuscript](paper/tmlr/paper.tex) - TMLR-formatted report of the frozen V1 result (not yet submitted).
 - [Getting Started](docs/GETTING_STARTED.md) - step-by-step instructions for non-specialists.
 - [Architecture](docs/ARCHITECTURE.md) - system boundaries and data flow.
 - [Frozen Experiment Protocol](experiments/v1/EXPERIMENT_PROTOCOL_V1.md) - hypotheses and immutable rules.

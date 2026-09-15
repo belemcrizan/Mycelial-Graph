@@ -35,6 +35,14 @@ Pilot artifact hashes (see `experiments/v1/artifacts/`):
 - Confirmatory execution: **not performed**
 - Method hyperparameters after pilot: **unchanged** (no tuning)
 
+## Post-execution note (does not change N)
+
+On 2026-09-15 the confirmatory experiment was executed on these 97 seeds and sealed
+as `REFUTED`. This addendum's N, formula, and "no tuning" record remain the
+historical sample-size decision. They are not rewritten from confirmatory variance.
+A post-confirmatory diagnostic found the confirmatory paired-difference SD to be
+$1.72\times$ the pilot SD; that diagnostic is not a license to change $N$ after the fact.
+
 ## Pilot diagnostics (not confirmatory; not a promotion)
 
 These numbers are recorded so negative and inconclusive directions are not hidden. They must not be used to retune V1 or to claim a confirmatory effect.

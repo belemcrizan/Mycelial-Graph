@@ -13,7 +13,21 @@ The final report answers:
 3. How much expected utility did it lose after the disruption?
 4. Did the hierarchical representation appear helpful in this development run?
 
-The last answer is diagnostic only until the confirmatory protocol is executed.
+The last answer is diagnostic only. The frozen confirmatory experiment has been executed
+and is `REFUTED`; do not read a demo as confirmatory evidence.
+
+## Linux or macOS
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.lock.txt
+python -m pip install -e .
+python -m unittest discover -s tests -v
+python reproduce_confirmatory.py
+mycelial-graph demo
+```
 
 ## Windows PowerShell
 
@@ -24,23 +38,14 @@ python -m venv .venv
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
 & .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
+python -m pip install -r requirements.lock.txt
 python -m pip install -e .
 python -m unittest discover -s tests -v
+python reproduce_confirmatory.py
 mycelial-graph demo
 ```
 
 PowerShell does not use `source .venv/bin/activate`; that command is for Bash on Linux and macOS.
-
-## Linux or macOS
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install -e .
-python -m unittest discover -s tests -v
-mycelial-graph demo
-```
 
 ## Understanding the output
 

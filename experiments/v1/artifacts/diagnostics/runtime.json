@@ -1,0 +1,9 @@
+{
+  "cpu_hours": 0.12155381944444445,
+  "cpu_seconds_mean": 0.22556378865979382,
+  "cpu_seconds_sum": 437.59375,
+  "n_trials": 1940,
+  "note": "CPU-hours are the sum of per-trial decision_cpu_seconds recorded in confirmatory raw payloads. Wall-clock of the original run was not stored in manifest.json; the runbook measurement of about 11 minutes serial is a separate machine-specific observation and is not re-used here unless re-measured.",
+  "status": "MEASURED",
+  "wall_clock_original_run": "NOT_IN_MANIFEST"
+}

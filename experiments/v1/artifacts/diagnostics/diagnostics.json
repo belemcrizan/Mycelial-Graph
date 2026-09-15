@@ -1,0 +1,948 @@
+{
+  "censoring": {
+    "frozen_contrasts": [
+      {
+        "administrative": 0,
+        "method": "edge_only",
+        "n": 97,
+        "n_censored": 0,
+        "non_administrative": 0,
+        "proportion_censored": 0.0,
+        "rho": 0.0,
+        "role": "CONFIRMATORY INPUT"
+      },
+      {
+        "administrative": 0,
+        "method": "hierarchical",
+        "n": 97,
+        "n_censored": 0,
+        "non_administrative": 0,
+        "proportion_censored": 0.0,
+        "rho": 0.0,
+        "role": "CONFIRMATORY INPUT"
+      },
+      {
+        "administrative": 0,
+        "method": "edge_only",
+        "n": 97,
+        "n_censored": 0,
+        "non_administrative": 0,
+        "proportion_censored": 0.0,
+        "rho": 0.5,
+        "role": "CONFIRMATORY INPUT"
+      },
+      {
+        "administrative": 1,
+        "method": "hierarchical",
+        "n": 97,
+        "n_censored": 1,
+        "non_administrative": 0,
+        "proportion_censored": 0.010309278350515464,
+        "rho": 0.5,
+        "role": "CONFIRMATORY INPUT"
+      }
+    ],
+    "limitation": "Restricted recovery time is a thresholded, right-censored functional. It is the frozen primary outcome and is not replaced here. Sensitivity statements about tau are diagnostic only.",
+    "non_administrative_total": 0,
+    "primary_censoring_gap_hierarchical_minus_edge": 0.010309278350515464,
+    "rows": [
+      {
+        "administrative": 0,
+        "method": "edge_only",
+        "n": 97,
+        "n_censored": 0,
+        "non_administrative": 0,
+        "proportion_censored": 0.0,
+        "rho": 0.0,
+        "role": "CONFIRMATORY INPUT"
+      },
+      {
+        "administrative": 0,
+        "method": "hierarchical",
+        "n": 97,
+        "n_censored": 0,
+        "non_administrative": 0,
+        "proportion_censored": 0.0,
+        "rho": 0.0,
+        "role": "CONFIRMATORY INPUT"
+      },
+      {
+        "administrative": 0,
+        "method": "node_only",
+        "n": 97,
+        "n_censored": 0,
+        "non_administrative": 0,
+        "proportion_censored": 0.0,
+        "rho": 0.0,
+        "role": "DIAGNOSTIC"
+      },
+      {
+        "administrative": 3,
+        "method": "structured_sw_ucb",
+        "n": 97,
+        "n_censored": 3,
+        "non_administrative": 0,
+        "proportion_censored": 0.030927835051546393,
+        "rho": 0.0,
+        "role": "DIAGNOSTIC"
+      },
+      {
+        "administrative": 0,
+        "method": "edge_only",
+        "n": 97,
+        "n_censored": 0,
+        "non_administrative": 0,
+        "proportion_censored": 0.0,
+        "rho": 0.25,
+        "role": "DIAGNOSTIC"
+      },
+      {
+        "administrative": 0,
+        "method": "hierarchical",
+        "n": 97,
+        "n_censored": 0,
+        "non_administrative": 0,
+        "proportion_censored": 0.0,
+        "rho": 0.25,
+        "role": "DIAGNOSTIC"
+      },
+      {
+        "administrative": 2,
+        "method": "node_only",
+        "n": 97,
+        "n_censored": 2,
+        "non_administrative": 0,
+        "proportion_censored": 0.020618556701030927,
+        "rho": 0.25,
+        "role": "DIAGNOSTIC"
+      },
+      {
+        "administrative": 22,
+        "method": "structured_sw_ucb",
+        "n": 97,
+        "n_censored": 22,
+        "non_administrative": 0,
+        "proportion_censored": 0.2268041237113402,
+        "rho": 0.25,
+        "role": "DIAGNOSTIC"
+      },
+      {
+        "administrative": 0,
+        "method": "edge_only",
+        "n": 97,
+        "n_censored": 0,
+        "non_administrative": 0,
+        "proportion_censored": 0.0,
+        "rho": 0.5,
+        "role": "CONFIRMATORY INPUT"
+      },
+      {
+        "administrative": 1,
+        "method": "hierarchical",
+        "n": 97,
+        "n_censored": 1,
+        "non_administrative": 0,
+        "proportion_censored": 0.010309278350515464,
+        "rho": 0.5,
+        "role": "CONFIRMATORY INPUT"
+      },
+      {
+        "administrative": 3,
+        "method": "node_only",
+        "n": 97,
+        "n_censored": 3,
+        "non_administrative": 0,
+        "proportion_censored": 0.030927835051546393,
+        "rho": 0.5,
+        "role": "DIAGNOSTIC"
+      },
+      {
+        "administrative": 17,
+        "method": "structured_sw_ucb",
+        "n": 97,
+        "n_censored": 17,
+        "non_administrative": 0,
+        "proportion_censored": 0.17525773195876287,
+        "rho": 0.5,
+        "role": "DIAGNOSTIC"
+      },
+      {
+        "administrative": 0,
+        "method": "edge_only",
+        "n": 97,
+        "n_censored": 0,
+        "non_administrative": 0,
+        "proportion_censored": 0.0,
+        "rho": 0.75,
+        "role": "DIAGNOSTIC"
+      },
+      {
+        "administrative": 3,
+        "method": "hierarchical",
+        "n": 97,
+        "n_censored": 3,
+        "non_administrative": 0,
+        "proportion_censored": 0.030927835051546393,
+        "rho": 0.75,
+        "role": "DIAGNOSTIC"
+      },
+      {
+        "administrative": 7,
+        "method": "node_only",
+        "n": 97,
+        "n_censored": 7,
+        "non_administrative": 0,
+        "proportion_censored": 0.07216494845360824,
+        "rho": 0.75,
+        "role": "DIAGNOSTIC"
+      },
+      {
+        "administrative": 7,
+        "method": "structured_sw_ucb",
+        "n": 97,
+        "n_censored": 7,
+        "non_administrative": 0,
+        "proportion_censored": 0.07216494845360824,
+        "rho": 0.75,
+        "role": "DIAGNOSTIC"
+      },
+      {
+        "administrative": 0,
+        "method": "edge_only",
+        "n": 97,
+        "n_censored": 0,
+        "non_administrative": 0,
+        "proportion_censored": 0.0,
+        "rho": 1.0,
+        "role": "DIAGNOSTIC"
+      },
+      {
+        "administrative": 0,
+        "method": "hierarchical",
+        "n": 97,
+        "n_censored": 0,
+        "non_administrative": 0,
+        "proportion_censored": 0.0,
+        "rho": 1.0,
+        "role": "DIAGNOSTIC"
+      },
+      {
+        "administrative": 0,
+        "method": "node_only",
+        "n": 97,
+        "n_censored": 0,
+        "non_administrative": 0,
+        "proportion_censored": 0.0,
+        "rho": 1.0,
+        "role": "DIAGNOSTIC"
+      },
+      {
+        "administrative": 7,
+        "method": "structured_sw_ucb",
+        "n": 97,
+        "n_censored": 7,
+        "non_administrative": 0,
+        "proportion_censored": 0.07216494845360824,
+        "rho": 1.0,
+        "role": "DIAGNOSTIC"
+      }
+    ],
+    "rule": "Administrative censoring is restriction at tau. Any other censoring is non-administrative.",
+    "status": "POST_CONFIRMATORY_DIAGNOSTIC",
+    "tau": 300
+  },
+  "confirmatory_raw": "C:\\Users\\belem\\OneDrive\\Área de Trabalho\\123\\Mycelial-Graph\\outputs\\confirmatory",
+  "dynamic_range": {
+    "any_rho_where_hierarchical_mean_rrt_is_better": true,
+    "grid": "frozen confirmatory rho grid; no new protected population was used",
+    "interpretation": "A mean RRT advantage at rho=1, if present, is a construct/dynamic-range check, not a confirmatory finding. Failure to see a clear sharing advantage even at rho=1 is compatible with implementation weakness, sharing-mechanism weakness, or insufficient environmental dynamic range; this diagnostic cannot separate those three explanations.",
+    "not_done": [
+      "factorial variation of K_edge/K_node",
+      "shared vs idiosyncratic shock magnitude factorization beyond rho",
+      "noise-scale sweep",
+      "structural-compression sweep",
+      "equalized effective-policy-scale controls"
+    ],
+    "reason_not_done": "Those sweeps would start a V1.5-scale programme. Paper A uses the already-frozen rho grid, including the pre-specified rho=1 diagnostic cell.",
+    "rho1_detectable_sharing_advantage_on_frozen_one_sided_rule": false,
+    "rows": [
+      {
+        "hierarchical_faster_on_rrt": false,
+        "hierarchical_lower_regret": false,
+        "regret_relative": {
+          "bootstrap_tail_probability": 1.0,
+          "confidence_high": 1.1478987546747679,
+          "confidence_low": 0.7985861469040756,
+          "estimate": 0.958838425206882,
+          "one_sided_upper_bound": 1.1150538882024519,
+          "samples": 10000
+        },
+        "rho": 0.0,
+        "role": "SAFETY GATE",
+        "rrt_regret_agree_on_sign": true,
+        "rrt_relative": {
+          "bootstrap_tail_probability": 0.5734426557344265,
+          "confidence_high": 0.19528174263329856,
+          "confidence_low": -0.13821151194578982,
+          "estimate": 0.015186915887850412,
+          "one_sided_upper_bound": 0.16307231714628298,
+          "samples": 10000
+        }
+      },
+      {
+        "hierarchical_faster_on_rrt": false,
+        "hierarchical_lower_regret": false,
+        "regret_relative": {
+          "bootstrap_tail_probability": 1.0,
+          "confidence_high": 1.2838197342822855,
+          "confidence_low": 0.8827235297495655,
+          "estimate": 1.064406315050529,
+          "one_sided_upper_bound": 1.24526697003589,
+          "samples": 10000
+        },
+        "rho": 0.25,
+        "role": "EXPLORATORY",
+        "rrt_regret_agree_on_sign": true,
+        "rrt_relative": {
+          "bootstrap_tail_probability": 1.0,
+          "confidence_high": 1.0666811003565968,
+          "confidence_low": 0.37504918519537017,
+          "estimate": 0.68272921108742,
+          "one_sided_upper_bound": 0.9944152884014826,
+          "samples": 10000
+        }
+      },
+      {
+        "hierarchical_faster_on_rrt": false,
+        "hierarchical_lower_regret": false,
+        "regret_relative": {
+          "bootstrap_tail_probability": 1.0,
+          "confidence_high": 1.067905328419675,
+          "confidence_low": 0.7660059213134771,
+          "estimate": 0.906646213019272,
+          "one_sided_upper_bound": 1.039594150990187,
+          "samples": 10000
+        },
+        "rho": 0.5,
+        "role": "PRIMARY",
+        "rrt_regret_agree_on_sign": true,
+        "rrt_relative": {
+          "bootstrap_tail_probability": 0.9977002299770023,
+          "confidence_high": 0.7908796754419934,
+          "confidence_low": 0.11898691106330427,
+          "estimate": 0.42112797022616655,
+          "one_sided_upper_bound": 0.7213788509020655,
+          "samples": 10000
+        }
+      },
+      {
+        "hierarchical_faster_on_rrt": false,
+        "hierarchical_lower_regret": false,
+        "regret_relative": {
+          "bootstrap_tail_probability": 1.0,
+          "confidence_high": 0.8893581373872461,
+          "confidence_low": 0.6010110238163899,
+          "estimate": 0.734815207224918,
+          "one_sided_upper_bound": 0.8630383228739026,
+          "samples": 10000
+        },
+        "rho": 0.75,
+        "role": "EXPLORATORY",
+        "rrt_regret_agree_on_sign": true,
+        "rrt_relative": {
+          "bootstrap_tail_probability": 0.9998000199980002,
+          "confidence_high": 0.839055919285235,
+          "confidence_low": 0.2183000795488445,
+          "estimate": 0.5100430416068867,
+          "one_sided_upper_bound": 0.7857514292531612,
+          "samples": 10000
+        }
+      },
+      {
+        "hierarchical_faster_on_rrt": true,
+        "hierarchical_lower_regret": false,
+        "regret_relative": {
+          "bootstrap_tail_probability": 1.0,
+          "confidence_high": 0.9877646579960464,
+          "confidence_low": 0.6420288880806247,
+          "estimate": 0.7988038979267692,
+          "one_sided_upper_bound": 0.9544913675999871,
+          "samples": 10000
+        },
+        "rho": 1.0,
+        "role": "DIAGNOSTIC",
+        "rrt_regret_agree_on_sign": false,
+        "rrt_relative": {
+          "bootstrap_tail_probability": 0.2086791320867913,
+          "confidence_high": 0.14624007653859783,
+          "confidence_low": -0.27047322249090544,
+          "estimate": -0.08878787878787879,
+          "one_sided_upper_bound": 0.10245568492729393,
+          "samples": 10000
+        }
+      }
+    ],
+    "rrt_regret_sign_disagreement_count": 1,
+    "rule": "diagnostic may explain REFUTED; it may never overwrite REFUTED",
+    "status": "POST_CONFIRMATORY_DIAGNOSTIC"
+  },
+  "equalization": {
+    "classification": "EQ-B",
+    "compared_methods": [
+      "edge_only",
+      "hierarchical"
+    ],
+    "known_implementation_differences": [
+      "edge-only uses clipped conductance and learning_rate",
+      "hierarchical uses unbounded additive scores, node_learning_rate, interaction_learning_rate, shrinkage, and sum-to-zero projection"
+    ],
+    "manuscript_action": "revise claims -> disclose prominently -> submit",
+    "missing_traces": 0,
+    "principle": "Parameter parity is not policy parity.",
+    "reasons": [
+      "warm-up path-entropy fraction edge=0.629 hierarchical=0.969 gap=0.341",
+      "optimal-pre-path rate gap=0.094",
+      "exploration-step rate gap=0.003",
+      "selected-score std ratio=12.080",
+      "Realized action distributions differ enough to limit mechanistic interpretation, but both arms remain in a comparable non-degenerate exploration regime. The frozen REFUTED outcome stands as a comparison of the implemented methods, not as proof that representation was isolated."
+    ],
+    "shared_nominal_parameters": {
+      "exploration_probability": 0.08,
+      "feedback_contract": "local traversed-edge rewards only",
+      "temperature": 0.2
+    },
+    "status": "POST_CONFIRMATORY_DIAGNOSTIC",
+    "summaries": [
+      {
+        "effective_temperature_proxy": {
+          "mean": 0.3698183875275282,
+          "sd": 0.10521891323276214
+        },
+        "exploration_step_rate": {
+          "mean": 0.21726804123711335,
+          "sd": 0.029633355173378784
+        },
+        "herfindahl": {
+          "mean": 0.2624855670103093,
+          "sd": 0.10343035095102517
+        },
+        "layer_conditional_entropy_mean": [
+          0.5768348111785888,
+          1.2961743742847758,
+          1.6305845835603041,
+          0.9163166547910276
+        ],
+        "max_path_probability": {
+          "mean": 0.4625773195876288,
+          "sd": 0.12926900529609
+        },
+        "method": "edge_only",
+        "n_trials": 97,
+        "optimal_pre_path_rate": {
+          "mean": 0.1479381443298969,
+          "sd": 0.2202717930210023
+        },
+        "path_entropy": {
+          "mean": 2.0769757906648256,
+          "sd": 0.34678437323344813
+        },
+        "path_entropy_fraction_of_max": {
+          "mean": 0.6301816124724717,
+          "sd": 0.10521891323276213
+        },
+        "phase": "pre-shock warm-up",
+        "rho": 0.0,
+        "selected_score_max": {
+          "mean": 1.9695282542693782,
+          "sd": 0.03589718218259782
+        },
+        "selected_score_mean": {
+          "mean": 1.1619085851077247,
+          "sd": 0.1418268627448343
+        },
+        "selected_score_min": {
+          "mean": 0.4980505113586802,
+          "sd": 0.0043143013995414455
+        },
+        "selected_score_std": {
+          "mean": 0.5154291773540032,
+          "sd": 0.06489893503012319
+        },
+        "steps": 200,
+        "unique_paths": {
+          "mean": 22.948453608247423,
+          "sd": 2.3020422727286207
+        }
+      },
+      {
+        "effective_temperature_proxy": {
+          "mean": 0.030105539916852386,
+          "sd": 0.009486749173705247
+        },
+        "exploration_step_rate": {
+          "mean": 0.2242268041237113,
+          "sd": 0.030106929280842472
+        },
+        "herfindahl": {
+          "mean": 0.044277835051546394,
+          "sd": 0.002333094880734299
+        },
+        "layer_conditional_entropy_mean": [
+          1.0841109799124227,
+          2.155139663540752,
+          2.1583639297269057,
+          1.088243400013208
+        ],
+        "max_path_probability": {
+          "mean": 0.07530927835051546,
+          "sd": 0.010964298906700051
+        },
+        "method": "hierarchical",
+        "n_trials": 97,
+        "optimal_pre_path_rate": {
+          "mean": 0.045309278350515465,
+          "sd": 0.017526979693664582
+        },
+        "path_entropy": {
+          "mean": 3.196613917675402,
+          "sd": 0.031266777665233884
+        },
+        "path_entropy_fraction_of_max": {
+          "mean": 0.9698944600831477,
+          "sd": 0.009486749173705247
+        },
+        "phase": "pre-shock warm-up",
+        "rho": 0.0,
+        "selected_score_max": {
+          "mean": 0.6530545637780586,
+          "sd": 0.017275061974806608
+        },
+        "selected_score_mean": {
+          "mean": 0.5487871741166064,
+          "sd": 0.004496586782592358
+        },
+        "selected_score_min": {
+          "mean": 0.42729725717685907,
+          "sd": 0.014674137811805014
+        },
+        "selected_score_std": {
+          "mean": 0.042505368682054324,
+          "sd": 0.00477411268094489
+        },
+        "steps": 200,
+        "unique_paths": {
+          "mean": 26.938144329896907,
+          "sd": 0.24214462748233065
+        }
+      },
+      {
+        "effective_temperature_proxy": {
+          "mean": 0.3710563068277305,
+          "sd": 0.11309767615649834
+        },
+        "exploration_step_rate": {
+          "mean": 0.22443298969072162,
+          "sd": 0.02846668638385887
+        },
+        "herfindahl": {
+          "mean": 0.2681567010309278,
+          "sd": 0.1132377163198586
+        },
+        "layer_conditional_entropy_mean": [
+          0.5772088339548135,
+          1.3121628096138218,
+          1.6121002946516445,
+          0.9056092824937674
+        ],
+        "max_path_probability": {
+          "mean": 0.46752577319587624,
+          "sd": 0.14210310904289308
+        },
+        "method": "edge_only",
+        "n_trials": 97,
+        "optimal_pre_path_rate": {
+          "mean": 0.13639175257731959,
+          "sd": 0.2065776970809566
+        },
+        "path_entropy": {
+          "mean": 2.0728958105980815,
+          "sd": 0.37275149053600604
+        },
+        "path_entropy_fraction_of_max": {
+          "mean": 0.6289436931722695,
+          "sd": 0.11309767615649834
+        },
+        "phase": "pre-shock warm-up",
+        "rho": 0.5,
+        "selected_score_max": {
+          "mean": 1.9664070682157195,
+          "sd": 0.04913715834636952
+        },
+        "selected_score_mean": {
+          "mean": 1.1574705082431884,
+          "sd": 0.15392278518281463
+        },
+        "selected_score_min": {
+          "mean": 0.49861572454437875,
+          "sd": 0.003764489817817463
+        },
+        "selected_score_std": {
+          "mean": 0.5100007472585493,
+          "sd": 0.07053335439674736
+        },
+        "steps": 200,
+        "unique_paths": {
+          "mean": 23.04123711340206,
+          "sd": 2.2496181424725354
+        }
+      },
+      {
+        "effective_temperature_proxy": {
+          "mean": 0.030545669144136048,
+          "sd": 0.007678485336889748
+        },
+        "exploration_step_rate": {
+          "mean": 0.22134020618556705,
+          "sd": 0.029558517736692717
+        },
+        "herfindahl": {
+          "mean": 0.04441443298969072,
+          "sd": 0.0019630301667491025
+        },
+        "layer_conditional_entropy_mean": [
+          1.0861202238693777,
+          2.157094655941,
+          2.157691660839541,
+          1.0866683457067219
+        ],
+        "max_path_probability": {
+          "mean": 0.07572164948453608,
+          "sd": 0.010825069541771658
+        },
+        "method": "hierarchical",
+        "n_trials": 97,
+        "optimal_pre_path_rate": {
+          "mean": 0.04288659793814433,
+          "sd": 0.018283574304470092
+        },
+        "path_entropy": {
+          "mean": 3.1951633235423142,
+          "sd": 0.02530703504839492
+        },
+        "path_entropy_fraction_of_max": {
+          "mean": 0.9694543308558639,
+          "sd": 0.007678485336889748
+        },
+        "phase": "pre-shock warm-up",
+        "rho": 0.5,
+        "selected_score_max": {
+          "mean": 0.6522099990496252,
+          "sd": 0.01813480018625082
+        },
+        "selected_score_mean": {
+          "mean": 0.5488300803531763,
+          "sd": 0.0045623356963258406
+        },
+        "selected_score_min": {
+          "mean": 0.42705183757567233,
+          "sd": 0.012456098535192216
+        },
+        "selected_score_std": {
+          "mean": 0.04221794959380965,
+          "sd": 0.005025203840530965
+        },
+        "steps": 200,
+        "unique_paths": {
+          "mean": 26.969072164948454,
+          "sd": 0.17402156519994635
+        }
+      },
+      {
+        "effective_temperature_proxy": {
+          "mean": 0.37570117560739286,
+          "sd": 0.1165366612691808
+        },
+        "exploration_step_rate": {
+          "mean": 0.21603092783505157,
+          "sd": 0.02845810283273444
+        },
+        "herfindahl": {
+          "mean": 0.2712067010309278,
+          "sd": 0.11377891885803555
+        },
+        "layer_conditional_entropy_mean": [
+          0.5778834676214063,
+          1.2824610412648663,
+          1.6086023809713612,
+          0.9074980350725272
+        ],
+        "max_path_probability": {
+          "mean": 0.46922680412371137,
+          "sd": 0.14240007499081003
+        },
+        "method": "edge_only",
+        "n_trials": 97,
+        "optimal_pre_path_rate": {
+          "mean": 0.14561855670103094,
+          "sd": 0.22258104531921666
+        },
+        "path_entropy": {
+          "mean": 2.0575870808363175,
+          "sd": 0.3840858244520249
+        },
+        "path_entropy_fraction_of_max": {
+          "mean": 0.6242988243926071,
+          "sd": 0.1165366612691808
+        },
+        "phase": "pre-shock warm-up",
+        "rho": 1.0,
+        "selected_score_max": {
+          "mean": 1.961045548764728,
+          "sd": 0.0660579175774307
+        },
+        "selected_score_mean": {
+          "mean": 1.156330099018953,
+          "sd": 0.1551702087373465
+        },
+        "selected_score_min": {
+          "mean": 0.4973092236288845,
+          "sd": 0.006926892775030138
+        },
+        "selected_score_std": {
+          "mean": 0.5056952860990108,
+          "sd": 0.07597295931705077
+        },
+        "steps": 200,
+        "unique_paths": {
+          "mean": 22.927835051546392,
+          "sd": 2.459028528879225
+        }
+      },
+      {
+        "effective_temperature_proxy": {
+          "mean": 0.029424160857817953,
+          "sd": 0.008576969721890518
+        },
+        "exploration_step_rate": {
+          "mean": 0.21969072164948453,
+          "sd": 0.03360938634541642
+        },
+        "herfindahl": {
+          "mean": 0.044060824742268044,
+          "sd": 0.00214583204050273
+        },
+        "layer_conditional_entropy_mean": [
+          1.0852738018972081,
+          2.1585920889929016,
+          2.159864430088424,
+          1.0871613561237181
+        ],
+        "max_path_probability": {
+          "mean": 0.07448453608247421,
+          "sd": 0.011625325624527196
+        },
+        "method": "hierarchical",
+        "n_trials": 97,
+        "optimal_pre_path_rate": {
+          "mean": 0.04855670103092784,
+          "sd": 0.018763311426027742
+        },
+        "path_entropy": {
+          "mean": 3.198859631897891,
+          "sd": 0.02826829300800967
+        },
+        "path_entropy_fraction_of_max": {
+          "mean": 0.970575839142182,
+          "sd": 0.008576969721890518
+        },
+        "phase": "pre-shock warm-up",
+        "rho": 1.0,
+        "selected_score_max": {
+          "mean": 0.6517619456811998,
+          "sd": 0.019530533862767794
+        },
+        "selected_score_mean": {
+          "mean": 0.5488108714767135,
+          "sd": 0.0044993122176530285
+        },
+        "selected_score_min": {
+          "mean": 0.4256161624001295,
+          "sd": 0.012697658885927195
+        },
+        "selected_score_std": {
+          "mean": 0.04240052797140375,
+          "sd": 0.005024520610988769
+        },
+        "steps": 200,
+        "unique_paths": {
+          "mean": 26.948453608247423,
+          "sd": 0.22225801544500765
+        }
+      }
+    ],
+    "tolerances": {
+      "eq_c_high_entropy_fraction": 0.7,
+      "eq_c_low_entropy_fraction": 0.2,
+      "exploration_rate_gap": 0.05,
+      "frozen_before_inspection": true,
+      "optimal_action_rate_gap": 0.15,
+      "path_entropy_fraction_gap": 0.2,
+      "selected_score_std_ratio": 2.0
+    },
+    "trace_limitation": "Stored traces contain selected-edge scores, not the full candidate-score vector. Action entropy, layer-conditional entropy, selection concentration, exploration rate, and optimal-path rate are therefore computed from realized actions. A softmax effective temperature is a proxy derived from path-entropy, not a fitted temperature."
+  },
+  "generated_at_utc": "2026-09-15T04:39:36.889569+00:00",
+  "pilot_raw": "C:\\Users\\belem\\OneDrive\\Área de Trabalho\\123\\Mycelial-Graph\\outputs\\pilot",
+  "runtime": {
+    "cpu_hours": 0.12155381944444445,
+    "cpu_seconds_mean": 0.22556378865979382,
+    "cpu_seconds_sum": 437.59375,
+    "n_trials": 1940,
+    "note": "CPU-hours are the sum of per-trial decision_cpu_seconds recorded in confirmatory raw payloads. Wall-clock of the original run was not stored in manifest.json; the runbook measurement of about 11 minutes serial is a separate machine-specific observation and is not re-used here unless re-measured.",
+    "status": "MEASURED",
+    "wall_clock_original_run": "NOT_IN_MANIFEST"
+  },
+  "status": "POST_CONFIRMATORY_DIAGNOSTIC",
+  "variance": {
+    "confirmatory": {
+      "available": true,
+      "bootstrap_sd_of_paired_difference": {
+        "mean": 55.08678305942036,
+        "quantiles": {
+          "q05": 43.790761395798604,
+          "q50": 54.94470135588851,
+          "q95": 66.5047792787006
+        },
+        "sd": 7.003906141668407
+      },
+      "censoring_in_pairs": {
+        "control_at_tau": 0,
+        "treatment_at_tau": 1
+      },
+      "control_mean_rrt": 36.01030927835052,
+      "frozen_bootstrap": {
+        "bootstrap_tail_probability": 0.9977002299770023,
+        "confidence_high": 0.7908796754419934,
+        "confidence_low": 0.11898691106330427,
+        "estimate": 0.42112797022616655,
+        "one_sided_upper_bound": 0.7213788509020655,
+        "samples": 10000
+      },
+      "n": 97,
+      "outlier_sensitivity": {
+        "n_flagged": 6,
+        "rule": "absolute deviation from median > 3 * MAD",
+        "sd_all": 55.94522626573602,
+        "sd_without_flagged": 37.49436099238266
+      },
+      "paired_difference": {
+        "fraction_negative": 0.44329896907216493,
+        "fraction_positive": 0.5463917525773195,
+        "iqr": 54.0,
+        "mad": 27.0,
+        "max": 250.0,
+        "mean": 15.164948453608247,
+        "min": -78.0,
+        "quantiles": {
+          "q05": -56.8,
+          "q10": -38.4,
+          "q25": -19.0,
+          "q50": 6.0,
+          "q75": 35.0,
+          "q90": 73.60000000000005,
+          "q95": 112.99999999999989
+        },
+        "sd": 55.94522626573602,
+        "skewness": 1.6304053695859786
+      },
+      "relative_effect_point": 0.42112797022616655,
+      "relative_paired_difference": {
+        "mean": 1.5484138551356001,
+        "quantiles": {
+          "q05": -0.7891836734693878,
+          "q10": -0.7265290806754221,
+          "q25": -0.4339622641509434,
+          "q50": 0.2,
+          "q75": 2.3,
+          "q90": 4.94,
+          "q95": 7.17999999999999
+        },
+        "sd": 3.4005423931629513
+      },
+      "status": "POST_CONFIRMATORY_DIAGNOSTIC",
+      "treatment_mean_rrt": 51.175257731958766
+    },
+    "estimand_note": "Frozen confirmatory estimand is unchanged. This block diagnoses variance estimation only.",
+    "pilot": {
+      "available": true,
+      "bootstrap_sd_of_paired_difference": {
+        "mean": 31.36567318823106,
+        "quantiles": {
+          "q05": 23.398695153834673,
+          "q50": 31.590700639766222,
+          "q95": 38.50659546599657
+        },
+        "sd": 4.552580670626639
+      },
+      "censoring_in_pairs": {
+        "control_at_tau": 0,
+        "treatment_at_tau": 0
+      },
+      "control_mean_rrt": 41.2,
+      "frozen_bootstrap": {
+        "bootstrap_tail_probability": 0.28477152284771523,
+        "confidence_high": 0.2966263764419863,
+        "confidence_low": -0.35942824061033807,
+        "estimate": -0.1019417475728156,
+        "one_sided_upper_bound": 0.2185231686634935,
+        "samples": 10000
+      },
+      "n": 20,
+      "outlier_sensitivity": {
+        "n_flagged": 0,
+        "rule": "absolute deviation from median > 3 * MAD",
+        "sd_all": 32.52140995195561,
+        "sd_without_flagged": 32.52140995195561
+      },
+      "paired_difference": {
+        "fraction_negative": 0.5,
+        "fraction_positive": 0.5,
+        "iqr": 49.0,
+        "mad": 20.5,
+        "max": 43.0,
+        "mean": -4.2,
+        "min": -73.0,
+        "quantiles": {
+          "q05": -61.6,
+          "q10": -46.599999999999994,
+          "q25": -29.0,
+          "q50": 0.0,
+          "q75": 20.0,
+          "q90": 35.50000000000001,
+          "q95": 40.150000000000006
+        },
+        "sd": 32.52140995195561,
+        "skewness": -0.476873184234933
+      },
+      "relative_effect_point": -0.1019417475728156,
+      "relative_paired_difference": {
+        "mean": 0.35325358687640385,
+        "quantiles": {
+          "q05": -0.6948717948717948,
+          "q10": -0.6906593406593406,
+          "q25": -0.52125,
+          "q50": 0.03837209302325582,
+          "q75": 1.094639468690702,
+          "q90": 1.7300000000000004,
+          "q95": 2.005
+        },
+        "sd": 0.9667273662267706
+      },
+      "status": "PILOT_EVIDENCE_NOT_CONFIRMATORY",
+      "treatment_mean_rrt": 37.0
+    },
+    "sample_size_lesson": "A 20-pair pilot produced an unstable variance estimate relative to the confirmatory paired-difference dispersion. Future protocols should not rely on a normal approximation from a small pilot unless a bootstrap or simulation-based procedure confirms stability. This lesson is local to this environment and is not a general theorem.",
+    "status": "POST_CONFIRMATORY_DIAGNOSTIC",
+    "variance_ratio_confirmatory_over_pilot": 1.7202583266956992
+  }
+}

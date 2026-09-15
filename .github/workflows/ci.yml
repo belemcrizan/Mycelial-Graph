@@ -25,5 +25,6 @@ jobs:
       - run: mycelial-graph claim-audit --matrix docs/claim_evidence_matrix.yaml
       - run: mycelial-graph validate --config experiments/v1/config.confirmatory.yaml
       - run: python scripts/audit_v1_readiness.py
+      - run: python reproduce_confirmatory.py
       - run: mycelial-graph real-smoke
 
