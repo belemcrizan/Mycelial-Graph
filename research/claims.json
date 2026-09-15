@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "claims": [
+    {
+      "id": "C1",
+      "text": "Hierarchical sharing improves V1 recovery at rho=.50.",
+      "type": "confirmatory",
+      "required": "Complete frozen confirmatory paired bootstrap superiority test",
+      "evidence": [],
+      "status": "NOT YET VALIDATED",
+      "level": "IMPLEMENTED",
+      "priority": "P0"
+    },
+    {
+      "id": "C2",
+      "text": "Hierarchical recovery is non-inferior at rho=0 within +.10.",
+      "type": "confirmatory_safety",
+      "required": "Complete frozen confirmatory NI upper bound < .10",
+      "evidence": [],
+      "status": "NOT YET VALIDATED",
+      "level": "IMPLEMENTED",
+      "priority": "P0"
+    },
+    {
+      "id": "C3",
+      "text": "Benefit increases with shared structure; a validity region exists.",
+      "type": "exploratory",
+      "required": "Independent rho x magnitude sweep with uncertainty and negative-transfer regions",
+      "evidence": [],
+      "status": "PLANNED",
+      "level": "CONCEPT",
+      "priority": "P1"
+    },
+    {
+      "id": "C4",
+      "text": "The effect generalizes across topologies/regimes/noise.",
+      "type": "external_to_design",
+      "required": "Unseen topology/regime/noise benchmark",
+      "evidence": [],
+      "status": "PLANNED",
+      "level": "CONCEPT",
+      "priority": "P2"
+    },
+    {
+      "id": "C5",
+      "text": "The method benefits real AI routing workloads.",
+      "type": "external_validity",
+      "required": "Licensed immutable real traces plus bounded live validation",
+      "evidence": [],
+      "status": "PLANNED",
+      "level": "CONCEPT",
+      "priority": "P3"
+    },
+    {
+      "id": "C6",
+      "text": "Adaptive sharing improves robustness.",
+      "type": "future_algorithm",
+      "required": "V3 adaptive gate, ablations, calibration and identification tests",
+      "evidence": [],
+      "status": "PLANNED",
+      "level": "CONCEPT",
+      "priority": "P5"
+    },
+    {
+      "id": "E1",
+      "text": "V1 rejects incomplete/mixed/corrupted evidence before automatic inference.",
+      "type": "engineering",
+      "required": "Integrity regression tests and executed development artifact",
+      "evidence": [
+        "tests/test_evidence_integrity.py"
+      ],
+      "status": "IMPLEMENTED",
+      "level": "UNIT-TESTED",
+      "priority": "P0"
+    }
+  ]
+}

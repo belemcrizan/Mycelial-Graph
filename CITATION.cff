@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this research implementation, cite this repository and the exact commit or artifact seal."
+type: software
+title: "Mycelial Graph: Hierarchical State Sharing for Adaptive Routing Under Correlated Non-Stationarity"
+authors:
+  - family-names: "Belem Ribeiro"
+    given-names: "Crizan"
+version: "0.2.0"
+repository-code: "https://github.com/belemcrizan/Mycelial-Graph"
+license: Apache-2.0
+abstract: "A research implementation of structure-aware adaptation under uncertainty. Confirmatory and external validity claims require separate evidence."
