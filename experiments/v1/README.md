@@ -7,9 +7,10 @@
 - `experiment.schema.json`: raw paired-result contract.
 - `config.development.yaml`: short executable demonstrator.
 - `config.pilot.yaml`: independent 20-seed pilot.
-- `config.confirmatory.yaml`: locked until sample size is known.
+- `config.confirmatory.yaml`: confirmatory YAML; seeds recorded, run not executed.
 - `seeds.confirmatory.pool.txt`: precommitted ordered seed pool.
-- `SAMPLE_SIZE_ADDENDUM.md`: post-pilot sample-size record.
+- `SAMPLE_SIZE_ADDENDUM.md`: post-pilot sample-size record (N=97 recorded; confirmatory not executed).
+- `artifacts/`: sealed pilot analysis/sample-size copies and freeze contract.
 
 ## Required order
 

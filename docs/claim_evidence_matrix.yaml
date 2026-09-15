@@ -59,3 +59,63 @@ claims:
     external_validity: E1
     allowed_wording: "Iso-model is a track definition. A positive result would still be synthetic until a real matched-scaffold experiment exists."
     allowed_wording_status: SYNTHETIC_ONLY
+  - id: C07
+    claim: "A theoretically derived rho-star law governs sharing"
+    mechanism: bias-variance sketch on a Gaussian toy
+    synthetic_evidence: false
+    real_evidence: false
+    ablation_evidence: false
+    statistical_status: not_tested
+    external_validity: E0
+    allowed_wording: "rho* is an open problem for the V1 RRT estimand. A Gaussian MSE sketch is not a V1 prediction."
+    allowed_wording_status: NOT_SUPPORTED
+  - id: C08
+    claim: "Hierarchical methods enjoy a proved sample-complexity advantage"
+    mechanism: target regret form
+    synthetic_evidence: false
+    real_evidence: false
+    ablation_evidence: false
+    statistical_status: not_tested
+    external_validity: E0
+    allowed_wording: "The hierarchical rate formula is a conjecture, not a theorem."
+    allowed_wording_status: NOT_SUPPORTED
+  - id: C09
+    claim: "Adaptive pooling is superior to hierarchical Mycelial"
+    mechanism: James-Stein toy competitor
+    synthetic_evidence: toy_mse_only
+    real_evidence: false
+    ablation_evidence: false
+    statistical_status: not_tested
+    external_validity: E0
+    allowed_wording: "An isolated toy competitor exists. It has not been compared to V1 hierarchical RRT."
+    allowed_wording_status: NOT_SUPPORTED
+  - id: C10
+    claim: "Causal fault localization"
+    mechanism: execution DAG
+    synthetic_evidence: false
+    real_evidence: false
+    ablation_evidence: false
+    statistical_status: not_applicable
+    external_validity: E0
+    allowed_wording: "Forbidden. Execution DAG is not a causal DAG."
+    allowed_wording_status: NOT_SUPPORTED
+  - id: C11
+    claim: "Real-provider generalization"
+    mechanism: none
+    synthetic_evidence: false
+    real_evidence: false
+    ablation_evidence: false
+    statistical_status: not_tested
+    external_validity: E0
+    allowed_wording: "Not supported. External adapters exist; no provider traces were collected."
+    allowed_wording_status: NOT_SUPPORTED
+  - id: C14
+    claim: "MG-EXP-REAL-001 completed"
+    mechanism: replay protocol
+    synthetic_evidence: false
+    real_evidence: false
+    ablation_evidence: false
+    statistical_status: not_tested
+    external_validity: E0
+    allowed_wording: "The protocol is designed and not executed."
+    allowed_wording_status: NOT_SUPPORTED

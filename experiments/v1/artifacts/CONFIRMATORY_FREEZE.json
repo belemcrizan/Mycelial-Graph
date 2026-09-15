@@ -1,0 +1,16 @@
+{
+  "caveat": "power.py requests optional simulation-based power before treating N as final; confirmatory is not executed in this cycle.",
+  "confirmatory_config_hash": "5d7e92d2ec2805418f2b07e641188814282d544de55eb8c1461f4400b025452a",
+  "confirmatory_executed": false,
+  "confirmatory_seed_range": "700000-700096 (first 97 of seeds.confirmatory.pool.txt, unfiltered)",
+  "pilot_code_commit_at_execution": "2c0a9630ae97e050a8ad31f5a06ce2a9b9ab2b22",
+  "post_pilot_method_tuning": false,
+  "protocol_version": "MG-EXP-V1",
+  "required_confirmatory_pairs": 97,
+  "sample_size_method": "pre-specified normal approximation in analysis/power.py",
+  "seeds_file": "experiments/v1/seeds.confirmatory.txt",
+  "seeds_sha256": "8ef4c6b0dc481fea70054b6d7cbc9ecc2663f63b4523f3f55bb374a0339ee00c",
+  "simulation_based_power": false,
+  "status": "SAMPLE_SIZE_RECORDED_SEEDS_SELECTED_CONFIRMATORY_NOT_EXECUTED",
+  "working_tree_note": "Pilot runner used V1 modules unchanged from that commit; Track B/C files were present but not imported by the V1 runner."
+}

@@ -1,0 +1,14 @@
+{
+  "absolute_design_effect": 8.24,
+  "caveat": "Review approximation assumptions and supplement with simulation-based power before locking N.",
+  "control_mean_rrt": 41.2,
+  "method": "normal approximation for paired mean difference",
+  "one_sided_alpha": 0.05,
+  "paired_difference_sd": 32.52140995195561,
+  "pilot_pairs": 20,
+  "primary_rho": 0.5,
+  "relative_design_effect": -0.2,
+  "required_confirmatory_pairs": 97,
+  "status": "planning estimate; copy reviewed values into SAMPLE_SIZE_ADDENDUM.md",
+  "target_power": 0.8
+}

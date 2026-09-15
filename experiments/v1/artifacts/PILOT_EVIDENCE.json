@@ -1,0 +1,15 @@
+{
+  "analysis_sha256": "bdd4e85d256a59124e16400a8f499340349cbfa18c1f5fe8a80bb21930e05135",
+  "code_commit": "2c0a9630ae97e050a8ad31f5a06ce2a9b9ab2b22",
+  "config_hash": "e14b4c774c4dae4c8a132f2bbcf4e8383c3bdfe1729028748a64d7dbda76bb77",
+  "config_path": "C:\\Users\\belem\\OneDrive\\\u00c1rea de Trabalho\\123\\Mycelial-Graph\\experiments\\v1\\config.pilot.yaml",
+  "confirmatory_unlocked": false,
+  "experiment_id": "MG-EXP-V1-PILOT",
+  "manifest_sha256": "d2b2bf0933a15adb90dc51ba29b7d997740650cc908390a723573a770c9e885d",
+  "protocol_version": "MG-EXP-V1",
+  "run_kind": "pilot",
+  "sample_size_sha256": "87ddf13e8f4531e035fd6bbf6a18d33ee19b904d6e1301225988e444ef09d2fe",
+  "scientific_status": "PILOT_EVIDENCE_NOT_CONFIRMATORY",
+  "seeds_file": "C:\\Users\\belem\\OneDrive\\\u00c1rea de Trabalho\\123\\Mycelial-Graph\\experiments\\v1\\seeds.pilot.txt",
+  "seeds_sha256": "3068ffef39ea5670e6ccd0ec380bfdbb70bb342602dc9f820486c9b5f9261339"
+}
