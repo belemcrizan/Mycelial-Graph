@@ -1,0 +1,99 @@
+# PROPOSED additions to docs/claim_evidence_matrix.yaml (Master Prompt Part II §14).
+#
+# GATE-SAFE / STAGED. This is a SEPARATE, additive file. It is NOT merged into the canonical
+# matrix yet, because docs/claim_evidence_matrix.yaml is enforced by `mycelial-graph claim-audit`
+# in CI, and the statuses below (UNDERPOWERED, EXTERNAL_VALIDATION_PENDING, STAGED, NOT_TESTED)
+# must first be accepted by the claim-audit validator. Merging is a follow-up unit once the
+# validator's allowed-status set is extended. Doing this as a side file keeps CI green (§P8/§19)
+# while still recording every new claim honestly (§P9 conservative choice).
+#
+# Author: Crizan Belem Ribeiro, Independent Researcher.
+
+proposed_claims:
+  - id: C16
+    claim: "Effective-policy-scale equalized comparison (V1.5) outcome"
+    mechanism: hierarchical representation isolated from effective policy scale
+    synthetic_evidence: staged
+    real_evidence: false
+    statistical_status: not_executed
+    external_validity: E1
+    allowed_wording: "V1.5 is designed and frozen (authorized=false). No V1.5 outcome exists. It cannot edit V1 REFUTED."
+    proposed_status: STAGED
+    unblock_gate: GATE-H01
+
+  - id: C17
+    claim: "rho=0 non-inferiority is established"
+    mechanism: powered safety experiment
+    synthetic_evidence: staged
+    real_evidence: false
+    statistical_status: underpowered_in_v1
+    external_validity: E1
+    allowed_wording: "The V1 rho=0 gate is UNDERPOWERED (failure to establish non-inferiority, not proof of harm; INV-04). A powered test (~450-490 pairs) is staged."
+    proposed_status: UNDERPOWERED
+    unblock_gate: GATE-H02
+
+  - id: C18
+    claim: "External OPE value/recovery estimate on real logged data"
+    mechanism: IPS/SNIPS/DR on OPE-valid logs
+    synthetic_evidence: false
+    real_evidence: false
+    statistical_status: not_executed
+    external_validity: E3_infrastructure_only
+    allowed_wording: "External adapters and an OPE prereg exist. No real data ingested; no external result. Infrastructure is not evidence (INV-05)."
+    proposed_status: EXTERNAL_VALIDATION_PENDING
+    unblock_gate: GATE-H03
+
+  - id: C19
+    claim: "Mechanism contribution attributions (ablation program)"
+    mechanism: per-mechanism intervention
+    synthetic_evidence: staged
+    real_evidence: false
+    statistical_status: not_executed
+    external_validity: E1
+    allowed_wording: "The ablation matrix is specified and frozen. No ablation has been executed. A simpler-baseline explanation is an allowed outcome (INV-10)."
+    proposed_status: STAGED
+    unblock_gate: moratorium/authorization
+
+  - id: C20
+    claim: "Fairness of the strong-baseline comparison"
+    mechanism: matched-budget HPO on separated data
+    synthetic_evidence: staged
+    real_evidence: false
+    statistical_status: not_executed
+    external_validity: E1
+    allowed_wording: "A strong-baseline suite with a matched-budget fairness protocol is specified. Not executed."
+    proposed_status: STAGED
+    unblock_gate: authorization
+
+  - id: C21
+    claim: "Structural (topology) generalization boundary"
+    mechanism: topology suite
+    synthetic_evidence: staged
+    real_evidence: false
+    statistical_status: not_executed
+    external_validity: E1
+    allowed_wording: "A pre-specified topology suite exists. No cross-topology result yet; single-topology V1 cannot support a structural claim."
+    proposed_status: STAGED
+    unblock_gate: authorization
+
+  - id: C22
+    claim: "Regime generalization boundary-of-validity map"
+    mechanism: regime suite
+    synthetic_evidence: staged
+    real_evidence: false
+    statistical_status: not_executed
+    external_validity: E1
+    allowed_wording: "A regime map with a predefined improves/unresolved/degrades rule is specified. Not executed."
+    proposed_status: STAGED
+    unblock_gate: authorization
+
+  - id: C23
+    claim: "Scaling / operational-complexity behavior"
+    mechanism: scaling grid
+    synthetic_evidence: staged
+    real_evidence: false
+    statistical_status: not_executed
+    external_validity: E1
+    allowed_wording: "A scaling protocol separating scientific compute, replay overhead, and wall-clock is specified. No scaling curves executed. No proved complexity bound (INV-05)."
+    proposed_status: STAGED
+    unblock_gate: authorization/GATE-H04
