@@ -178,17 +178,32 @@ def run_router(
     return RunResult(summary, tuple(records))
 
 
-def _mean_ci(values: Iterable[float]) -> dict[str, float | int | None]:
-    finite = [float(value) for value in values if math.isfinite(float(value))]
+def _mean_ci(values: Iterable[float], *, fail_on_nonfinite: bool = False) -> dict[str, float | int | None]:
+    raw_values = [float(value) for value in values]
+    nonfinite = sum(1 for value in raw_values if not math.isfinite(value))
+    finite = [value for value in raw_values if math.isfinite(value)]
+    if fail_on_nonfinite and nonfinite > 0:
+        return {
+            "n": len(raw_values),
+            "finite_n": len(finite),
+            "nonfinite_runs": nonfinite,
+            "mean": None,
+            "ci95_low": None,
+            "ci95_high": None,
+        }
     if not finite:
-        return {"n": 0, "mean": None, "ci95_low": None, "ci95_high": None}
+        return {"n": 0, "nonfinite_runs": nonfinite, "mean": None, "ci95_low": None, "ci95_high": None}
     mean = statistics.fmean(finite)
     if len(finite) == 1:
         margin = 0.0
     else:
-        margin = 1.96 * statistics.stdev(finite) / math.sqrt(len(finite))
+        from scipy.stats import t as student_t
+
+        crit = float(student_t.ppf(0.975, df=len(finite) - 1))
+        margin = crit * statistics.stdev(finite) / math.sqrt(len(finite))
     return {
         "n": len(finite),
+        "nonfinite_runs": nonfinite,
         "mean": mean,
         "ci95_low": mean - margin,
         "ci95_high": mean + margin,
@@ -212,7 +227,7 @@ def aggregate_summaries(summaries: Iterable[RunSummary]) -> dict[str, dict[str, 
             "censored_runs": sum(not row.recovered for row in rows),
             "recovery_probability": sum(row.recovered for row in rows) / len(rows),
             "sample_recovery_cost_recovered_only": _mean_ci(recovered_src),
-            "cpst_usd": _mean_ci(row.cpst_usd for row in rows),
+            "cpst_usd": _mean_ci((row.cpst_usd for row in rows), fail_on_nonfinite=True),
             "success_rate": _mean_ci(row.success_rate for row in rows),
             "postshock_success_rate": _mean_ci(row.postshock_success_rate for row in rows),
             "mean_utility": _mean_ci(row.mean_utility for row in rows),

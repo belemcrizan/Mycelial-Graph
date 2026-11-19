@@ -133,6 +133,105 @@ class OPETests(unittest.TestCase):
         self.assertGreaterEqual(report.support_violations, 1)
         self.assertGreaterEqual(report.near_zero_propensity, 1)
 
+    def test_deterministic_target_policy_retains_zero_propensity_actions_unbiased(self) -> None:
+        records = []
+        for idx in range(50):
+            records.append(
+                {
+                    "timestamp_utc": "2026-01-01T00:00:00Z",
+                    "context_id": f"c{idx}-a",
+                    "action": "a",
+                    "reward": 1.0,
+                    "propensity": 0.5,
+                    "policy_version": "log-1",
+                }
+            )
+            records.append(
+                {
+                    "timestamp_utc": "2026-01-01T00:00:00Z",
+                    "context_id": f"c{idx}-b",
+                    "action": "b",
+                    "reward": 0.0,
+                    "propensity": 0.5,
+                    "policy_version": "log-1",
+                }
+            )
+        report = ips_estimate(records, target_propensity={"a": 1.0, "b": 0.0})
+        self.assertEqual(report.support_violations, 0)
+        self.assertAlmostEqual(float(report.estimate or 0.0), 1.0, places=9)
+        self.assertAlmostEqual(float(report.snips_estimate or 0.0), 1.0, places=9)
+        self.assertAlmostEqual(float(report.weight_mean or 0.0), 1.0, places=9)
+
+    def test_default_target_propensity_evaluates_logging_policy_not_improper_sum(self) -> None:
+        records = [
+            {
+                "timestamp_utc": "2026-01-01T00:00:00Z",
+                "context_id": "c1",
+                "action": "a",
+                "reward": 0.8,
+                "propensity": 0.5,
+                "policy_version": "log-1",
+            },
+            {
+                "timestamp_utc": "2026-01-01T00:00:00Z",
+                "context_id": "c2",
+                "action": "b",
+                "reward": 0.2,
+                "propensity": 0.5,
+                "policy_version": "log-1",
+            },
+        ]
+        report = ips_estimate(records, target_propensity=None)
+        self.assertAlmostEqual(float(report.estimate or 0.0), 0.5, places=9)
+        self.assertAlmostEqual(float(report.weight_mean or 0.0), 1.0, places=9)
+
+    def test_fractional_second_incident_end_and_negative_tz_and_bool_rejection(self) -> None:
+        fractional = adapt_incident_row(
+            {
+                "incident_id": "i-frac",
+                "provider": "example",
+                "service": "api",
+                "incident_start": "2026-01-01T00:00:00Z",
+                "incident_end": 1767225600.5,
+                "status": "resolved",
+                "retrieved_at_utc": "2026-01-02T00:00:00-03:00",
+            }
+        )
+        self.assertTrue(fractional["ok"], fractional["errors"])
+        bool_ts = adapt_incident_row(
+            {
+                "incident_id": "i-bool",
+                "provider": "example",
+                "service": "api",
+                "incident_start": True,
+                "status": "open",
+                "retrieved_at_utc": "2026-01-02T00:00:00Z",
+            }
+        )
+        self.assertFalse(bool_ts["ok"])
+        with self.assertRaises(SchemaError):
+            validate_logged_bandit(
+                {
+                    "timestamp_utc": "2026-01-01T00:00:00Z",
+                    "context_id": "c",
+                    "action": "a",
+                    "reward": float("nan"),
+                    "propensity": 0.5,
+                    "policy_version": "v1",
+                }
+            )
+        with self.assertRaises(SchemaError):
+            validate_logged_bandit(
+                {
+                    "timestamp_utc": "2026-01-01T00:00:00Z",
+                    "context_id": "c",
+                    "action": "a",
+                    "reward": 1.0,
+                    "propensity": True,
+                    "policy_version": "v1",
+                }
+            )
+
 
 class CollectorTests(unittest.TestCase):
     def test_dry_run_default_does_not_require_spend(self) -> None:

@@ -81,31 +81,35 @@ class CanonicalStateTests(unittest.TestCase):
 
     def test_readme_cannot_disable_moratorium_without_receipt(self) -> None:
         state_path = ROOT / "research" / "state.json"
-        original = state_path.read_text(encoding="utf-8")
+        original_bytes = state_path.read_bytes()
         try:
-            payload = json.loads(original)
+            payload = json.loads(original_bytes.decode("utf-8"))
             payload["moratorium"]["active"] = False
-            state_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+            state_path.write_text(
+                json.dumps(payload, indent=2) + "\n", encoding="utf-8", newline="\n"
+            )
             result = audit_scientific_state(ROOT)
             self.assertFalse(result["ok"])
             failed = {row["check"] for row in result["failures"]}
             self.assertIn("moratorium.active_while_unsubmitted", failed)
         finally:
-            state_path.write_text(original, encoding="utf-8")
+            state_path.write_bytes(original_bytes)
 
     def test_runtime_divergence_fails(self) -> None:
         runtime_path = ROOT / "research" / "runtime.json"
-        original = runtime_path.read_text(encoding="utf-8")
+        original_bytes = runtime_path.read_bytes()
         try:
-            payload = json.loads(original)
+            payload = json.loads(original_bytes.decode("utf-8"))
             payload["sealed_confirmatory"]["decision_cpu_hours_rounded_3dp"] = 0.112
-            runtime_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+            runtime_path.write_text(
+                json.dumps(payload, indent=2) + "\n", encoding="utf-8", newline="\n"
+            )
             result = audit_scientific_state(ROOT)
             self.assertFalse(result["ok"])
             failed = {row["check"] for row in result["failures"]}
             self.assertIn("runtime.decision_cpu_hours_rounded_3dp", failed)
         finally:
-            runtime_path.write_text(original, encoding="utf-8")
+            runtime_path.write_bytes(original_bytes)
 
     def test_paper_runtime_402_fails(self) -> None:
         paper = (ROOT / "paper" / "tmlr" / "paper.tex").read_text(encoding="utf-8")

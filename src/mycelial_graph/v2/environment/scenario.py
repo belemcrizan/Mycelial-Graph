@@ -30,14 +30,23 @@ DIFFICULTY_QUALITY = {
 TOKEN_BY_CLASS = (90.0, 240.0, 920.0)
 PRICE_BY_CLASS = (0.04, 0.18, 2.40)
 LATENCY_BY_CLASS = (80.0, 220.0, 900.0)
-FAIL_BY_CLASS = (0.08, 0.05, 0.04)
+FAIL_BY_CLASS = (0.06, 0.04, 0.03)
 RETRIEVAL_TOKENS = (40.0, 90.0, 180.0)
 VERIFY_TOKENS = (8.0, 140.0, 320.0)
 VERIFY_QUALITY_LIFT = (0.00, 0.04, 0.07)
+PROMPT_TOKENS = (25.0, 65.0, 130.0)
+TOOL_TOKENS = (30.0, 95.0, 220.0)
+MEMORY_TOKENS = (20.0, 60.0, 140.0)
+FAILURE_QUALITY_MULTIPLIER = 0.25
 
 
 def _difficulty_for_seed(rng: np.random.Generator) -> str:
     return str(rng.choice(["easy", "medium", "hard"]))
+
+
+def _effective_edge_quality(quality: np.ndarray, fail_prob: np.ndarray) -> np.ndarray:
+    """True expected edge quality accounting for stochastic failure penalty (0.25x on fail)."""
+    return quality * ((1.0 - fail_prob) + FAILURE_QUALITY_MULTIPLIER * fail_prob)
 
 
 @dataclass(frozen=True)
@@ -70,6 +79,27 @@ class ResourceScenario:
     budget_pre: int
     budget_post: int
 
+    def __post_init__(self) -> None:
+        for name in (
+            "quality_means_pre",
+            "quality_means_post",
+            "token_means_pre",
+            "token_means_post",
+            "latency_means_pre",
+            "latency_means_post",
+            "fail_pre",
+            "fail_post",
+            "price_pre",
+            "price_post",
+            "quality_outcomes",
+            "token_outcomes",
+            "latency_outcomes",
+            "fail_uniforms",
+        ):
+            arr = getattr(self, name)
+            frozen = np.frombuffer(arr.tobytes(), dtype=arr.dtype).reshape(arr.shape)
+            object.__setattr__(self, name, frozen)
+
     def quality_means(self, step: int) -> np.ndarray:
         return self.quality_means_pre if step < self.pre_shock_steps else self.quality_means_post
 
@@ -82,11 +112,15 @@ class ResourceScenario:
     def fail_prob(self, step: int) -> np.ndarray:
         return self.fail_pre if step < self.pre_shock_steps else self.fail_post
 
+    def effective_quality_means(self, step: int) -> np.ndarray:
+        return _effective_edge_quality(self.quality_means(step), self.fail_prob(step))
+
     def budget_cap(self, step: int) -> int:
         return self.budget_pre if step < self.pre_shock_steps else self.budget_post
 
     def expected_path_quality(self, edge_ids: tuple[int, ...], step: int) -> float:
-        return float(np.mean(self.quality_means(step)[list(edge_ids)]))
+        eff = self.effective_quality_means(step)
+        return float(np.mean(eff[list(edge_ids)]))
 
     def oracle_quality(self, step: int) -> float:
         return self.optimal_pre_quality if step < self.pre_shock_steps else self.optimal_post_quality
@@ -99,11 +133,13 @@ class ResourceScenario:
             tokens = int(self.token_outcomes[step, edge_id])
             usage = _usage_for_edge(self.graph, edge_id, tokens)
             quality = float(self.quality_outcomes[step, edge_id])
-            success = bool(self.fail_uniforms[step, edge_id] >= self.fail_prob(step)[edge_id])
+            fail_p = float(self.fail_prob(step)[edge_id])
+            success = bool(self.fail_uniforms[step, edge_id] >= fail_p)
             if not success:
-                quality *= 0.25
+                quality *= FAILURE_QUALITY_MULTIPLIER
             price = float(self.price(step)[edge_id])
-            monetary = (usage.total_tokens / 1000.0) * price
+            monetary = (usage.path_tokens / 1000.0) * price
+            unc = float(np.sqrt(fail_p * (1.0 - fail_p)))
             observations.append(
                 ResourceObservation(
                     edge_id=edge_id,
@@ -112,7 +148,7 @@ class ResourceScenario:
                     monetary_cost=monetary,
                     success=success,
                     quality=quality,
-                    uncertainty=0.0,
+                    uncertainty=unc,
                 )
             )
         return observations
@@ -125,6 +161,8 @@ class ResourceScenario:
             "difficulty": self.difficulty,
             "q_pre": self.quality_means_pre.round(12).tolist(),
             "q_post": self.quality_means_post.round(12).tolist(),
+            "f_pre": self.fail_pre.round(12).tolist(),
+            "f_post": self.fail_post.round(12).tolist(),
             "tokens": self.token_outcomes.tolist(),
             "quality": self.quality_outcomes.round(12).tolist(),
             "pre_path": self.optimal_pre_path,
@@ -140,26 +178,36 @@ def _usage_for_edge(graph: LayeredDAG, edge_id: int, tokens: int) -> TokenUsage:
     role = edge_role(graph, edge_id)
     tokens = max(0, tokens)
     if role == "retrieval":
-        return TokenUsage(retrieval_tokens=tokens)
+        cached = int(round(tokens * 0.15))
+        return TokenUsage(retrieval_tokens=tokens, cached_tokens=cached)
     if role == "verification":
         return TokenUsage(verification_tokens=tokens)
+    if role == "prompt":
+        cached = int(round(tokens * 0.25))
+        return TokenUsage(input_tokens=tokens, cached_tokens=cached)
+    if role == "tool":
+        return TokenUsage(tool_tokens=tokens)
+    if role == "memory":
+        return TokenUsage(memory_tokens=tokens)
     if role == "model":
         input_tokens = int(round(tokens * 0.35))
         reasoning = int(round(tokens * 0.25))
         output_tokens = max(0, tokens - input_tokens - reasoning)
+        cached = int(round(input_tokens * 0.20))
         return TokenUsage(
             input_tokens=input_tokens,
             output_tokens=output_tokens,
             reasoning_tokens=reasoning,
+            cached_tokens=cached,
         )
     return TokenUsage(summarization_tokens=tokens)
 
 
-def _path_quality(graph: LayeredDAG, quality: np.ndarray) -> list[tuple[float, tuple[int, ...]]]:
+def _path_quality(graph: LayeredDAG, effective_quality: np.ndarray) -> list[tuple[float, tuple[int, ...]]]:
     scored = []
     for path in graph.all_paths():
         edge_ids = graph.path_edges(path)
-        scored.append((float(np.mean(quality[list(edge_ids)])), path))
+        scored.append((float(np.mean(effective_quality[list(edge_ids)])), path))
     return sorted(scored, key=lambda item: item[0], reverse=True)
 
 
@@ -175,29 +223,51 @@ def _base_attributes(
     q_model = DIFFICULTY_QUALITY[difficulty]
     for edge in graph.edges:
         role = edge_role(graph, edge.id)
-        alt = alternative_index(graph, edge.target) if layer_index(graph, edge.target) not in {0, len(graph.layers) - 1} else 0
-        alt = min(alt, 2)
-        if role == "retrieval":
-            quality[edge.id] = 0.70 + 0.04 * alt
-            tokens[edge.id] = RETRIEVAL_TOKENS[alt]
-            latency[edge.id] = 40.0 + 40.0 * alt
+        alt = (
+            alternative_index(graph, edge.target)
+            if layer_index(graph, edge.target) not in {0, len(graph.layers) - 1}
+            else 0
+        )
+        tier = min(alt, 2)
+        if role == "prompt":
+            quality[edge.id] = 0.72 + 0.03 * tier
+            tokens[edge.id] = PROMPT_TOKENS[tier]
+            latency[edge.id] = 15.0 + 15.0 * tier
+            fail[edge.id] = 0.01
+            price[edge.id] = 0.01
+        elif role == "retrieval":
+            quality[edge.id] = 0.70 + 0.04 * tier
+            tokens[edge.id] = RETRIEVAL_TOKENS[tier]
+            latency[edge.id] = 40.0 + 40.0 * tier
             fail[edge.id] = 0.03
             price[edge.id] = 0.02
         elif role == "model":
-            model_alt = 1 if iso_model else alt
-            quality[edge.id] = q_model[model_alt]
-            tokens[edge.id] = TOKEN_BY_CLASS[model_alt]
-            latency[edge.id] = LATENCY_BY_CLASS[model_alt]
-            fail[edge.id] = FAIL_BY_CLASS[model_alt]
-            price[edge.id] = PRICE_BY_CLASS[model_alt]
+            model_tier = 1 if iso_model else tier
+            quality[edge.id] = q_model[model_tier]
+            tokens[edge.id] = TOKEN_BY_CLASS[model_tier]
+            latency[edge.id] = LATENCY_BY_CLASS[model_tier]
+            fail[edge.id] = FAIL_BY_CLASS[model_tier]
+            price[edge.id] = PRICE_BY_CLASS[model_tier]
+        elif role == "tool":
+            quality[edge.id] = 0.68 + 0.05 * tier
+            tokens[edge.id] = TOOL_TOKENS[tier]
+            latency[edge.id] = 50.0 + 65.0 * tier
+            fail[edge.id] = 0.04
+            price[edge.id] = 0.05
+        elif role == "memory":
+            quality[edge.id] = 0.71 + 0.03 * tier
+            tokens[edge.id] = MEMORY_TOKENS[tier]
+            latency[edge.id] = 25.0 + 30.0 * tier
+            fail[edge.id] = 0.02
+            price[edge.id] = 0.02
         elif role == "verification":
-            quality[edge.id] = 0.62 + VERIFY_QUALITY_LIFT[alt]
-            tokens[edge.id] = VERIFY_TOKENS[alt]
-            latency[edge.id] = 20.0 + 80.0 * alt
-            fail[edge.id] = 0.02 if alt else 0.06
-            price[edge.id] = 0.10 if alt else 0.0
+            quality[edge.id] = 0.68 + VERIFY_QUALITY_LIFT[tier]
+            tokens[edge.id] = VERIFY_TOKENS[tier]
+            latency[edge.id] = 20.0 + 80.0 * tier
+            fail[edge.id] = 0.02 if tier else 0.06
+            price[edge.id] = 0.10 if tier else 0.0
         else:
-            quality[edge.id] = 0.70
+            quality[edge.id] = 0.75
             tokens[edge.id] = 5.0
             latency[edge.id] = 10.0
             fail[edge.id] = 0.01
@@ -222,19 +292,26 @@ def _apply_regime(
     frontier_model = [
         edge.id
         for edge in graph.edges
-        if edge_role(graph, edge.id) == "model" and alternative_index(graph, edge.target) == 2
+        if edge_role(graph, edge.id) == "model"
+        and min(alternative_index(graph, edge.target), 2) == 2
+    ]
+    top_retrievers = [
+        edge.id
+        for edge in graph.edges
+        if edge_role(graph, edge.id) == "retrieval"
+        and min(alternative_index(graph, edge.target), 2) == 2
     ]
     if regime == "STATIC":
         return q, t, ltn, f, p, budget_post
     if regime == "DRIFT":
-        q[frontier_model] -= 0.12 * magnitude
-        p[frontier_model] *= 1.0 + 0.5 * magnitude
+        q[frontier_model] = np.clip(q[frontier_model] - 0.15 * magnitude, 0.05, 0.98)
+        p[frontier_model] *= 1.0 + 0.8 * magnitude
         return q, t, ltn, f, p, budget_post
     if regime == "PRICE_SHOCK":
         p[frontier_model] *= 1.0 + 3.5 * magnitude
         return q, t, ltn, f, p, budget_post
     if regime == "QUALITY_SHOCK":
-        q[frontier_model] = np.clip(q[frontier_model] - 0.45 * magnitude, 0.02, 0.98)
+        q[frontier_model] = np.clip(q[frontier_model] - 0.48 * magnitude, 0.02, 0.98)
         return q, t, ltn, f, p, budget_post
     if regime == "LATENCY_SHOCK":
         ltn[frontier_model] *= 1.0 + 4.0 * magnitude
@@ -242,6 +319,27 @@ def _apply_regime(
     if regime in {"OUTAGE", "CORRELATED_PROVIDER_FAILURE"}:
         q[frontier_model] = 0.05
         f[frontier_model] = 0.92
+        return q, t, ltn, f, p, budget_post
+    if regime == "LOCAL_OUTAGE":
+        # Purely edge-specific disruption on a single incoming transition (rho = 0 analogue).
+        if frontier_model:
+            single = frontier_model[-1]
+            q[single] = 0.05
+            f[single] = 0.90
+        return q, t, ltn, f, p, budget_post
+    if regime == "MIXED_CORRELATION":
+        # Shared model-component degradation plus disjoint retrieval edge degradation (rho = 0.5 analogue).
+        q[frontier_model] = np.clip(q[frontier_model] - 0.35 * magnitude, 0.05, 0.98)
+        f[frontier_model] = np.clip(f[frontier_model] + 0.35 * magnitude, 0.01, 0.95)
+        if top_retrievers:
+            q[top_retrievers[0]] = 0.12
+            f[top_retrievers[0]] = 0.70
+        return q, t, ltn, f, p, budget_post
+    if regime == "RETRIEVER_COLLAPSE":
+        if top_retrievers:
+            q[top_retrievers] = 0.08
+            f[top_retrievers] = 0.75
+            t[top_retrievers] *= 2.2
         return q, t, ltn, f, p, budget_post
     if regime == "RESOURCE_SCARCITY":
         budget_post = scarce
@@ -279,10 +377,16 @@ def generate_resource_scenario(
     n_edges = len(graph.edges)
     steps = config.horizon.total_steps
 
-    quality_pre, token_pre, latency_pre, fail_pre, price_pre = _base_attributes(
+    base_q, token_pre, latency_pre, fail_pre, price_pre = _base_attributes(
         graph, difficulty, iso_model=config.environment.iso_model
     )
-    quality_pre = np.clip(quality_pre + param_rng.normal(0.0, 0.01, n_edges), 0.05, 0.95)
+    quality_pre = base_q
+    for _ in range(max(1, config.environment.max_generation_attempts)):
+        candidate = np.clip(base_q + param_rng.normal(0.0, 0.01, n_edges), 0.05, 0.95)
+        ranked = _path_quality(graph, _effective_edge_quality(candidate, fail_pre))
+        quality_pre = candidate
+        if len(ranked) < 2 or ranked[0][0] - ranked[1][0] >= 1e-4:
+            break
 
     quality_post, token_post, latency_post, fail_post, price_post, budget_post = _apply_regime(
         graph,
@@ -297,8 +401,8 @@ def generate_resource_scenario(
         config.resources.scarce_budget_tokens,
     )
 
-    pre_rank = _path_quality(graph, quality_pre)
-    post_rank = _path_quality(graph, quality_post)
+    pre_rank = _path_quality(graph, _effective_edge_quality(quality_pre, fail_pre))
+    post_rank = _path_quality(graph, _effective_edge_quality(quality_post, fail_post))
     pre_best, pre_path = pre_rank[0]
     post_best, post_path = post_rank[0]
 
@@ -360,5 +464,4 @@ def generate_resource_scenario(
     )
 
 
-# Silence unused role constants if graph depth differs; they document the intended mapping.
 _ = (RETRIEVER_LAYER, MODEL_LAYER, VERIFY_LAYER)

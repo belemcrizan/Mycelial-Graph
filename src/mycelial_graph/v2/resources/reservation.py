@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import math
 
 
 class ReservationError(RuntimeError):
@@ -21,13 +22,24 @@ class BudgetReservation:
     released: float = 0.0
     overruns: int = 0
 
+    def __post_init__(self) -> None:
+        if isinstance(self.cap, bool) or not math.isfinite(float(self.cap)) or self.cap < 0.0:
+            raise ValueError("BudgetReservation.cap must be a finite non-negative number.")
+
     @property
     def remaining(self) -> float:
         return float(self.cap - self.spent - self.reserved)
 
+    def can_afford(self, amount: float) -> bool:
+        return amount >= 0.0 and amount <= self.remaining + 1e-9
+
+    def sustainable_step_allowance(self, steps_remaining: int) -> float:
+        denom = max(int(steps_remaining), 1)
+        return max(0.0, self.remaining / float(denom))
+
     def reserve(self, amount: float) -> None:
-        if amount < 0:
-            raise ValueError("Reservation amount must be non-negative.")
+        if isinstance(amount, bool) or not math.isfinite(float(amount)) or amount < 0:
+            raise ValueError("Reservation amount must be a finite non-negative number.")
         if amount > self.remaining + 1e-9:
             self.overruns += 1
             raise ReservationError(
@@ -35,10 +47,18 @@ class BudgetReservation:
             )
         self.reserved += amount
 
+    def release(self, amount: float) -> None:
+        if amount < 0 or amount > self.reserved + 1e-9:
+            raise ReservationError("Release amount must be in [0, reserved].")
+        self.reserved = max(0.0, self.reserved - amount)
+        self.released += amount
+
     def commit(self, reserved_amount: float, actual: float) -> None:
-        if reserved_amount > self.reserved + 1e-9:
+        if isinstance(actual, bool) or not math.isfinite(float(actual)) or actual < 0:
+            raise ValueError("Committed actual spend must be a finite non-negative number.")
+        if reserved_amount < 0 or reserved_amount > self.reserved + 1e-9:
             raise ReservationError("Commit exceeds outstanding reservation.")
-        self.reserved -= reserved_amount
+        self.reserved = max(0.0, self.reserved - reserved_amount)
         self.spent += actual
         unused = reserved_amount - actual
         if unused > 0:

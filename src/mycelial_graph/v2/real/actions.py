@@ -68,11 +68,12 @@ class ActionLog:
         self._seq = 0
         self.ledger = TokenUsage()
 
-    def record(self, name: str, payload: str, extra: int = 0) -> ActionRecord:
+    def record(self, name: str, payload: str, extra: int = 0, *, charge_tokens: bool = True) -> ActionRecord:
         self._seq += 1
         field = ACTION_COSTS[name]
-        n = count_tokens(payload) + extra
-        usage = TokenUsage(**{field: n})
+        n = (count_tokens(payload) + extra) if charge_tokens else 0
+        bucket_kw: dict[str, Any] = {field: n}
+        usage = TokenUsage(**bucket_kw) if n > 0 else TokenUsage()
         self.ledger = self.ledger.merged(usage)
         rec = ActionRecord(
             action_id=f"act-{self._seq:04d}",

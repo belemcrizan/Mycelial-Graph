@@ -92,14 +92,24 @@ NEGATION_CUES: tuple[str, ...] = (
 )
 
 _SEGMENT_SPLIT = re.compile(r"[.!?;\n|]+")
+_CLAUSE_SPLIT = re.compile(
+    r",\s+(?:but|yet|however|while|whereas|and\s+(?:this|we|the|it|our|that)|so\s+(?:this|we|the|it))\b|\s+[—–]\s+",
+    flags=re.IGNORECASE,
+)
 
 
 class ClaimContainmentError(RuntimeError):
     """Raised when generated text asserts a claim outside the V1 boundary."""
 
 
-def _is_negated(segment: str) -> bool:
+def _is_negated(segment: str, match_start: int | None = None) -> bool:
     lowered = segment.lower()
+    if match_start is not None:
+        prefix = lowered[max(0, match_start - 80) : match_start]
+        suffix = lowered[match_start : match_start + 80]
+        if any(cue in prefix for cue in NEGATION_CUES) or any(cue in suffix for cue in NEGATION_CUES):
+            return True
+        return False
     return any(cue in lowered for cue in NEGATION_CUES)
 
 
@@ -108,19 +118,21 @@ def find_claim_violations(text: str) -> list[dict[str, Any]]:
     violations: list[dict[str, Any]] = []
     for segment in _SEGMENT_SPLIT.split(text):
         stripped = segment.strip()
-        if not stripped or _is_negated(stripped):
+        if not stripped:
             continue
-        for identifier, pattern, reason in FORBIDDEN_PATTERNS:
-            match = re.search(pattern, stripped, flags=re.IGNORECASE)
-            if match:
-                violations.append(
-                    {
-                        "id": identifier,
-                        "matched_text": match.group(0),
-                        "segment": stripped[:200],
-                        "reason": reason,
-                    }
-                )
+        clauses = [c.strip() for c in _CLAUSE_SPLIT.split(stripped) if c.strip()]
+        for clause in clauses:
+            for identifier, pattern, reason in FORBIDDEN_PATTERNS:
+                match = re.search(pattern, clause, flags=re.IGNORECASE)
+                if match and not _is_negated(clause, match.start()):
+                    violations.append(
+                        {
+                            "id": identifier,
+                            "matched_text": match.group(0),
+                            "segment": stripped[:200],
+                            "reason": reason,
+                        }
+                    )
     return violations
 
 

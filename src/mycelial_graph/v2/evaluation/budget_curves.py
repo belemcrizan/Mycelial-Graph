@@ -20,7 +20,11 @@ def quality_at_budget(
     output_directory,
     project_root,
 ) -> dict[str, float]:
-    resources = replace(config.resources, global_budget_tokens=budget, scarce_budget_tokens=min(budget, config.resources.scarce_budget_tokens))
+    resources = replace(
+        config.resources,
+        global_budget_tokens=budget,
+        scarce_budget_tokens=min(budget, config.resources.scarce_budget_tokens),
+    )
     local = replace(config, resources=resources)
     scenario = generate_resource_scenario(local, seed, regime)
     result = run_v2_method(scenario, method, local, output_directory, project_root)
@@ -28,6 +32,7 @@ def quality_at_budget(
         "budget": float(budget),
         "quality": float(result.post_quality),
         "tokens": float(result.ledger["total_tokens"]),
+        "post_tokens": float(result.post_tokens),
         "cost": float(result.post_cost),
         "success": float(result.success_rate),
     }
@@ -56,6 +61,7 @@ def budget_response_curve(
         for budget in budgets:
             qualities = []
             tokens = []
+            post_tokens = []
             for seed in seeds:
                 row = quality_at_budget(
                     config,
@@ -68,11 +74,13 @@ def budget_response_curve(
                 )
                 qualities.append(row["quality"])
                 tokens.append(row["tokens"])
+                post_tokens.append(row["post_tokens"])
             points.append(
                 {
                     "budget": float(budget),
                     "quality_mean": float(sum(qualities) / len(qualities)),
                     "tokens_mean": float(sum(tokens) / len(tokens)),
+                    "post_tokens_mean": float(sum(post_tokens) / len(post_tokens)),
                 }
             )
     finally:

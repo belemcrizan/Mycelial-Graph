@@ -14,12 +14,16 @@ import scipy
 import yaml
 
 from ...runner.checkpoint import atomic_write_json
+from ...runner.trial import code_commit
 from ...validation import load_seeds
 from ..environment import generate_resource_scenario
 from ..types import V2ExperimentConfig
 from ..validation import require_valid_v2_config
-from ...runner.trial import code_commit
 from .trial import run_paired_v2_scenario, v2_config_hash
+
+
+def _repo_root() -> Path:
+    return Path(__file__).resolve().parents[4]
 
 
 def canonical_v2_payload(payload: dict[str, Any]) -> dict[str, Any]:
@@ -27,6 +31,8 @@ def canonical_v2_payload(payload: dict[str, Any]) -> dict[str, Any]:
     for result in scientific.get("results", []):
         result.pop("decision_cpu_seconds", None)
         result.pop("trace_ref", None)
+        if isinstance(result.get("ledger"), dict):
+            result["ledger"].pop("policy_cpu_ms", None)
     return scientific
 
 
@@ -71,6 +77,7 @@ def _file_sha256(path: Path) -> str:
 
 def _checkpoint_matches(
     path: Path,
+    output_root: Path,
     config: V2ExperimentConfig,
     seed: int,
     regime: str,
@@ -83,15 +90,19 @@ def _checkpoint_matches(
     expected = code_commit(project_root)
     hashes = {result["config_hash"] for result in scientific["results"]}
     revisions = {result["code_commit"] for result in scientific["results"]}
+    methods = [result["method"] for result in scientific["results"]]
+    traces_ok = all((output_root / result["trace_ref"]).exists() for result in scientific["results"])
     if (
         scientific["seed"] == seed
         and scientific["regime"] == regime
         and hashes == {v2_config_hash(config)}
         and revisions == {expected}
+        and tuple(methods) == tuple(config.methods)
+        and traces_ok
     ):
         return True
     raise RuntimeError(
-        f"V2 checkpoint exists but does not match current code/config: {path}. "
+        f"V2 checkpoint exists but does not match current code/config/traces: {path}. "
         "Use a new output directory."
     )
 
@@ -104,14 +115,14 @@ def run_v2_experiment(
     require_valid_v2_config(config)
     output = Path(output_directory).resolve()
     output.mkdir(parents=True, exist_ok=True)
-    project_root = config.source_path.parents[2]
+    project_root = _repo_root()
     seeds_path = (config.source_path.parent / config.seeds_file).resolve()
     seeds = load_seeds(seeds_path)
     requested = [(seed, regime) for regime in config.environment.regimes for seed in seeds]
     jobs = []
     for seed, regime in requested:
         destination = output / "raw" / regime / f"seed-{seed}.json"
-        if not _checkpoint_matches(destination, config, seed, regime, project_root):
+        if not _checkpoint_matches(destination, output, config, seed, regime, project_root):
             jobs.append((seed, regime))
 
     if workers <= 1:
@@ -154,7 +165,7 @@ def run_v2_experiment(
             "scipy": scipy.__version__,
             "pyyaml": yaml.__version__,
         },
-        "files": {str(path.relative_to(output)): _file_sha256(path) for path in artifact_files},
+        "files": {path.relative_to(output).as_posix(): _file_sha256(path) for path in artifact_files},
     }
     manifest_path = output / "manifest.json"
     atomic_write_json(manifest_path, manifest)

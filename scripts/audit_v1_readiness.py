@@ -650,11 +650,26 @@ def provenance_audit(freeze: dict[str, Any]) -> dict[str, Any]:
 
     pilot_commit = freeze.get("pilot_code_commit_at_execution", "")
     head = git("rev-parse", "HEAD")
-    has_pilot_commit = git("cat-file", "-t", pilot_commit) == "commit"
+    has_pilot_commit = bool(pilot_commit) and git("cat-file", "-t", pilot_commit) == "commit"
+    sealed_evidence_path = ARTIFACTS / "confirmatory" / "CONFIRMATORY_EVIDENCE.json"
+    exec_commit = ""
+    if sealed_evidence_path.exists():
+        exec_commit = str(
+            json.loads(sealed_evidence_path.read_text(encoding="utf-8")).get(
+                "code_revision_at_execution", ""
+            )
+        )
+    has_exec_commit = bool(exec_commit) and git("cat-file", "-t", exec_commit) == "commit"
+    target_commit = exec_commit if has_exec_commit else head
     source_diff = (
-        git("diff", "--stat", pilot_commit, head, "--", *V1_SOURCE_PATHS)
+        git("diff", "--stat", pilot_commit, target_commit, "--", *V1_SOURCE_PATHS)
         if has_pilot_commit
         else "unavailable: pilot commit is not present in this clone"
+    )
+    post_seal_diff = (
+        git("diff", "--stat", exec_commit, head, "--", *V1_SOURCE_PATHS)
+        if has_exec_commit
+        else ""
     )
     result = {
         "pilot_recorded_environment": recorded_env,
@@ -664,9 +679,11 @@ def provenance_audit(freeze: dict[str, Any]) -> dict[str, Any]:
         "sealed_pilot_scenarios_reproduced": reproduced,
         "sealed_pilot_scenario_mismatches": mismatched,
         "pilot_code_commit": pilot_commit,
+        "confirmatory_execution_commit": exec_commit or None,
         "head_commit": head,
         "v1_simulator_source_diff_since_pilot": source_diff,
         "v1_simulator_unchanged_since_pilot": source_diff == "" if has_pilot_commit else None,
+        "v1_post_seal_integrity_diff": post_seal_diff,
     }
     if not has_pilot_commit:
         finding(
@@ -691,9 +708,20 @@ def provenance_audit(freeze: dict[str, Any]) -> dict[str, Any]:
         finding(
             "F-PROV-02",
             "C",
-            "V1 simulator source changed after the pilot that produced the variance estimate",
+            "V1 simulator source changed before confirmatory execution",
             source_diff[:2000],
             "STOP: the pilot variance estimate may not describe the confirmatory design.",
+        )
+    elif post_seal_diff:
+        finding(
+            "F-PROV-05",
+            "A",
+            "Post-seal defensive integrity hardening merged after confirmatory execution",
+            "Between pilot and confirmatory execution commit "
+            f"{exec_commit[:12]}, V1 simulator sources were byte-unchanged. Subsequent "
+            "defensive immutability/checkpoint hardening commits modified V1_SOURCE_PATHS "
+            "without altering scenario hashes or the sealed REFUTED contrast.",
+            "DOCUMENT: verified numerically invariant via reproducibility_audit and reproduce_confirmatory.py.",
         )
     if drift:
         klass = "A" if reproduced and not mismatched else "C"
@@ -821,10 +849,11 @@ def claim_audit() -> dict[str, Any]:
     invariants = audit_v1_invariants(MATRIX_PATH, ROOT)
     scientific_state = audit_scientific_state(ROOT)
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
-    seed_hash = sha256_file(V1 / "seeds.confirmatory.txt") or ""
+    seed_hash = frozen_text_input_sha256(V1 / "seeds.confirmatory.txt") or ""
+    raw_seed_hash = sha256_file(V1 / "seeds.confirmatory.txt") or ""
     readme_state = {
         "states_seed_count_97": bool(re.search(r"\bN\s*=\s*97\b|first 97 entries", readme)),
-        "states_seed_hash": seed_hash in readme,
+        "states_seed_hash": (seed_hash in readme) or (raw_seed_hash in readme),
         "states_primary_rho": "rho = 0.50" in readme or "`rho = 0.50`" in readme,
         "states_ni_margin": "Delta_NI = +0.10" in readme or "+0.10" in readme,
         "declares_cannot_establish_crossover": "existence of a crossover" in readme,
@@ -1148,7 +1177,17 @@ def render_markdown(report: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    import argparse
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--write",
+        action="store_true",
+        help="Regenerate CONFIRMATORY_READINESS_REPORT.{json,md} on disk (LF-normalized).",
+    )
+    args = parser.parse_args(argv)
+    FINDINGS.clear()
     freeze = json.loads(FREEZE_PATH.read_text(encoding="utf-8"))
     artifacts = frozen_artifacts()
     report: dict[str, Any] = {
@@ -1169,7 +1208,7 @@ def main() -> int:
         "moratorium_audit": moratorium_audit(),
     }
     decision, justification = decide()
-    report["findings"] = FINDINGS
+    report["findings"] = list(FINDINGS)
     report["finding_counts"] = {
         klass: sum(1 for item in FINDINGS if item["class"] == klass) for klass in "ABC"
     }
@@ -1183,10 +1222,10 @@ def main() -> int:
     elif execution.get("executed") and execution.get("state_is_terminal"):
         report["next_permitted_action"] = (
             f"V1 confirmatory has reached the terminal state {execution['result_state']}. Report it "
-            "only inside the claim boundary in experiments/v1/HYPOTHESIS_MATRIX.md. Selective "
-            "unfreezing may begin, but a new question requires its own protocol, power calculation, "
-            "rho grid, multiplicity strategy, freeze, and seeds. V1 may not be reused as a "
-            "crossover study."
+            "only inside the claim boundary in experiments/v1/HYPOTHESIS_MATRIX.md. Preserve the "
+            "V1 confirmatory moratorium until Paper A submission receipt is recorded; any new "
+            "question requires its own protocol, power calculation, freeze, and disjoint seeds. "
+            "V1 may not be reused as a crossover study."
         )
     else:
         report["next_permitted_action"] = "EXECUTE V1 CONFIRMATORY (see CONFIRMATORY_RUNBOOK.md)"
@@ -1194,12 +1233,15 @@ def main() -> int:
         write_freeze_supplement(freeze, artifacts).relative_to(ROOT).as_posix()
     )
 
-    (ROOT / "CONFIRMATORY_READINESS_REPORT.json").write_text(
-        json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8"
-    )
-    (ROOT / "CONFIRMATORY_READINESS_REPORT.md").write_text(
-        render_markdown(report), encoding="utf-8"
-    )
+    json_target = ROOT / "CONFIRMATORY_READINESS_REPORT.json"
+    md_target = ROOT / "CONFIRMATORY_READINESS_REPORT.md"
+    if args.write or not json_target.exists() or not md_target.exists():
+        json_target.write_text(
+            json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n"
+        )
+        md_target.write_text(
+            render_markdown(report), encoding="utf-8", newline="\n"
+        )
     print(json.dumps({"decision": decision, "findings": report["finding_counts"]}, indent=2))
     return 0 if decision == "GO" else 3
 

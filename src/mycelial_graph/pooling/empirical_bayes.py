@@ -41,7 +41,7 @@ def james_stein_means(observations: np.ndarray, known_var: float) -> ShrinkageSt
     lambdas = np.full(k, shrink)
     pooled = grand + (1.0 - shrink) * centered
     residual = observations - means[:, None]
-    within = float(residual.var(ddof=1)) if observations.size > k else known_var
+    within = float(np.sum(residual ** 2) / (k * (n - 1))) if n > 1 else float(known_var)
     between = max(0.0, float(means.var(ddof=1)) - sigma2)
     return ShrinkageState(grand, between, within, lambdas, pooled)
 
