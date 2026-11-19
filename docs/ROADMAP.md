@@ -2,6 +2,10 @@
 
 The roadmap separates scientific evidence from product capability. Features advance only when a measured bottleneck or validated hypothesis justifies them.
 
+## Parallel track: V2.2 Resource-Aware Mycelial Graph
+
+MG-EXP-V2.2 extends V2.0-alpha and V2.1 with explicit $G = (V, E, S, B, H)$ graph and health modeling, hard budget reservations, discrepancy-gated anastomosis, reliable-utility cord reinforcement, connectivity-preserving cytoplasmic retraction, active resource translocation, and constrained/Pareto routing objectives. Pilot and ablation benchmarks run on disjoint seeds; V2.2 confirmatory remains locked.
+
 ## Parallel track: V2.1 Evidence Bridge
 
 MG-EXP-V2.1 does not replace V2.0-alpha. It adds iso-model allocation, VOC calibration, stronger baselines, and a local executable smoke track. Confirmatory remains locked.
@@ -24,8 +28,8 @@ Exit evidence:
 
 - independent pilot completed (2026-09-15, not confirmatory);
 - sample size recorded (N=97);
-- confirmatory data **not** yet collected;
-- primary and non-inferiority gates evaluated only on the pilot (failed; not promotional);
+- frozen confirmatory experiment executed (`REFUTED` at rho=0.50; post-confirmatory triage `EQ-B`);
+- Paper A manuscript prepared (`paper/tmlr/paper.tex`, not yet submitted; submission moratorium active);
 - limitations and negative/exploratory directions reported.
 
 ## Next: single-cloud POC

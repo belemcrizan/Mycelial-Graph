@@ -242,11 +242,14 @@ These commands still exist so frozen code keeps its tests. They are **not** curr
 
 ```powershell
 mycelial-graph v2-validate --config experiments/v2/config.development.yaml
+mycelial-graph v2-validate --config experiments/v2_2/config.pilot.yaml
 mycelial-graph v2-demo
-mycelial-graph v2-experiment --config experiments/v2/config.development.yaml --output outputs/v2-dev
-mycelial-graph v2-analyze --config experiments/v2/config.development.yaml --output outputs/v2-dev
-mycelial-graph v2-report --config experiments/v2/config.development.yaml --output outputs/v2-dev
-mycelial-graph v2-resource-audit --output outputs/v2-dev
+mycelial-graph v2-experiment --config experiments/v2_2/config.pilot.yaml --output outputs/v2_2_pilot
+mycelial-graph v2-analyze --config experiments/v2_2/config.pilot.yaml --output outputs/v2_2_pilot
+mycelial-graph v2-report --config experiments/v2_2/config.pilot.yaml --output outputs/v2_2_pilot
+mycelial-graph v2-resource-audit --output outputs/v2_2_pilot
+mycelial-graph waste-audit --output outputs/v2_2_pilot
+mycelial-graph v2-viz --config experiments/v2_2/config.pilot.yaml --output outputs/v2_2_pilot
 mycelial-graph voc-bench --config experiments/v2_1/config.development.yaml
 mycelial-graph real-smoke
 ```
@@ -271,8 +274,15 @@ No production readiness, universal superiority, causal fault localization, phase
 ## Read next
 
 - [Paper A manuscript](paper/tmlr/paper.tex) - TMLR-formatted report of the frozen V1 result (not yet submitted).
+- [Repository Forensic Audit](docs/audits/REPOSITORY_AUDIT.md) - verified defects, root causes, and regression repairs.
+- [V1 Mechanistic Failure Analysis](docs/research/FAILURE_ANALYSIS.md) - empirical decomposition of the +42.1% V1 slowdown and EQ-B scale mismatch.
 - [Getting Started](docs/GETTING_STARTED.md) - step-by-step instructions for non-specialists.
-- [Architecture](docs/ARCHITECTURE.md) - system boundaries and data flow.
+- [Architecture](docs/ARCHITECTURE.md) - V1 and V2 $G = (V, E, S, B, H)$ system boundaries and data flow.
+- [Biological Design Specification](docs/BIOLOGICAL_DESIGN_SPEC.md) - mathematical definitions, ablations, and failure conditions for the 6 bioinspired mechanisms.
+- [Resource Accounting](docs/RESOURCE_ACCOUNTING.md) - 14-bucket token ledger, hard budget reservations, and routing objectives.
+- [V2 Experimental Protocol](docs/EXPERIMENTAL_PROTOCOL_V2.md) - MG-EXP-V2.2 disjoint populations, baselines, and freeze rules.
+- [Reproducibility Guide](docs/REPRODUCIBILITY.md) - exact commands, deterministic traces, and verification steps.
+- [Known Limitations](docs/KNOWN_LIMITATIONS.md) - honest scope and claim boundaries across V1 and V2.
 - [Frozen Experiment Protocol](experiments/v1/EXPERIMENT_PROTOCOL_V1.md) - hypotheses and immutable rules.
 - [Analysis Plan](experiments/v1/ANALYSIS_PLAN.md) - estimands, bootstrap, gates, and interpretation.
 - [Hypothesis Matrix](experiments/v1/HYPOTHESIS_MATRIX.md) - every contrast, its role, and the claim it permits.

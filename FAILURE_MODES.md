@@ -4,7 +4,7 @@ The V1 artifact validator handles data integrity failures. Most runtime phenomen
 
 | Failure mode | Detection / experiment | Metric | Mitigation or containment | Evidence / limitation | Priority |
 |---|---|---|---|---|---|
-| False shared cause / negative transfer | Frozen rho=0 control; future misspecified hierarchy | NI bound, excess RRT/regret | Do not promote without NI; adaptive gate is future work | Confirmatory evidence pending | P0/P1 |
+| False shared cause / negative transfer | Frozen rho=0 control; V2 discrepancy-gated anastomosis | NI bound, excess RRT/regret | Do not promote V1 without NI; discrepancy gate added in V2 | V1 confirmatory NI failed (+16.3% > +10%); V2 evaluated on pilot | P0/P1 |
 | Stale node / edge state | Repeated/regime-reversal shocks | Belief error, recovery, forgetting | Existing decay; sweep without altering V1 | Synthetic future design | P2 |
 | Oscillation | Alternating disturbances | Route switches, adaptation debt | Hysteresis candidate requires ablation | PLANNED | P2 |
 | Overexploration / underexploration | Matched exploration sweep | Regret, recovery, probes | Frozen exploration in V1 | Generality unvalidated | P2 |

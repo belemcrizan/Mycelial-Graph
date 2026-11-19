@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+### Mycelial V2 engineering recovery, scientific audit & resource-aware evolution (`0.3.0-dev`)
+
+- Added forensic repository audit (`docs/audits/REPOSITORY_AUDIT.md`) and mechanistic V1 failure analysis (`docs/research/FAILURE_ANALYSIS.md`) preserving all sealed V1 confirmatory artifacts untouched.
+- Repaired `scripts/audit_v1_readiness.py` full-clone provenance check, `external/ope.py` zero-propensity IPS bias and SNIPS support, `pooling/empirical_bayes.py` within-arm variance degrees of freedom and pooling weight, `external/schemas.py` ISO-8601 parsing and `bool`/`NaN` rejection, `science/claim_guard.py` list-comma negation handling, and `CITATION.cff` metadata.
+- Evolved `src/mycelial_graph/v2/` into an explicit $G = (V, E, S, B, H)$ architecture (`graph_model.py`, `interfaces.py`, `viz.py`) with 14-bucket token/call/cost/latency accounting, hard `BudgetReservation` enforcement, pre-routing safety/verification guardrails across all model nodes, scalarized vs. constrained vs. Pareto routing objectives, and 6 distinct feature-flagged bioinspired mechanisms (`UNIMPLEMENTED_ALPHA_ALIASES = frozenset()`).
+- Added non-confirmatory `MG-EXP-V2.2` protocol (`experiments/v2_2/`) with strictly disjoint development, pilot, validation, and locked confirmatory seed sets, plus property-based `hypothesis` invariant tests (`tests/test_v2_evolution.py`).
+
 ### Paper A submission package
 
 - Wrote the V1 TMLR manuscript (`paper/tmlr/paper.tex`) reporting the frozen `REFUTED` result without narrative rescue.
@@ -16,7 +23,7 @@
 - **Primary hypothesis `REFUTED`.** At ρ=0.50, mean restricted recovery time was 42.1% *higher* for hierarchical node-edge pooling than for edge-only adaptation (95% bootstrap CI +11.9% to +79.1%; one-sided upper bound +72.1%). The pre-specified relevant benefit of −20% falls outside the interval.
 - **Safety gate failed.** At ρ=0 the one-sided upper bound was +16.3% against the frozen +10% non-inferiority margin, so negative transfer cannot be excluded.
 - Integrity: 97/97 primary pairs, administrative censoring only, zero method failures inside the frozen contrasts.
-- Sealed evidence in `experiments/v1/artifacts/confirmatory/`, appended to `research/ledger/ledger.jsonl`, claim `C01` downgraded to `CONFIRMATORY_REFUTED`, and the moratorium exit condition recorded as satisfied.
+- Sealed evidence in `experiments/v1/artifacts/confirmatory/`, appended to `research/ledger/ledger.jsonl`, and claim `C01` downgraded to `CONFIRMATORY_REFUTED` (the repository moratorium remains active until Paper A submission is recorded).
 - The refutation is bounded by the tested graph, observation contract, shock construction, and parameter range. It establishes nothing about other ρ values, a crossover, real providers, or production behaviour.
 
 ### V1 confirmatory convergence cycle
