@@ -6,9 +6,14 @@
       "text": "Hierarchical sharing improves V1 recovery at rho=.50.",
       "type": "confirmatory",
       "required": "Complete frozen confirmatory paired bootstrap superiority test",
-      "evidence": [],
-      "status": "NOT YET VALIDATED",
-      "level": "IMPLEMENTED",
+      "evidence": [
+        "experiments/v1/artifacts/confirmatory/CONFIRMATORY_EVIDENCE.json",
+        "experiments/v1/artifacts/confirmatory/analysis.json",
+        "research/diagnostics/EQ_B_REPORT.md"
+      ],
+      "status": "REFUTED",
+      "level": "CONFIRMATORY-REFUTED",
+      "notes": "Frozen MG-EXP-V1 confirmatory run (N=97) yielded +42.1% slower mean RRT (95% CI +11.9% to +79.1%); EQ-B effective-policy-scale mismatch limits attribution to the complete frozen mechanism rather than hierarchical representation alone.",
       "priority": "P0"
     },
     {
@@ -16,9 +21,13 @@
       "text": "Hierarchical recovery is non-inferior at rho=0 within +.10.",
       "type": "confirmatory_safety",
       "required": "Complete frozen confirmatory NI upper bound < .10",
-      "evidence": [],
-      "status": "NOT YET VALIDATED",
-      "level": "IMPLEMENTED",
+      "evidence": [
+        "experiments/v1/artifacts/confirmatory/CONFIRMATORY_EVIDENCE.json",
+        "experiments/v1/POWER_ANALYSIS_RHO0.md"
+      ],
+      "status": "FAILED (NEGATIVE_TRANSFER_NOT_EXCLUDED)",
+      "level": "CONFIRMATORY-EVALUATED",
+      "notes": "Point estimate +1.5%, one-sided 95% upper bound +16.31% > +10.0% margin; non-inferiority not established (underpowered at N=97).",
       "priority": "P0"
     },
     {

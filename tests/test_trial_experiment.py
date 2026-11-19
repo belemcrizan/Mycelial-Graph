@@ -63,6 +63,15 @@ class TrialAndExperimentTests(unittest.TestCase):
             self.assertIn("mycelial_v0", payload["aggregate"])
             self.assertIn("no H1, H2, or H3", report.read_text(encoding="utf-8"))
 
+    def test_cpst_survivorship_bias_prevented_when_run_has_zero_successes(self) -> None:
+        from mycelial_graph.experiment import RunSummary, aggregate_summaries
+
+        s1 = RunSummary("m", 1, "d1", False, None, None, float("inf"), 0.0, 0.0, 0.1, 0.1, 0.0, 0.1, 0.1, 4.0)
+        s2 = RunSummary("m", 2, "d2", True, 5, 10, 0.25, 0.8, 0.8, 0.7, 0.7, 0.1, 0.1, 0.1, 4.0)
+        agg = aggregate_summaries([s1, s2])["m"]["cpst_usd"]
+        self.assertIsNone(agg["mean"])
+        self.assertEqual(agg["nonfinite_runs"], 1)
+
 
 if __name__ == "__main__":
     unittest.main()

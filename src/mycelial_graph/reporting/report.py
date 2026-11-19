@@ -89,8 +89,7 @@ def generate_report(config: ExperimentConfig, output_directory: str | Path) -> P
         f"**Protocol:** `{config.protocol_version}`  ",
         f"**Experiment:** `{config.experiment_id}`  ",
         f"**Run kind:** `{config.run_kind}`  ",
-        f"**Result state:** `{state.get('state', 'UNKNOWN')}`",
-        f"**Run kind:** `{config.run_kind}`",
+        f"**Result state:** `{state.get('state', 'UNKNOWN')}`  ",
         f"**Decision state:** `{analysis['decision_state']}`",
         "",
         f"> {status_warning}",
@@ -153,6 +152,7 @@ def generate_report(config: ExperimentConfig, output_directory: str | Path) -> P
         f"- Censoring administrative only: {integrity.get('censoring_is_administrative_only')}",
         f"- Trials censored without reaching tau: {integrity.get('non_administrative_censoring')}",
         f"- Method failures inside a frozen contrast: {integrity.get('method_failures_in_frozen_contrasts')}",
+        "",
         "| Requirement | Result |",
         "|---|---:|",
         f"| Statistical superiority | {gate['statistical_superiority']} |",
@@ -212,5 +212,5 @@ def generate_report(config: ExperimentConfig, output_directory: str | Path) -> P
     text = "\n".join(lines)
     assert_claim_containment(text, "V1 REPORT.md")
     report_path = output / "REPORT.md"
-    report_path.write_text(text, encoding="utf-8")
+    report_path.write_text(text, encoding="utf-8", newline="\n")
     return report_path

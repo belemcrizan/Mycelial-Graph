@@ -5,11 +5,14 @@ import argparse
 import hashlib
 import json
 import os
+import sys
 from pathlib import Path
 
-from mycelial_graph.artifacts import file_hash, verify_seal
-
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT / "src") not in sys.path:
+    sys.path.insert(0, str(ROOT / "src"))
+
+from mycelial_graph.artifacts import file_hash, verify_seal  # noqa: E402
 
 
 def entry_hash(entry: dict) -> str:
@@ -18,8 +21,8 @@ def entry_hash(entry: dict) -> str:
 
 def record(output: Path, ledger: Path) -> None:
     verify_seal(output)
-    manifest = json.loads((output / "manifest.json").read_text())
-    analysis = json.loads((output / "processed/analysis.json").read_text())
+    manifest = json.loads((output / "manifest.json").read_text(encoding="utf-8"))
+    analysis = json.loads((output / "processed/analysis.json").read_text(encoding="utf-8"))
     data = {
         "experiment_id": manifest["experiment_id"], "run_kind": manifest["run_kind"],
         "purpose": "V1 recovery evaluation" if manifest["run_kind"] != "pilot" else "Independent pilot variance and sample-size planning",
@@ -37,7 +40,7 @@ def record(output: Path, ledger: Path) -> None:
     try:
         os.close(descriptor)
         previous = "0" * 64
-        records = [json.loads(line) for line in ledger.read_text().splitlines()] if ledger.exists() else []
+        records = [json.loads(line) for line in ledger.read_text(encoding="utf-8").splitlines() if line.strip()] if ledger.exists() else []
         for record in records:
             payload = {key: value for key, value in record.items() if key != "entry_sha256"}
             if payload["previous_sha256"] != previous or record["entry_sha256"] != entry_hash(payload):
@@ -58,6 +61,6 @@ def record(output: Path, ledger: Path) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", required=True)
-    parser.add_argument("--ledger", default=str(ROOT / "research/experiment_ledger.jsonl"))
+    parser.add_argument("--ledger", default=str(ROOT / "research/ledger/ledger.jsonl"))
     args = parser.parse_args()
     record(Path(args.output), Path(args.ledger))

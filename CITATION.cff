@@ -1,19 +1,11 @@
 cff-version: 1.2.0
-title: Mycelial Graph
-message: If you use this software, please cite it as below. No DOI has been deposited.
+title: "Mycelial Graph: Bioinspired Adaptive Routing and Resource Allocation Under Correlated Non-Stationarity"
+message: "If you use this research implementation, cite this repository and the exact commit or artifact seal. No external DOI has been minted yet."
 type: software
-authors:
-  - family-names: Ribeiro
-    given-names: Crizan Belem
-license: Apache-2.0
-repository-code: https://github.com/belemcrizan/Mycelial-Graph
-message: "If you use this research implementation, cite this repository and the exact commit or artifact seal."
-type: software
-title: "Mycelial Graph: Hierarchical State Sharing for Adaptive Routing Under Correlated Non-Stationarity"
 authors:
   - family-names: "Belem Ribeiro"
     given-names: "Crizan"
-version: "0.2.0"
-repository-code: "https://github.com/belemcrizan/Mycelial-Graph"
+version: "0.2.2"
 license: Apache-2.0
-abstract: "A research implementation of structure-aware adaptation under uncertainty. Confirmatory and external validity claims require separate evidence."
+repository-code: "https://github.com/belemcrizan/Mycelial-Graph"
+abstract: "A reproducible research implementation of structure-aware and resource-aware adaptive routing in computational graphs under uncertainty, degradation, and budget constraints."

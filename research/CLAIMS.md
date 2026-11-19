@@ -6,7 +6,7 @@ Evidence levels are never auto-promoted.
 
 | claim_id | text | evidence_level | status |
 |---|---|---|---|
-| C01 | V1 confirmatory recovery advantage | CONFIRMATORY locked | unsupported as a result |
+| C01 | V1 confirmatory recovery advantage | confirmatory_executed (N=97, EQ-B) | CONFIRMATORY_REFUTED |
 | C02 | V2 token reduction with quality | development | not confirmatory |
 | C03 | real coding-agent tokens | none | NOT_SUPPORTED |
 | C04 | fungi prove the algorithm | none | NOT_SUPPORTED |

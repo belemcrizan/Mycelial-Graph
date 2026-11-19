@@ -42,3 +42,17 @@ class ToyModelTests(unittest.TestCase):
 
     def test_evaluate_is_seed_deterministic(self) -> None:
         self.assertEqual(evaluate(ToyConfig(seed=3)).mse_local, evaluate(ToyConfig(seed=3)).mse_local)
+
+    def test_within_variance_degrees_of_freedom_and_large_n_pooling_decay(self) -> None:
+        obs = np.array([[0.0, 2.0], [1.0, 3.0], [2.0, 4.0]], dtype=float)
+        # Each row has mean 1, 2, 3 and residual [-1, +1] -> sum(r^2)=6, k*(n-1)=3 -> unbiased within_var = 2.0
+        state = james_stein_means(obs, known_var=2.0)
+        self.assertAlmostEqual(state.within_var, 2.0, places=9)
+        asymptotic = evaluate(ToyConfig(k=6, post_n=5000, noise_std=0.2, rho=0.0, seed=11))
+        self.assertLess(asymptotic.pooling_weight, 0.01)
+
+    def test_invalid_rho_raises_value_error(self) -> None:
+        with self.assertRaises(ValueError):
+            ToyConfig(rho=-0.1)
+        with self.assertRaises(ValueError):
+            ToyConfig(rho=1.2)

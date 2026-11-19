@@ -93,6 +93,17 @@ def write_report(results: dict[str, Any], path: str | Path) -> Path:
         if value == best_recovery_value
     ]
 
+    pre_nodes = list(certification.get("pre_oracle_nodes") or [])
+    post_nodes = list(certification.get("post_oracle_nodes") or [])
+    changed_pairs = [
+        (p, q) for p, q in zip(pre_nodes, post_nodes) if p != q and p not in {"source", "sink"}
+    ]
+    if changed_pairs:
+        replaced_pre, replaced_post = changed_pairs[0]
+    else:
+        replaced_pre = pre_nodes[min(1, len(pre_nodes) - 1)] if pre_nodes else "n/a"
+        replaced_post = post_nodes[min(1, len(post_nodes) - 1)] if post_nodes else "n/a"
+
     markdown = f"""# Mycelial Graph V0 - Demonstration Report
 
 **Author:** Crizan Belém Ribeiro, Independent Researcher  
@@ -115,7 +126,7 @@ Across this bounded demonstration, the lowest descriptive Cost per Successful Ta
 - Mycelial V0 plus two transparent reference baselines.
 - Pre-generated potential outcomes shared across methods within every seed.
 - Local feedback only: a router observes only the edges it traversed.
-- The pre-shock optimum includes `{results['scope']['trial_certification']['pre_oracle_nodes'][3]}`; the post-shock optimum replaces it with `{results['scope']['trial_certification']['post_oracle_nodes'][3]}`.
+- The pre-shock optimum includes `{replaced_pre}`; the post-shock optimum replaces it with `{replaced_post}`.
 - The certified optima share {_percent(certification['shared_edge_fraction'])} of their directed edges, with pre/post utility margins of {_number(certification['pre_oracle_margin'], 4)} and {_number(certification['post_oracle_margin'], 4)}.
 
 ## Representative trace - seed {scope['seeds'][0]}

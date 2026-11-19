@@ -208,6 +208,23 @@ class ClaimContainmentTests(unittest.TestCase):
         with self.assertRaises(ClaimContainmentError):
             assert_claim_containment("We establish the crossover rho* = 0.5.", "test")
 
+    def test_mixed_clause_negation_does_not_bypass_forbidden_claim(self) -> None:
+        self.assertTrue(
+            find_claim_violations("There was no post-pilot tuning, and this theorem proves a universal regret bound.")
+        )
+
+    def test_claim_registers_agree_on_refuted_v1_status(self) -> None:
+        import yaml
+
+        claims_json = json.loads((ROOT / "research" / "claims.json").read_text(encoding="utf-8"))
+        c1 = next(item for item in claims_json["claims"] if item["id"] == "C1")
+        self.assertEqual(c1["status"], "REFUTED")
+        claims_md = (ROOT / "CLAIMS.md").read_text(encoding="utf-8")
+        self.assertIn("REFUTED", claims_md)
+        self.assertNotIn("NOT YET VALIDATED", claims_md)
+        cff = yaml.safe_load((ROOT / "CITATION.cff").read_text(encoding="utf-8"))
+        self.assertEqual(cff["version"], "0.2.2")
+
     def test_sealed_confirmatory_report_stays_inside_the_claim_boundary(self) -> None:
         report = V1 / "artifacts" / "confirmatory" / "REPORT.md"
         if not report.exists():

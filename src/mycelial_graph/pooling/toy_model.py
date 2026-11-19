@@ -19,6 +19,18 @@ class ToyConfig:
     rho: float = 0.5
     seed: int = 0
 
+    def __post_init__(self) -> None:
+        if self.k < 3:
+            raise ValueError("ToyConfig.k must be >= 3.")
+        if self.pre_n < 1 or self.post_n < 1:
+            raise ValueError("ToyConfig sample counts pre_n and post_n must be >= 1.")
+        if not np.isfinite(self.noise_std) or self.noise_std <= 0:
+            raise ValueError("ToyConfig.noise_std must be > 0 and finite.")
+        if not np.isfinite(self.shock_magnitude) or self.shock_magnitude < 0:
+            raise ValueError("ToyConfig.shock_magnitude must be >= 0 and finite.")
+        if not np.isfinite(self.rho) or not (0.0 <= self.rho <= 1.0):
+            raise ValueError("ToyConfig.rho must be in [0.0, 1.0].")
+
 
 @dataclass(frozen=True)
 class ToyResult:
@@ -62,7 +74,8 @@ def evaluate(config: ToyConfig) -> ToyResult:
     mse_local = float(np.mean((local - post_mean) ** 2))
     mse_pooled = float(np.mean((pooled - post_mean) ** 2))
     mse_adaptive = float(np.mean((shrink.pooled_means - post_mean) ** 2))
-    weight = pooling_weight_from_variances(shrink.between_var, max(shrink.within_var, 1e-12))
+    mean_sampling_var = max(shrink.within_var, 1e-12) / float(config.post_n)
+    weight = pooling_weight_from_variances(shrink.between_var, mean_sampling_var)
     return ToyResult(
         rho=config.rho,
         mse_local=mse_local,
