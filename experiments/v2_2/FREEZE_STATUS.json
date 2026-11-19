@@ -1,0 +1,31 @@
+{
+  "protocol_version": "MG-EXP-V2.2",
+  "status": "frozen_pending_confirmatory_authorization",
+  "authorized": false,
+  "confirmatory_executed": false,
+  "seed_populations": {
+    "development": {
+      "file": "seeds.development.txt",
+      "count": 10,
+      "range": [2201001, 2201010]
+    },
+    "pilot": {
+      "file": "seeds.pilot.txt",
+      "count": 24,
+      "range": [2202001, 2202024]
+    },
+    "validation": {
+      "file": "seeds.validation.txt",
+      "count": 20,
+      "range": [2203001, 2203020]
+    },
+    "confirmatory_pool": {
+      "file": "seeds.confirmatory.pool.txt",
+      "count": 100,
+      "range": [2204001, 2204100],
+      "active_seeds_file": "seeds.confirmatory.txt",
+      "active_seeds_materialized": false
+    }
+  },
+  "note": "Confirmatory execution remains locked until explicit preregistered authorization after pilot review. Pilot and ablation runs are strictly non-confirmatory."
+}
