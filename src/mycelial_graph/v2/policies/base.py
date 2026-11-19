@@ -19,10 +19,22 @@ class ResourceDecision:
     mvc: float
     prune_count: int
     transfer_l1: float
+    # Structured explainability & observability fields (with defaults for backward compatibility)
+    estimated_utility: float = 0.0
+    estimated_tokens: float = 0.0
+    estimated_cost: float = 0.0
+    uncertainty: float = 0.0
+    decision_mode: str = "exploitation"
+    fallback_reason: str | None = None
+    objective_mode: str = "scalarized"
+    candidate_paths_available: int = 0
+    anastomosis_gate: float = 0.0
+    component_health: tuple[float, ...] = ()
 
 
 class ResourceAgent(ABC):
     name: str
+    unimplemented_alias: bool = False
 
     def __init__(self, rng: np.random.Generator) -> None:
         self.rng = rng

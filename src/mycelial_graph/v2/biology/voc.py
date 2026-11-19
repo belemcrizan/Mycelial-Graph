@@ -1,61 +1,79 @@
+"""Counterfactual Value of Computation (VOC) for Mycelial-Graph V2.1.
+
+Separates difference-form VOC from ratio-form MVC. Ratio form is unstable when
+ΔR → 0; difference form is the canonical allocation criterion.
+"""
+
 from __future__ import annotations
 
 from dataclasses import dataclass
 
+EPSILON_RESOURCE = 1e-6
+TOKEN_SCALE = 1000.0
+
 
 @dataclass(frozen=True)
 class VOCEstimate:
-    """Difference and ratio formulations of value of computation.
-
-    Ratio form is diagnostic only. It is undefined/unstable near zero extra
-    resource and must not be the sole scientific estimand.
-    """
-
-    expected_quality_gain: float
-    expected_resource: float
+    delta_quality: float
+    delta_resource: float
     lambda_resource: float
     difference: float
     ratio: float
     ratio_stable: bool
 
 
-def voc_difference(
-    expected_quality_gain: float,
-    expected_resource: float,
-    lambda_resource: float,
-) -> float:
-    return float(expected_quality_gain) - float(lambda_resource) * float(expected_resource)
+def voc_difference(expected_quality_gain: float, extra_resource: float, lambda_resource: float) -> float:
+    """Difference-form VOC: E[ΔQ] - λ E[ΔR] on normalized resource units."""
+    return float(expected_quality_gain - lambda_resource * max(0.0, extra_resource))
 
 
-def voc_ratio(expected_quality_gain: float, expected_resource: float, epsilon: float = 1e-6) -> float:
-    return float(expected_quality_gain) / max(float(expected_resource), epsilon)
+def voc_ratio(expected_quality_gain: float, extra_resource: float) -> float:
+    """Ratio-form MVC retained as a diagnostic. Guarded near zero resource."""
+    denom = max(float(extra_resource), EPSILON_RESOURCE)
+    return float(expected_quality_gain / denom)
 
 
 def estimate_voc(
     expected_quality_gain: float,
-    expected_resource: float,
+    extra_resource: float,
     lambda_resource: float,
-    stability_floor: float = 1.0,
+    *,
+    min_stable_resource: float = 1e-3,
 ) -> VOCEstimate:
-    extra = float(expected_resource)
+    stable = float(extra_resource) >= min_stable_resource
     return VOCEstimate(
-        expected_quality_gain=float(expected_quality_gain),
-        expected_resource=extra,
+        delta_quality=float(expected_quality_gain),
+        delta_resource=float(extra_resource),
         lambda_resource=float(lambda_resource),
-        difference=voc_difference(expected_quality_gain, extra, lambda_resource),
-        ratio=voc_ratio(expected_quality_gain, extra),
-        ratio_stable=extra >= stability_floor,
+        difference=voc_difference(expected_quality_gain, extra_resource, lambda_resource),
+        ratio=voc_ratio(expected_quality_gain, extra_resource),
+        ratio_stable=stable,
+    )
+
+
+def estimate_token_voc(
+    expected_quality_gain: float,
+    extra_tokens: float,
+    lambda_tokens: float,
+) -> VOCEstimate:
+    """Estimate VOC with raw token delta normalized by ``TOKEN_SCALE`` (per 1k tokens)."""
+    norm_tokens = max(0.0, float(extra_tokens)) / TOKEN_SCALE
+    return estimate_voc(
+        expected_quality_gain,
+        norm_tokens,
+        lambda_tokens,
+        min_stable_resource=1.0 / TOKEN_SCALE,
     )
 
 
 def should_allocate(
-    estimate: VOCEstimate,
+    voc: VOCEstimate,
     threshold: float,
     *,
     use_difference: bool = True,
 ) -> bool:
     if use_difference:
-        return estimate.difference > threshold
-    if not estimate.ratio_stable:
-        return False
-    return estimate.ratio > threshold
+        return voc.difference > threshold
+    if not voc.ratio_stable:
+        return voc.difference > 0.0
+    return voc.ratio > threshold

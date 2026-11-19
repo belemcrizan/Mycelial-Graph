@@ -3,12 +3,13 @@ from __future__ import annotations
 import numpy as np
 
 from ...types import HorizonConfig
+from ..types import HorizonConfig as V2HorizonConfig
 
 
 def sustained_quality_recovery(
     expected_quality: list[float],
     oracle: list[float],
-    horizon: HorizonConfig,
+    horizon: HorizonConfig | V2HorizonConfig,
 ) -> tuple[int | None, int, bool]:
     post_q = np.array(expected_quality[horizon.pre_shock_steps :], dtype=float)
     post_o = np.array(oracle[horizon.pre_shock_steps :], dtype=float)

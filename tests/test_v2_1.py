@@ -77,7 +77,27 @@ class StrongBaselineTests(unittest.TestCase):
         self.assertTrue(decision.edge_ids)
 
     def test_unimplemented_alpha_aliases_are_explicit(self) -> None:
-        self.assertIn("v2_no_branching", UNIMPLEMENTED_ALPHA_ALIASES)
+        self.assertEqual(UNIMPLEMENTED_ALPHA_ALIASES, frozenset())
+        config = load_v2_config(V21_DEV)
+        scenario = generate_resource_scenario(config, 9101, "STATIC")
+        for method in (
+            "v2_no_branching",
+            "v2_no_anastomosis",
+            "v2_no_uncertainty",
+            "v2_static_topology",
+            "v2_no_shock_memory",
+            "v2_no_pruning",
+            "v2_no_transfer",
+            "v2_no_cord",
+            "v2_no_cost_awareness",
+        ):
+            agent = create_resource_agent(
+                method,
+                config,
+                scenario.graph,
+                create_rng(9101, f"agent:STATIC:{method}"),
+            )
+            self.assertFalse(getattr(agent, "unimplemented_alias", True), method)
 
 
 class WasteTests(unittest.TestCase):

@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from mycelial_graph.v2.biology.stop import stop_reason
-from mycelial_graph.v2.biology.voc import estimate_voc, should_allocate
+from mycelial_graph.v2.biology.voc import estimate_token_voc, should_allocate
 from mycelial_graph.v2.types import UtilityConfig
 
 
@@ -60,7 +60,7 @@ def decide_stop(
     if not envelope.allow_edit and tests_seen:
         return "MARGINAL_COMPUTE_NOT_WORTH_IT"
     extra = 24.0
-    voc = estimate_voc(1.0 if not passed else 0.0, extra, envelope.lambda_resource)
+    voc = estimate_token_voc(1.0 if not passed else 0.0, extra, envelope.lambda_resource)
     reason = stop_reason(budget_left, voc.ratio, _utility(envelope), passed)
     if reason == "budget_exhausted":
         return "BUDGET_EXHAUSTED"

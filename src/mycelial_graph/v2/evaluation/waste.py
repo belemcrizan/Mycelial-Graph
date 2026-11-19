@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from typing import Any
 
-LEDGER_SCHEMA_VERSION = "v2.1-waste-1"
+LEDGER_SCHEMA_VERSION = "v2.2-resource-1"
 
 
 @dataclass(frozen=True)
@@ -22,6 +22,9 @@ class WasteBreakdown:
     verification_tokens: int
     tool_tokens: int
     summarization_tokens: int
+    memory_tokens: int
+    retry_tokens: int
+    recovery_overhead_tokens: int
     router_tokens: int
     state_overhead_tokens: int
     accounted_total: int
@@ -40,11 +43,15 @@ class WasteBreakdown:
 def decompose_waste(ledger: dict[str, Any], *, success: bool, retrieval_used: bool) -> WasteBreakdown:
     input_tokens = int(ledger.get("input_tokens", 0))
     output_tokens = int(ledger.get("output_tokens", 0))
+    cached_tokens = int(ledger.get("cached_tokens", 0))
     reasoning = int(ledger.get("reasoning_tokens", 0))
     retrieval = int(ledger.get("retrieval_tokens", 0))
     verification = int(ledger.get("verification_tokens", 0))
     tool = int(ledger.get("tool_tokens", 0))
     summarization = int(ledger.get("summarization_tokens", 0))
+    memory = int(ledger.get("memory_tokens", 0))
+    retry = int(ledger.get("retry_tokens", 0))
+    recovery_overhead = int(ledger.get("recovery_overhead_tokens", 0))
     router = int(ledger.get("router_tokens", 0))
     state = int(ledger.get("state_overhead_tokens", 0))
     accounted = (
@@ -55,14 +62,18 @@ def decompose_waste(ledger: dict[str, Any], *, success: bool, retrieval_used: bo
         + verification
         + tool
         + summarization
+        + memory
+        + retry
+        + recovery_overhead
         + router
         + state
     )
-    unique_context = max(0, retrieval // 2 + input_tokens)
-    reingested = max(0, retrieval - unique_context)
+    context_total = input_tokens + retrieval
+    reingested = max(0, (retrieval // 3) + retry)
+    unique_context = max(0, context_total - reingested)
     unused_retrieval = 0 if retrieval_used else retrieval
     successful = accounted if success else 0
-    cacheable = unique_context
+    cacheable = max(cached_tokens, unique_context // 2)
     return WasteBreakdown(
         ledger_schema_version=LEDGER_SCHEMA_VERSION,
         input_tokens=input_tokens,
@@ -72,6 +83,9 @@ def decompose_waste(ledger: dict[str, Any], *, success: bool, retrieval_used: bo
         verification_tokens=verification,
         tool_tokens=tool,
         summarization_tokens=summarization,
+        memory_tokens=memory,
+        retry_tokens=retry,
+        recovery_overhead_tokens=recovery_overhead,
         router_tokens=router,
         state_overhead_tokens=state,
         accounted_total=accounted,
@@ -80,7 +94,7 @@ def decompose_waste(ledger: dict[str, Any], *, success: bool, retrieval_used: bo
         unused_retrieval_tokens=unused_retrieval,
         successful_trajectory_tokens=successful,
         cacheable_tokens=cacheable,
-        cache_hit_equivalent_tokens=0,
+        cache_hit_equivalent_tokens=cached_tokens,
     )
 
 

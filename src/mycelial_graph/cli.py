@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 
 from .types import load_config
-from .validation import require_valid_config, validate_config
+from .validation import load_seeds, require_valid_config, validate_config
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -91,6 +91,11 @@ def _parser() -> argparse.ArgumentParser:
     waste = sub.add_parser("waste-audit", help="Decompose ledger totals into waste proxies.")
     waste.add_argument("--output", required=True)
 
+    v2_viz = sub.add_parser("v2-viz", help="Render optional SVG topology and trace dashboard from V2 output.")
+    v2_viz.add_argument("--config", required=True)
+    v2_viz.add_argument("--output", required=True)
+    v2_viz.add_argument("--method", default="v2_mycelial")
+
     sub.add_parser("real-smoke", help="Run local executable coding fixtures (not SWE-bench).")
     sub.add_parser("shadow-run", help="Shadow-mode recommendations on local coding fixtures.")
 
@@ -98,7 +103,7 @@ def _parser() -> argparse.ArgumentParser:
     claim.add_argument("--matrix", default="docs/claim_evidence_matrix.yaml")
 
     collect = sub.add_parser("collect", help="Conservative trace collector (dry-run by default).")
-    collect.add_argument("--dry-run", action="store_true", default=True)
+    collect.add_argument("--dry-run", action=argparse.BooleanOptionalAction, default=True)
     collect.add_argument("--max-cost", type=float, default=0.0)
     collect.add_argument("--max-requests", type=int, default=1)
     collect.add_argument("--max-duration", type=float, default=1.0)
@@ -135,7 +140,13 @@ def main(argv: list[str] | None = None) -> int:
             print(json.dumps(verify_seal(Path(args.output).resolve()), indent=2))
             return 0
         if args.command == "validate":
-            config = load_config(args.config)
+            import yaml
+
+            try:
+                config = load_config(args.config)
+            except (OSError, ValueError, TypeError, KeyError, yaml.YAMLError) as exc:
+                print(json.dumps({"valid": False, "errors": [str(exc)]}, indent=2))
+                return 2
             errors = validate_config(config)
             if errors:
                 print(json.dumps({"valid": False, "errors": errors}, indent=2))
@@ -144,15 +155,21 @@ def main(argv: list[str] | None = None) -> int:
             return 0
 
         if args.command == "v2-validate":
+            import yaml
+
             from .v2.config import load_v2_config
             from .v2.validation import validate_v2_config
 
-            config = load_v2_config(args.config)
-            errors = validate_v2_config(config)
+            try:
+                v2_cfg = load_v2_config(args.config)
+            except (OSError, ValueError, TypeError, KeyError, yaml.YAMLError) as exc:
+                print(json.dumps({"valid": False, "errors": [str(exc)]}, indent=2))
+                return 2
+            errors = validate_v2_config(v2_cfg)
             if errors:
                 print(json.dumps({"valid": False, "errors": errors}, indent=2))
                 return 2
-            print(json.dumps({"valid": True, "config": str(config.source_path)}, indent=2))
+            print(json.dumps({"valid": True, "config": str(v2_cfg.source_path)}, indent=2))
             return 0
 
         if args.command == "v2-demo":
@@ -162,11 +179,11 @@ def main(argv: list[str] | None = None) -> int:
             from .v2.runner import run_v2_experiment
             from .v2.validation import require_valid_v2_config
 
-            config = load_v2_config(_default_v2_demo_config())
-            require_valid_v2_config(config)
-            manifest = run_v2_experiment(config, args.output, args.workers)
-            analysis = analyze_v2_results(config, args.output)
-            report = generate_v2_report(config, args.output)
+            v2_cfg = load_v2_config(_default_v2_demo_config())
+            require_valid_v2_config(v2_cfg)
+            manifest = run_v2_experiment(v2_cfg, args.output, args.workers)
+            analysis = analyze_v2_results(v2_cfg, args.output)
+            report = generate_v2_report(v2_cfg, args.output)
             print("Mycelial Graph V2.0-alpha development demonstrator completed.")
             print(f"Manifest: {manifest}")
             print(f"Analysis: {analysis}")
@@ -179,9 +196,9 @@ def main(argv: list[str] | None = None) -> int:
             from .v2.runner import run_v2_experiment
             from .v2.validation import require_valid_v2_config
 
-            config = load_v2_config(args.config)
-            require_valid_v2_config(config)
-            print(run_v2_experiment(config, args.output, args.workers))
+            v2_cfg = load_v2_config(args.config)
+            require_valid_v2_config(v2_cfg)
+            print(run_v2_experiment(v2_cfg, args.output, args.workers))
             return 0
 
         if args.command == "v2-analyze":
@@ -189,9 +206,9 @@ def main(argv: list[str] | None = None) -> int:
             from .v2.config import load_v2_config
             from .v2.validation import require_valid_v2_config
 
-            config = load_v2_config(args.config)
-            require_valid_v2_config(config)
-            print(analyze_v2_results(config, args.output))
+            v2_cfg = load_v2_config(args.config)
+            require_valid_v2_config(v2_cfg)
+            print(analyze_v2_results(v2_cfg, args.output))
             return 0
 
         if args.command == "v2-report":
@@ -199,9 +216,9 @@ def main(argv: list[str] | None = None) -> int:
             from .v2.reporting import generate_v2_report
             from .v2.validation import require_valid_v2_config
 
-            config = load_v2_config(args.config)
-            require_valid_v2_config(config)
-            print(generate_v2_report(config, args.output))
+            v2_cfg = load_v2_config(args.config)
+            require_valid_v2_config(v2_cfg)
+            print(generate_v2_report(v2_cfg, args.output))
             return 0
 
         if args.command == "v2-ablate":
@@ -209,23 +226,23 @@ def main(argv: list[str] | None = None) -> int:
             from .v2.config import load_v2_config
             from .v2.validation import require_valid_v2_config
 
-            config = load_v2_config(args.config)
-            require_valid_v2_config(config)
-            path = analyze_v2_results(config, args.output)
-            analysis = json.loads(Path(path).read_text(encoding="utf-8"))
+            v2_cfg = load_v2_config(args.config)
+            require_valid_v2_config(v2_cfg)
+            path = analyze_v2_results(v2_cfg, args.output)
+            analysis_obj = json.loads(Path(path).read_text(encoding="utf-8"))
             ablations = [
                 row
-                for row in analysis["group_metrics"]
+                for row in analysis_obj["group_metrics"]
                 if row["method"].startswith("v2_")
-                and row["regime"] == analysis["primary_regime"]
+                and row["regime"] == analysis_obj["primary_regime"]
             ]
-            print(json.dumps({"primary_regime": analysis["primary_regime"], "v2_methods": ablations}, indent=2))
+            print(json.dumps({"primary_regime": analysis_obj["primary_regime"], "v2_methods": ablations}, indent=2))
             return 0
 
         if args.command == "v2-pareto":
             analysis_path = Path(args.output) / "processed" / "analysis.json"
-            analysis = json.loads(analysis_path.read_text(encoding="utf-8"))
-            print(json.dumps(analysis["pareto_nondominated_methods"], indent=2))
+            analysis_obj = json.loads(analysis_path.read_text(encoding="utf-8"))
+            print(json.dumps(analysis_obj["pareto_nondominated_methods"], indent=2))
             return 0
 
         if args.command == "v2-resource-audit":
@@ -240,11 +257,11 @@ def main(argv: list[str] | None = None) -> int:
             from .v2.evaluation import run_voc_benchmark
             from .v2.validation import require_valid_v2_config
 
-            config = load_v2_config(args.config)
-            require_valid_v2_config(config)
-            seeds_path = config.source_path.parent / config.seeds_file
-            seeds = tuple(int(line) for line in seeds_path.read_text(encoding="utf-8").splitlines() if line.strip())
-            print(json.dumps(run_voc_benchmark(config, seeds), indent=2, default=str))
+            v2_cfg = load_v2_config(args.config)
+            require_valid_v2_config(v2_cfg)
+            seeds_path = v2_cfg.source_path.parent / v2_cfg.seeds_file
+            seeds = tuple(load_seeds(seeds_path))
+            print(json.dumps(run_voc_benchmark(v2_cfg, seeds), indent=2, default=str))
             return 0
 
         if args.command == "budget-curve":
@@ -252,13 +269,13 @@ def main(argv: list[str] | None = None) -> int:
             from .v2.evaluation import budget_response_curve
             from .v2.validation import require_valid_v2_config
 
-            config = load_v2_config(args.config)
-            require_valid_v2_config(config)
-            seeds_path = config.source_path.parent / config.seeds_file
-            seeds = tuple(int(line) for line in seeds_path.read_text(encoding="utf-8").splitlines() if line.strip())
+            v2_cfg = load_v2_config(args.config)
+            require_valid_v2_config(v2_cfg)
+            seeds_path = v2_cfg.source_path.parent / v2_cfg.seeds_file
+            seeds = tuple(load_seeds(seeds_path))
             Path(args.output).mkdir(parents=True, exist_ok=True)
             result = budget_response_curve(
-                config,
+                v2_cfg,
                 args.method,
                 seeds,
                 output_directory=Path(args.output),
@@ -267,6 +284,53 @@ def main(argv: list[str] | None = None) -> int:
             out = Path(args.output) / "budget_curve.json"
             out.write_text(json.dumps(result, indent=2), encoding="utf-8")
             print(out)
+            return 0
+
+        if args.command == "v2-viz":
+            import gzip
+
+            from .environment.graph import LayeredDAG
+            from .v2.config import load_v2_config
+            from .v2.graph_model import ComputationalGraph
+            from .v2.viz import render_topology_svg, render_trace_dashboard
+
+            v2_cfg = load_v2_config(args.config)
+            output_dir = Path(args.output)
+            dag = LayeredDAG.complete_layered(
+                v2_cfg.graph.internal_layers, v2_cfg.graph.alternatives_per_layer
+            )
+            comp_graph = ComputationalGraph.from_layered_dag(dag)
+            fig_dir = output_dir / "figures"
+            fig_dir.mkdir(parents=True, exist_ok=True)
+
+            traces = sorted((output_dir / "traces").rglob(f"*-{args.method}.jsonl.gz"))
+            if not traces:
+                traces = sorted((output_dir / "traces").rglob("*.jsonl.gz"))
+            active_edges: list[int] = []
+            records: list[dict[str, object]] = []
+            if traces:
+                with gzip.open(traces[0], "rt", encoding="utf-8") as handle:
+                    records = [json.loads(line) for line in handle if line.strip()]
+                if records:
+                    raw_edges = records[-1].get("edge_ids", [])
+                    if isinstance(raw_edges, list):
+                        active_edges = [int(eid) for eid in raw_edges]
+            svg_path = fig_dir / "v2_topology.svg"
+            svg_path.write_text(
+                render_topology_svg(comp_graph, active_edges=active_edges),
+                encoding="utf-8",
+                newline="\n",
+            )
+            created = [str(svg_path)]
+            if records:
+                dash_path = render_trace_dashboard(
+                    records,
+                    fig_dir / "v2_trace_dashboard.png",
+                    shock_step=v2_cfg.horizon.pre_shock_steps,
+                    budget_cap=v2_cfg.resources.global_budget_tokens,
+                )
+                created.append(str(dash_path))
+            print(json.dumps({"figures": created}, indent=2))
             return 0
 
         if args.command == "waste-audit":

@@ -24,10 +24,16 @@ def _empty_guard_source(source: str) -> str | None:
         return None
     func = funcs[0]
     arg = func.args.args[0].arg
-    body = "\n    ".join(ast.unparse(stmt) for stmt in func.body)
-    if f"if not {arg}:" in ast.unparse(func):
+    sig = ast.unparse(func.args)
+    body_lines = [
+        f"    {line}"
+        for stmt in func.body
+        for line in ast.unparse(stmt).splitlines()
+    ]
+    if not body_lines or f"if not {arg}:" in ast.unparse(func):
         return None
-    return f"def {func.name}({arg}):\n    if not {arg}:\n        return None\n    {body}\n"
+    body = "\n".join(body_lines)
+    return f"def {func.name}({sig}):\n    if not {arg}:\n        return None\n{body}\n"
 
 
 def _shifted_return_source(source: str, delta: int) -> str | None:
@@ -39,9 +45,9 @@ def _shifted_return_source(source: str, delta: int) -> str | None:
     if len(func.body) != 1 or not isinstance(func.body[0], ast.Return) or func.body[0].value is None:
         return None
     expr = ast.unparse(func.body[0].value)
-    args = ", ".join(a.arg for a in func.args.args)
+    sig = ast.unparse(func.args)
     op = f"{expr} + {delta}" if delta > 0 else f"{expr} - {abs(delta)}"
-    return f"def {func.name}({args}):\n    return {op}\n"
+    return f"def {func.name}({sig}):\n    return {op}\n"
 
 
 def propose_repairs(source: str, outcome: TestOutcome) -> list[RepairHypothesis]:

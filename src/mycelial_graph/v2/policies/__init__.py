@@ -1,4 +1,11 @@
 from .base import ResourceAgent, ResourceDecision
-from .factory import create_resource_agent
+from .controller import MycelialResourceController
+from .factory import UNIMPLEMENTED_ALPHA_ALIASES, create_resource_agent
 
-__all__ = ["ResourceAgent", "ResourceDecision", "create_resource_agent"]
+__all__ = [
+    "MycelialResourceController",
+    "ResourceAgent",
+    "ResourceDecision",
+    "UNIMPLEMENTED_ALPHA_ALIASES",
+    "create_resource_agent",
+]
